@@ -1,0 +1,182 @@
+{
+  "name": "react-redux-template",
+  "version": "4.0.0",
+  "description": "React redux starter kit",
+  "main": "server.js",
+  "moduleRoots": [
+    "src/modules"
+  ],
+  "private": true,
+  "scripts": {
+    "start": "cross-env BABEL_ENV=development NODE_ENV=development node server",
+    "dist": "cross-env BABEL_ENV=production NODE_ENV=production webpack --env.production",
+    "dist:test": "npm run dist -- --env.test",
+    "dist:analyze": "npm run dist -- --env.analyze",
+    "start:dist": "npm run start -- --production",
+    "lint:js": "eslint src --ext .js --ext .jsx",
+    "lint:js:fix": "eslint src --ext .js --ext .jsx --fix",
+    "lint": "npm run lint:js",
+    "test": "cross-env BABEL_ENV=test NODE_ENV=test jest src/*",
+    "test:watch": "npm test -- --watch",
+    "test:cov": "npm test -- --coverage",
+    "pretty": "prettier-eslint --single-quote --trailing-comma all --write '{src}/**/*.js'",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "gitDir": "../",
+    "linters": {
+      "*.js": [
+        "eslint",
+        "jest --findRelatedTests"
+      ]
+    }
+  },
+  "author": "Steven Van Eenoo",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.1",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-import": "^1.8.0",
+    "babel-plugin-lodash": "^3.2.11",
+    "babel-plugin-styled-components": "^1.2.1",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-transform-class-properties": "^6.23.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.23.0",
+    "clean-webpack-plugin": "^0.1.17",
+    "compression": "^1.7.1",
+    "cross-env": "^5.0.5",
+    "css-loader": "^0.28.7",
+    "eslint": "^4.8.0",
+    "eslint-config-dlw": "^2.1.0",
+    "eslint-config-prettier": "^2.6.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-prettier": "^2.3.1",
+    "eslint-plugin-react": "^7.4.0",
+    "express": "^4.16.1",
+    "extract-text-webpack-plugin": "^3.0.1",
+    "file-loader": "^1.1.4",
+    "html-webpack-plugin": "^2.30.1",
+    "husky": "^0.14.3",
+    "jest": "^21.2.1",
+    "json-loader": "^0.5.7",
+    "less": "^3.8.0",
+    "less-loader": "^4.1.0",
+    "lint-staged": "^4.2.3",
+    "lodash-webpack-plugin": "^0.11.4",
+    "morgan": "^1.9.0",
+    "normalize.css": "^7.0.0",
+    "postcss-loader": "^2.0.6",
+    "prettier": "^1.7.4",
+    "prettier-eslint-cli": "^4.4.0",
+    "proxy-middleware": "^0.15.0",
+    "react-hot-loader": "^4.3.4",
+    "redux-logger": "^3.0.6",
+    "serve-favicon": "^2.4.5",
+    "style-loader": "^0.19.0",
+    "svg-loader": "^0.0.2",
+    "url-loader": "^0.6.1",
+    "webpack": "^3.6.0",
+    "webpack-bundle-analyzer": "^2.9.0",
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-hot-middleware": "^2.19.1",
+    "webpack-merge": "^0.17.0",
+    "whatwg-fetch": "^2.0.2",
+    "yargs": "^9.0.1"
+  },
+  "dependencies": {
+    "antd": "^3.7.3",
+    "axios": "^0.18.0",
+    "i18next": "^11.4.0",
+    "i18next-browser-languagedetector": "^2.2.2",
+    "jwt-decode": "^2.2.0",
+    "prop-types": "^15.6.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-i18next": "^7.9.0",
+    "react-loadable": "^5.1.0",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "redux-actions": "^2.2.1",
+    "redux-optimistic-ui": "^3.1.0",
+    "redux-saga": "^0.16.0",
+    "redux-thunk": "^2.2.0",
+    "reselect": "^3.0.1",
+    "styled-components": "^2.4.1",
+    "stylelint": "^9.3.0",
+    "uuid": "^3.3.2"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*-actions.js",
+      "src/**/*-reducers.js",
+      "src/**/*-selectors.js",
+      "src/**/*-sagas.js"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src/modules"
+    ]
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "plugins": [
+      "prettier"
+    ],
+    "extends": [
+      "dlw",
+      "dlw/rules/react"
+    ],
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "paths": [
+            "src/modules"
+          ],
+          "extensions": [
+            ".js",
+            ".json"
+          ]
+        }
+      }
+    },
+    "rules": {
+      "complexity": "off",
+      "max-len": [
+        "error",
+        120
+      ],
+      "arrow-body-style": "off",
+      "import/prefer-default-export": "off",
+      "react/jsx-wrap-multilines": [
+        "error",
+        {
+          "declaration": false,
+          "assignment": false,
+          "return": false,
+          "arrow": false
+        }
+      ],
+      "no-confusing-arrow": "off",
+      "no-param-reassign": [
+        "error",
+        {
+          "props": false
+        }
+      ]
+    },
+    "env": {
+      "jest": true
+    },
+    "globals": {
+      "__ENV__": true,
+      "STORAGE_NAME": true
+    }
+  },
+  "peerDependencies": {}
+}

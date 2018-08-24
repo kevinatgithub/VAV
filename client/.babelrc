@@ -1,0 +1,67 @@
+{
+  "plugins": [
+    "transform-object-rest-spread",
+    "syntax-dynamic-import"
+  ],
+  "presets": ["react"],
+  "env": {
+    "development": {
+      "plugins": [
+        "react-hot-loader/babel",
+        "transform-class-properties",
+        ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": true }],
+        ["babel-plugin-styled-components", { "displayName": true }]
+      ],
+      "presets": [
+        [
+          "env",
+          {
+            "modules": false,
+            "useBuiltIns": "entry",
+            "targets": {
+              "browsers": ["Chrome >= 55"]
+            }
+          }
+        ]
+      ]
+    },
+    "test": {
+      "plugins": ["transform-class-properties"],
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "node": "current"
+            }
+          }
+        ]
+      ]
+    },
+    "production": {
+      "presets": [
+        [
+          "env",
+          {
+            "modules": false,
+            "useBuiltIns": "entry",
+            "targets": {
+              "browsers": [
+                "ie 11",
+                "Edge >= 13",
+                "Firefox >= 50",
+                "Chrome >= 55",
+                "Safari >= 10"
+              ]
+            }
+          }
+        ]
+      ],
+      "plugins": [
+        "transform-class-properties",
+        ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": true }],
+        ["babel-plugin-styled-components", { "displayName": true }]
+      ]
+    }
+  }
+}
