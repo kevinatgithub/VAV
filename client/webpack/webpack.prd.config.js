@@ -6,10 +6,10 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const getClientEnvironment = require('./env');
 const PATHS = require('./paths');
-const theme = require('../src/theme/antd-theme');
 
 // eslint-disable-next-line no-empty-function
 const noop = () => {};
+
 module.exports = function prdConfig(env) {
   return {
     entry: {
@@ -82,8 +82,8 @@ module.exports = function prdConfig(env) {
               {
                 loader: 'less-loader',
                 options: {
-                  modifyVars: theme,
-                  javascriptEnabled: true
+                  modifyVars: {},
+                  javascriptEnabled: true,
                 },
               },
             ],
@@ -103,19 +103,6 @@ module.exports = function prdConfig(env) {
         name: 'vendor',
         minChunks: ({ context }) => context.indexOf('node_modules') !== -1,
       }),
-      // new webpack.optimize.UglifyJsPlugin({
-      //   compress: {
-      //     screw_ie8: true, // React doesn't support IE8
-      //     warnings: false,
-      //   },
-      //   mangle: {
-      //     screw_ie8: true,
-      //   },
-      //   output: {
-      //     comments: false,
-      //     screw_ie8: true,
-      //   },
-      // }),
       new UglifyJSPlugin({
         uglifyOptions: {
           ecma: 8,

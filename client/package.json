@@ -88,7 +88,6 @@
     "yargs": "^9.0.1"
   },
   "dependencies": {
-    "antd": "^3.7.3",
     "axios": "^0.18.0",
     "i18next": "^11.4.0",
     "i18next-browser-languagedetector": "^2.2.2",
@@ -96,7 +95,6 @@
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "react-i18next": "^7.9.0",
     "react-loadable": "^5.1.0",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",

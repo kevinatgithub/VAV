@@ -1,7 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { notification } from 'antd';
 import callApi from 'utils/api';
-import i18next from 'i18next';
 import {
   getMachinesSuccess,
   getMachinesFailure,
@@ -28,8 +26,6 @@ export function* saveMachine({ type, payload }) {
   const actionSuccess = type === EDIT_MACHINE_REQUEST ? editMachineSuccess : addMachineSuccess;
   const actionFailure = type === EDIT_MACHINE_REQUEST ? editMachineFailure : addMachineFailure;
   const httpMethod = type === EDIT_MACHINE_REQUEST ? 'put' : 'post';
-  const successMessage =
-    type === EDIT_MACHINE_REQUEST ? i18next.t('home.successMessageEdit') : i18next.t('home.successMessageAdd');
 
   try {
     const response = yield call(callApi, {
@@ -38,18 +34,8 @@ export function* saveMachine({ type, payload }) {
       body: JSON.stringify(payload),
     });
     yield put(actionSuccess(response.data));
-
-    yield call(notification.success, {
-      message: i18next.t('shared.successNotificationTitle'),
-      description: successMessage,
-    });
   } catch (err) {
     yield put(actionFailure(err.message));
-
-    yield call(notification.error, {
-      message: i18next.t('shared.errorNotificationTitle'),
-      description: i18next.t('shared.genericErrorMessage'),
-    });
 
     yield put(logException({ err, msg: 'could not save machine', severityLevel: logLevels.ERROR }));
   }

@@ -3,7 +3,6 @@ const stylelint = require('stylelint');
 const reporter = require('postcss-reporter');
 const getClientEnvironment = require('./env');
 const PATHS = require('./paths');
-const theme = require('../src/theme/antd-theme');
 
 module.exports = function devConfig(env) {
   return {
@@ -51,7 +50,7 @@ module.exports = function devConfig(env) {
             {
               loader: 'less-loader',
               options: {
-                modifyVars: theme,
+                modifyVars: {},
                 javascriptEnabled: true,
               },
             },

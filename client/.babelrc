@@ -9,7 +9,6 @@
       "plugins": [
         "react-hot-loader/babel",
         "transform-class-properties",
-        ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": true }],
         ["babel-plugin-styled-components", { "displayName": true }]
       ],
       "presets": [
@@ -59,7 +58,6 @@
       ],
       "plugins": [
         "transform-class-properties",
-        ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": true }],
         ["babel-plugin-styled-components", { "displayName": true }]
       ]
     }
