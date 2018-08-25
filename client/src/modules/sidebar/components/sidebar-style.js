@@ -6,11 +6,11 @@ const Wrapper = Aside.extend`
     left: 0;
     padding-top: 50px;
     height: 100%;
-    width: 75px;
+    width: 70px;
 
     > ul {
       border-radius: 0;
-      min-width: 75px;
+      min-width: 70px;
       height: 100%;
 
       .bp3-icon {
@@ -24,7 +24,7 @@ const Wrapper = Aside.extend`
     }
 
     .bp3-menu-item-label {
-      font-size: 0.8em;
+      font-size: 0.78em;
     }
 `;
 

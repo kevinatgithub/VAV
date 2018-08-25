@@ -14,11 +14,11 @@ const Sidebar = () => {
   return (
     <Wrapper>
       <Menu className={Classes.ELEVATION_1} >
-        <MenuItem icon={<Icon icon='dashboard' iconSize={22} />} label='Dashboard' />
+        <MenuItem icon={<Icon icon='dashboard' iconSize={20} />} label='Dashboard' />
         <MenuDivider />
-        <MenuItem icon={<Icon icon='people' iconSize={22} />} label='Users' />
+        <MenuItem icon={<Icon icon='people' iconSize={20} />} label='Users' />
         <MenuDivider />
-        <MenuItem icon={<Icon icon='cog' iconSize={22} />} label='Settings' />
+        <MenuItem icon={<Icon icon='cog' iconSize={20} />} label='Settings' />
       </Menu>
     </Wrapper>
   );

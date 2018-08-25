@@ -17,7 +17,7 @@ import {
 } from './styling/styling';
 
 const MainContent = styled.main`
-  margin-left: 75px;
+  margin-left: 70px;
   ${mainProps};
   ${widthProps};
   ${heightProps};
