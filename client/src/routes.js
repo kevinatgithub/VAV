@@ -15,7 +15,7 @@ const AsyncHeader = Loadable({
   loader: () => import(/* webpackChunkName: "header" */ './modules/header/containers/header-container'),
 });
 const AsyncSidebar = Loadable({
-  loader: () => import(/* webpackChunkName: "header" */ './modules/sidebar/containers/sidebar-container'),
+  loader: () => import(/* webpackChunkName: "sidebar" */ './modules/sidebar/containers/sidebar-container'),
 });
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
