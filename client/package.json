@@ -1,7 +1,7 @@
 {
-  "name": "react-redux-template",
-  "version": "4.0.0",
-  "description": "React redux starter kit",
+  "name": "vav",
+  "version": "1.0.0",
+  "description": "Vehicle Tracking System",
   "main": "server.js",
   "moduleRoots": [
     "src/modules"
