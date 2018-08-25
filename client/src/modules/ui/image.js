@@ -5,6 +5,7 @@ import {
   backgroundProps,
   heightProps,
   widthProps,
+  flexProps,
 } from './styling/styling';
 
 const Image = styled.img`
@@ -12,6 +13,7 @@ const Image = styled.img`
   ${heightProps};
   ${backgroundProps};
   ${positionProps};
+  ${flexProps};
 `;
 
 export default Image;

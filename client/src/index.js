@@ -1,4 +1,3 @@
-import 'normalize.css';
 import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
@@ -20,7 +19,6 @@ const renderApp = (RootCmp) => {
 };
 
 if (module.hot) {
-  // hot reload reducers
   module.hot.accept('./reducers', () => {
     store.replaceReducer(require('./reducers').default); // eslint-disable-line global-require
   });

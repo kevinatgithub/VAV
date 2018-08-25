@@ -88,6 +88,7 @@
     "yargs": "^9.0.1"
   },
   "dependencies": {
+    "@blueprintjs/core": "^3.4.0",
     "axios": "^0.18.0",
     "i18next": "^11.4.0",
     "i18next-browser-languagedetector": "^2.2.2",
@@ -175,6 +176,5 @@
       "__ENV__": true,
       "STORAGE_NAME": true
     }
-  },
-  "peerDependencies": {}
+  }
 }

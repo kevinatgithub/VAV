@@ -14,6 +14,9 @@ const AsyncContact = Loadable({
 const AsyncHeader = Loadable({
   loader: () => import(/* webpackChunkName: "header" */ './modules/header/containers/header-container'),
 });
+const AsyncSidebar = Loadable({
+  loader: () => import(/* webpackChunkName: "header" */ './modules/sidebar/containers/sidebar-container'),
+});
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const PrivateComponent = WithLogin(Component);
@@ -28,6 +31,7 @@ PrivateRoute.propTypes = {
 const Routes = () =>
   <Div>
     <Route path='/' component={AsyncHeader} />
+    <Route path='/' component={AsyncSidebar} />
     <PrivateRoute exact={true} path='/' component={AsyncHome} />
     <Route path='/contact' component={AsyncContact} />
   </Div>;

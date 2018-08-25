@@ -1,6 +1,6 @@
 import localStorageManager from '../utils/localStorageManager';
 
-const LOCAL_STORAGE_KEY = 'avr-connect-context';
+const LOCAL_STORAGE_KEY = 'hino-connect-context';
 
 export function getCachedConnectContext() {
   const cachedConnectContext = localStorageManager.getItem(LOCAL_STORAGE_KEY);

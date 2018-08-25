@@ -1,11 +1,18 @@
-// import styled from 'styled-components';
-import { Div } from '../../ui';
+import styled from 'styled-components';
+import { Navbar as NavbarRaw, NavbarHeading as NavbarHeadingRaw } from '@blueprintjs/core';
 
-export const Wrapper = Div.extend`
-  background-color: #fff;
-  padding: 0;
-
-  > div {
-    height: 100%;
-  }
+const NavbarHeading = styled(NavbarHeadingRaw)`
+  display: flex;
+  height: 100%;
+  align-items: center;
 `;
+
+const Navbar = styled(NavbarRaw)`
+  padding-right: 5px;
+  padding-left: 8px;
+`;
+
+export default {
+  NavbarHeading,
+  Navbar,
+};

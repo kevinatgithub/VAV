@@ -16,8 +16,7 @@ import {
   extraProps,
 } from './styling/styling';
 
-const Span = styled.span`
-  color: ${p => p.color ? p.theme.color[p.color] : null};
+const Aside = styled.aside`
   ${mainProps};
   ${widthProps};
   ${heightProps};
@@ -32,7 +31,6 @@ const Span = styled.span`
   ${fontProps};
   ${borderProps};
   ${overflowProps};
-
 `;
 
-export default Span;
+export default Aside;

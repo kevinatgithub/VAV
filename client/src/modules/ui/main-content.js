@@ -16,8 +16,8 @@ import {
   extraProps,
 } from './styling/styling';
 
-const Span = styled.span`
-  color: ${p => p.color ? p.theme.color[p.color] : null};
+const MainContent = styled.main`
+  margin-left: 75px;
   ${mainProps};
   ${widthProps};
   ${heightProps};
@@ -32,7 +32,6 @@ const Span = styled.span`
   ${fontProps};
   ${borderProps};
   ${overflowProps};
-
 `;
 
-export default Span;
+export default MainContent;
