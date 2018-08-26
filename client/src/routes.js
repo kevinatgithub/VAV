@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 import WithLogin from './modules/login/containers/login.container';
 import { Div } from './modules/ui';
 
-const AsyncHome = Loadable({
-  loader: () => import(/* webpackChunkName: "home" */ './modules/home/containers/home-container'),
+const AsyncDashboard = Loadable({
+  loader: () => import(/* webpackChunkName: "dashboard" */ './modules/dashboard/containers/dashboard-container'),
 });
-const AsyncContact = Loadable({
-  loader: () => import(/* webpackChunkName: "contact" */ './modules/contact/containers/contact-container'),
+const AsyncSettings = Loadable({
+  loader: () => import(/* webpackChunkName: "settings" */ './modules/settings/containers/settings-container'),
 });
 const AsyncHeader = Loadable({
   loader: () => import(/* webpackChunkName: "header" */ './modules/header/containers/header-container'),
@@ -32,7 +32,7 @@ const Routes = () =>
   <Div>
     <Route path='/' component={AsyncHeader} />
     <Route path='/' component={AsyncSidebar} />
-    <PrivateRoute exact={true} path='/' component={AsyncHome} />
-    <Route path='/contact' component={AsyncContact} />
+    <PrivateRoute exact={true} path='/' component={AsyncDashboard} />
+    <PrivateRoute path='/settings' component={AsyncSettings} />
   </Div>;
 export default Routes;

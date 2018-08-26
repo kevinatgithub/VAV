@@ -31,7 +31,7 @@
       ]
     }
   },
-  "author": "Steven Van Eenoo",
+  "author": "Jerome Franco",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
@@ -90,6 +90,7 @@
   "dependencies": {
     "@blueprintjs/core": "^3.4.0",
     "axios": "^0.18.0",
+    "formik": "^1.1.1",
     "i18next": "^11.4.0",
     "i18next-browser-languagedetector": "^2.2.2",
     "jwt-decode": "^2.2.0",
@@ -109,7 +110,8 @@
     "reselect": "^3.0.1",
     "styled-components": "^2.4.1",
     "stylelint": "^9.3.0",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "yup": "^0.26.2"
   },
   "jest": {
     "collectCoverageFrom": [

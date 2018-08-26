@@ -27,11 +27,11 @@ const Header = () => {
       <NavbarGroup align={Alignment.LEFT}>
         <NavbarHeading>
           <Image src={images.hinoLogo} width={60} height={'auto'} />
-          <Span marginLeft={12} fontWeight='500'>Vehicle Tracking System</Span>
+          <Span className={Classes.MONOSPACE_TEXT} marginLeft={10}>Vehicle Tracking System</Span>
         </NavbarHeading>
       </NavbarGroup>
       <NavbarGroup align={Alignment.RIGHT}>
-        <Button className={Classes.MINIMAL} icon='notifications' text='Alerts' />
+        <Button className={Classes.MINIMAL} icon='notifications' />
         <NavbarDivider />
         <Popover content={fileMenu} position={Position.BOTTOM_RIGHT} interactionKind={PopoverInteractionKind.HOVER}>
           <Button className={Classes.MINIMAL} icon='user' text='John Doe' />

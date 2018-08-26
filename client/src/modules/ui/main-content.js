@@ -17,7 +17,9 @@ import {
 } from './styling/styling';
 
 const MainContent = styled.main`
+  display: flex;
   margin-left: 70px;
+  padding: 15px;
   ${mainProps};
   ${widthProps};
   ${heightProps};

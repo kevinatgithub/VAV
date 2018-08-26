@@ -1,3 +1,5 @@
+import styled from 'styled-components';
+import { MenuItem as MenuItemRaw } from '@blueprintjs/core';
 import { Aside } from '../../ui';
 
 const Wrapper = Aside.extend`
@@ -17,18 +19,20 @@ const Wrapper = Aside.extend`
         margin-right: 0;
       }
     }
+`;
 
-    .bp3-menu-item {
-      flex-direction: column;
-      align-items: center;
-    }
+const MenuItem = styled(MenuItemRaw)`
+  flex-direction: column;
+  align-items: center;
 
-    .bp3-menu-item-label {
-      font-size: 0.78em;
-    }
+
+  .bp3-menu-item-label {
+    font-size: 0.78em;
+  }
 `;
 
 
 export default {
   Wrapper,
+  MenuItem,
 };

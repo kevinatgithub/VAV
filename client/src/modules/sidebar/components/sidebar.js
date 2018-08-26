@@ -1,27 +1,38 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import {
   Classes,
   Menu,
-  MenuItem,
   MenuDivider,
   Icon,
 } from '@blueprintjs/core';
 import styles from './sidebar-style';
 
-const { Wrapper } = styles;
+const { Wrapper, MenuItem } = styles;
 
-const Sidebar = () => {
+const Sidebar = ({ history, location }) => {
+  const linkProps = route => ({
+    onClick: () => history.push(route),
+    active: location.pathname === route,
+  });
+
   return (
     <Wrapper>
       <Menu className={Classes.ELEVATION_1} >
-        <MenuItem icon={<Icon icon='dashboard' iconSize={20} />} label='Dashboard' />
+        <MenuItem {...linkProps('/')} icon={<Icon icon='dashboard' iconSize={20} />} label='Dashboard' />
         <MenuDivider />
-        <MenuItem icon={<Icon icon='people' iconSize={20} />} label='Users' />
+        <MenuItem {...linkProps('/not')} icon={<Icon icon='people' iconSize={20} />} label='Users' />
         <MenuDivider />
-        <MenuItem icon={<Icon icon='cog' iconSize={20} />} label='Settings' />
+        <MenuItem {...linkProps('/settings')} icon={<Icon icon='cog' iconSize={20} />} label='Settings' />
       </Menu>
     </Wrapper>
   );
 };
 
-export default Sidebar;
+Sidebar.propTypes = {
+  history: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+};
+
+export default withRouter(Sidebar);
