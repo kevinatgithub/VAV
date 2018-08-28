@@ -3,13 +3,11 @@ import { withRouter } from 'react-router';
 import { compose } from 'redux';
 import App from '../components/app';
 
-const mapStateToProps = () => ({
-});
+const mapDispatchToProps = {};
 
-const mapDispatchToProps = {
-};
-
+// WARNING! Avoid binding state to app to avoid unnecessary rerender
 export default compose(
   withRouter,
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(null, mapDispatchToProps),
 )(App);
+

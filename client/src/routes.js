@@ -1,21 +1,14 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Route } from 'react-router-dom';
 import Loadable from 'utils/loadable';
 import PropTypes from 'prop-types';
 import WithLogin from './modules/login/containers/login.container';
-import { Div } from './modules/ui';
 
 const AsyncDashboard = Loadable({
   loader: () => import(/* webpackChunkName: "dashboard" */ './modules/dashboard/containers/dashboard-container'),
 });
 const AsyncSettings = Loadable({
   loader: () => import(/* webpackChunkName: "settings" */ './modules/settings/containers/settings-container'),
-});
-const AsyncHeader = Loadable({
-  loader: () => import(/* webpackChunkName: "header" */ './modules/header/containers/header-container'),
-});
-const AsyncSidebar = Loadable({
-  loader: () => import(/* webpackChunkName: "sidebar" */ './modules/sidebar/containers/sidebar-container'),
 });
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -29,10 +22,8 @@ PrivateRoute.propTypes = {
 };
 
 const Routes = () =>
-  <Div>
-    <Route path='/' component={AsyncHeader} />
-    <Route path='/' component={AsyncSidebar} />
+  <Fragment>
     <PrivateRoute exact={true} path='/' component={AsyncDashboard} />
     <PrivateRoute path='/settings' component={AsyncSettings} />
-  </Div>;
+  </Fragment>;
 export default Routes;

@@ -1,51 +1,39 @@
-// import React from 'react';
-// import PropTypes from 'prop-types';
-// import styled from 'styled-components';
-// import { marginProps } from './styling/styling';
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { Button as ButtonRaw, Intent } from '@blueprintjs/core';
+import { marginProps } from './styling/styling';
 
-// // eslint-disable-next-line no-unused-vars
-// const Button = ({
-//   children,
-//   onClick,
-//   className,
-//   ghost,
-//   type,
-//   size,
-//   shape,
-//   icon,
-//   disabled,
-//   onMouseEnter,
-//   onMouseLeave,
-// }) =>
-//   <Button
-//     type={type}
-//     size={size}
-//     shape={shape}
-//     className={className}
-//     onClick={onClick}
-//     ghost={ghost}
-//     icon={icon}
-//     disabled={disabled}
-//     onMouseEnter={onMouseEnter}
-//     onMouseLeave={onMouseLeave}
-//   >
-//     {children}
-//   </Button>;
+const Button = ({ children, onClick, className, type = 'button', icon, intent, loading, disabled }) => {
+  return (
+    <ButtonRaw
+      onClick={onClick}
+      className={className}
+      type={type}
+      icon={icon}
+      intent={intent}
+      loading={loading}
+      disabled={disabled}
+    >
+      {children}
+    </ButtonRaw>
+  );
+};
 
-// Button.propTypes = {
-//   type: PropTypes.oneOf(['default', 'primary', 'ghost', 'dashed', 'danger']),
-//   size: PropTypes.oneOf(['small', 'default', 'large']),
-//   shape: PropTypes.oneOf(['circle', 'circle-outline']),
-//   children: PropTypes.node,
-//   className: PropTypes.string,
-//   onClick: PropTypes.func,
-//   ghost: PropTypes.bool,
-//   icon: PropTypes.string,
-//   disabled: PropTypes.bool,
-//   onMouseEnter: PropTypes.func,
-//   onMouseLeave: PropTypes.func,
-// };
+Button.propTypes = {
+  children: PropTypes.node,
+  onClick: PropTypes.func,
+  className: PropTypes.string,
+  type: PropTypes.oneOf(['button', 'submit', 'reset']),
+  icon: PropTypes.string,
+  intent: PropTypes.oneOf([...Object.values(Intent)]),
+  loading: PropTypes.bool,
+  disabled: PropTypes.bool,
+};
 
-// export default styled(Button)`
-//   ${marginProps};
-// `;
+export default styled(Button)`
+  &.bp3-button {
+    box-shadow: inset 0 0 0 1px rgba(16, 22, 26, 0.2), inset 0 -1px 0 rgba(16, 22, 26, 0.1);
+  }
+  ${marginProps};
+`;

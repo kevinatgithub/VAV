@@ -1,19 +1,14 @@
-import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
-import { ThemeProvider } from 'styled-components';
-import Routes from '../../../routes';
-import theme from '../../../theme';
-// import LoadingIndicator from '../../common/loading-indicator/components/loading-indicator';
+import { Component } from 'react';
 
 class App extends Component {
   state = {}
 
+  componentDidMount() {
+    // startup here
+  }
+
   render() {
-    return (
-      <ThemeProvider theme={theme}>
-        <Routes />
-      </ThemeProvider>
-    );
+    return this.props.children; // eslint-disable-line react/prop-types
   }
 }
 

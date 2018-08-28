@@ -1,3 +1,7 @@
+import 'normalize.css';
+import '@blueprintjs/icons/lib/css/blueprint-icons.css';
+import '@blueprintjs/core/lib/css/blueprint.css';
+
 import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
