@@ -1,5 +1,9 @@
 import styled from 'styled-components';
-import { Navbar as NavbarRaw, NavbarHeading as NavbarHeadingRaw } from '@blueprintjs/core';
+import {
+  Navbar as NavbarRaw,
+  NavbarHeading as NavbarHeadingRaw,
+  NavbarGroup as NavbarGroupRaw,
+} from '@blueprintjs/core';
 
 const NavbarHeading = styled(NavbarHeadingRaw)`
   display: flex;
@@ -10,9 +14,17 @@ const NavbarHeading = styled(NavbarHeadingRaw)`
 const Navbar = styled(NavbarRaw)`
   padding-right: 5px;
   padding-left: 8px;
+  height: 53px;
+`;
+
+const NavbarGroup = styled(NavbarGroupRaw)`
+  padding-right: 5px;
+  padding-left: 0;
+  height: 53px;
 `;
 
 export default {
   NavbarHeading,
   Navbar,
+  NavbarGroup,
 };

@@ -2,14 +2,13 @@ import { Div } from 'ui';
 
 const Progress = Div.extend`
   position: absolute;
-  height: 3px;
+  height: 4px;
   display: block;
   width: 100%;
   background-color: #f9b8b8;
   border-radius: 2px;
   background-clip: padding-box;
   overflow: hidden;
-  z-index: 999;
 
 @-webkit-keyframes indeterminate {
   0% {

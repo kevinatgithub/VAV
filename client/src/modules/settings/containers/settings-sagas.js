@@ -3,8 +3,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { Intent } from '@blueprintjs/core';
 import { saveSettingsSuccess, saveSettingsFail } from './settings-actions';
 import { SAVE_SETTINGS_REQUEST } from './settings-action-types';
-import { showAppLoading, hideAppLoading } from '../../app/containers/app-actions';
-import toaster from '../../utils/toaster';
+import { showAppLoading, hideAppLoading, showToast } from '../../app/containers/app-actions';
 
 function* saveSettings({ payload }) {
   try {
@@ -16,16 +15,15 @@ function* saveSettings({ payload }) {
 
     yield put(saveSettingsSuccess(result));
 
-    yield put(hideAppLoading());
-
-    yield call([toaster, 'show'], {
-      intent: Intent.SUCCESS,
-      icon: 'tick-circle',
-      message: 'Settings has been updated.',
-    });
+    yield put(
+      showToast({
+        intent: Intent.SUCCESS,
+        message: 'Settings has been updated.',
+      }),
+    );
   } catch (error) {
     yield put(saveSettingsFail(error));
-
+  } finally {
     yield put(hideAppLoading());
   }
 }

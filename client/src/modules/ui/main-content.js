@@ -18,8 +18,8 @@ import {
 
 const MainContent = styled.main`
   display: flex;
-  margin-left: 70px;
-  padding: 15px;
+  margin-left: 85px;
+  padding: 20px;
   ${mainProps};
   ${widthProps};
   ${heightProps};

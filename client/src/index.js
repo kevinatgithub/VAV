@@ -16,7 +16,7 @@ const store = configureStore(rootReducer);
 const renderApp = (RootCmp) => {
   render(
     <AppContainer>
-      <RootCmp store={store} />
+      <RootCmp store={store} hot={!!module.hot} />
     </AppContainer>,
     document.getElementById('root'),
   );

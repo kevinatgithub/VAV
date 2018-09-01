@@ -1,29 +1,51 @@
 import React, { Fragment } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Loadable from 'utils/loadable';
-import PropTypes from 'prop-types';
 import WithLogin from './modules/login/containers/login.container';
 
+const AsyncHeader = Loadable({
+  loader: () => import(/* webpackChunkName: "header" */ './modules/header/containers/header-container'),
+});
+const AsyncSidebar = Loadable({
+  loader: () => import(/* webpackChunkName: "sidebar" */ './modules/sidebar/containers/sidebar-container'),
+});
+const AsyncLoadingBar = Loadable({
+  loader: () =>
+    import(/* webpackChunkName: "loading-bar" */ './modules/common/loading-bar/containers/loading-bar-container'),
+});
 const AsyncDashboard = Loadable({
   loader: () => import(/* webpackChunkName: "dashboard" */ './modules/dashboard/containers/dashboard-container'),
 });
 const AsyncSettings = Loadable({
   loader: () => import(/* webpackChunkName: "settings" */ './modules/settings/containers/settings-container'),
 });
+const AsyncPageNotFound = Loadable({
+  loader: () => import(/* webpackChunkName: "page-not-found" */ './modules/common/non-ideal-state/page-not-found'),
+});
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
-  const PrivateComponent = WithLogin(Component);
-  return <Route {...rest} render={props => <PrivateComponent {...props} />} />;
-};
-
-PrivateRoute.propTypes = {
-  location: PropTypes.string,
-  component: PropTypes.func.isRequired,
+const MasterRoute = ({ isPrivate, component: Component, ...rest }) => {
+  const AuthComponent = isPrivate ? WithLogin(Component) : Component;
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        <Fragment>
+          <AsyncHeader />
+          <AsyncSidebar />
+          <AsyncLoadingBar />
+          <AuthComponent {...props} />
+        </Fragment>
+      }
+    />
+  );
 };
 
 const Routes = () =>
   <Fragment>
-    <PrivateRoute exact={true} path='/' component={AsyncDashboard} />
-    <PrivateRoute path='/settings' component={AsyncSettings} />
+    <Switch>
+      <MasterRoute exact path='/' component={AsyncDashboard} />
+      <MasterRoute exact path='/settings' component={AsyncSettings} />
+      <MasterRoute component={AsyncPageNotFound} />
+    </Switch>
   </Fragment>;
 export default Routes;

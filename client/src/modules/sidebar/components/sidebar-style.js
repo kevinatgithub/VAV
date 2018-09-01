@@ -6,17 +6,38 @@ const Wrapper = Aside.extend`
     position: absolute;
     top: 0;
     left: 0;
-    padding-top: 50px;
+    padding-top: 53px;
     height: 100%;
-    width: 70px;
+    width: 85px;
 
     > ul {
       border-radius: 0;
-      min-width: 70px;
+      min-width: 85px;
       height: 100%;
 
       .bp3-icon {
+        margin-top: 0;
+      }
+    }
+
+    .bp3-menu-item {
+      flex-direction: column;
+      align-items: center;
+      padding-top: 6px;
+      padding-bottom: 6px;
+
+      > .bp3-icon {
         margin-right: 0;
+        margin-top: 2px;
+      }
+
+      > .bp3-text-overflow-ellipsis {
+        font-size: 12px;
+        margin-top: 2px;
+      }
+
+      &.bp3-active {
+        background-color: #394b59;
       }
     }
 `;
