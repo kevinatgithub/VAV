@@ -1,0 +1,5 @@
+[*.cs,*.cshtml,*.html,*.xml,*.json]
+indent_style = space
+indent_size = 4
+
+csharp_new_line_before_open_brace = all:error
