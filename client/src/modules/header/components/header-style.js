@@ -14,13 +14,13 @@ const NavbarHeading = styled(NavbarHeadingRaw)`
 const Navbar = styled(NavbarRaw)`
   padding-right: 5px;
   padding-left: 8px;
-  height: 53px;
+  height: ${p => p.theme.metrics.header};
 `;
 
 const NavbarGroup = styled(NavbarGroupRaw)`
   padding-right: 5px;
   padding-left: 0;
-  height: 53px;
+  height: ${p => p.theme.metrics.header};
 `;
 
 export default {

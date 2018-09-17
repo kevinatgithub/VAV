@@ -15,6 +15,7 @@ import {
 } from './styling/styling';
 
 const Flex = styled.div`
+  display: flex;
   ${marginProps};
   ${paddingProps};
   ${positionProps};

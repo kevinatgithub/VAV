@@ -6,13 +6,13 @@ const Wrapper = Aside.extend`
     position: absolute;
     top: 0;
     left: 0;
-    padding-top: 53px;
+    padding-top: ${p => p.theme.metrics.header};
     height: 100%;
-    width: 85px;
+    width: ${p => p.theme.metrics.sidebar};
 
     > ul {
       border-radius: 0;
-      min-width: 85px;
+      min-width: ${p => p.theme.metrics.sidebar};
       height: 100%;
 
       .bp3-icon {

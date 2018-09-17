@@ -17,31 +17,13 @@ const color = {
   background: '#ECF2F6',
 };
 
-const fontSize = {
-  small: '11px',
-  base: '14px',
-  large: '17px',
-  h4: '20px',
-  h3: '23px',
-  h2: '26px',
-  h1: '30px',
+const metrics = {
+  header: '53px',
+  sidebar: '80px',
 };
-
-const fontFamily = `
--apple-system,
-BlinkMacSystemFont,
-"Segoe UI", Roboto,
-"PingFang SC",
-"Hiragino Sans GB",
-"Microsoft YaHei",
-"Helvetica Neue",
-Helvetica, Arial,
-sans-serif
-`;
 
 // use commonjs module since this is being used in webpack
 module.exports = {
   color,
-  fontSize,
-  fontFamily,
+  metrics,
 };

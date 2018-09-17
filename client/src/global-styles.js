@@ -12,4 +12,11 @@ injectGlobal`
   #root {
     height: 100%;
   }
+
+  *:focus {outline:none}
+
+  .side-dialog-backdrop + div.bp3-dialog-container {
+    justify-content: flex-end;
+    align-items: stretch;
+  }
 `;
