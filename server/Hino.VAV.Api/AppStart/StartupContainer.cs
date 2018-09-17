@@ -1,5 +1,7 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using AutoMapper;
+using Hino.VAV.Api.Profiles;
 using Hino.VAV.Concerns.Common;
 using Hino.VAV.Engines;
 using Hino.VAV.Managers;
@@ -35,6 +37,12 @@ namespace Hino.VAV.Api.AppStart
                     typeof(IMoResource).Assembly)
                 .InstancePerLifetimeScope()
                 .AsImplementedInterfaces();
+            builder.Register(c =>
+                    new MapperConfiguration(cfg =>
+                            cfg.AddProfiles(typeof(ApiMappingProfile).Assembly))
+                        .CreateMapper())
+                .As<IMapper>()
+                .SingleInstance();
 
             builder.Populate(services);
 

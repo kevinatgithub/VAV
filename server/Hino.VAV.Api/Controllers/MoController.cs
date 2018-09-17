@@ -1,7 +1,13 @@
-﻿using Hino.VAV.Concerns.Common;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using AutoMapper;
+using Hino.VAV.Api.Models;
+using Hino.VAV.Concerns.Common;
 using Hino.VAV.Managers;
+using Hino.VAV.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Hino.VAV.Api.Controllers
 {
@@ -9,36 +15,37 @@ namespace Hino.VAV.Api.Controllers
     /// <summary>
     /// Mo Controller
     /// </summary>
-    [Authorize]
     public class MoController : Controller
     {
         private readonly IRequestContext _requestContext;
         private readonly IMoManager _moManager;
+        private readonly IMapper _mapper;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MoController"/> class.
-        /// Creates a new template controller
-        /// </summary>
-        /// <param name="requestContext">Reguest context information</param>
-        /// <param name="moManager">Mo manager</param>
-        public MoController(IRequestContext requestContext, IMoManager moManager)
+        public MoController(IRequestContext requestContext, IMoManager moManager, IMapper mapper)
         {
             _requestContext = requestContext;
             _moManager = moManager;
+            _mapper = mapper;
         }
 
-        /// <summary>
-        /// This documentation is also added to Swagger.
-        /// </summary>
-        /// <param name="id">The template identifier</param>
-        /// <returns>Mo data</returns>
         [HttpGet]
         [Route("api/mo/{id}")]
-        public IActionResult GetMo(string id)
+        public async Task<ActionResult<MoDetailsResponseDto>> GetMo(string id)
         {
-            var result = _moManager.GetMo(id);
+            var chassis = await _moManager.GetChassis(id);
+            var mo = await _moManager.GetMo(id);
 
-            _requestContext.Logger.Information("TemplateController.GetTemplate", "Mo {Id:l} retrieved", id);
+            var result = _mapper.Map<MoDetailsResponseDto>(mo);
+            result.Chassis = chassis.Select(s => s.Id).ToArray();
+
+            return new OkObjectResult(result);
+        }
+
+        [HttpGet]
+        [Route("api/mos")]
+        public async Task<ActionResult<MoListResponseDto[]>> GetMoList()
+        {
+            var result = _mapper.Map<MoListResponseDto[]>(await _moManager.GetMoList());
 
             return new OkObjectResult(result);
         }
