@@ -4,9 +4,11 @@ using Autofac.Extensions.DependencyInjection;
 using Hino.VAV.Api.AppStart;
 using Hino.VAV.Api.Web;
 using Hino.VAV.Concerns.Logging;
+using Hino.VAV.Resources.Implementation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -62,6 +64,9 @@ namespace Hino.VAV.Api
 
             services.AddAuthorization(auth => auth.AddPolicy("default", policy => policy.RequireAuthenticatedUser()));
             services.AddMvc();
+
+            // EF
+            services.AddDbContext<VavContext>(o => o.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
 
             // Swagger
             StartupApiDocs.Configure(services, _environment, ApiName);

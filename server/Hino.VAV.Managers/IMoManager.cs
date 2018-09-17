@@ -1,4 +1,6 @@
-﻿using Hino.VAV.Models;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Hino.VAV.Models;
 
 namespace Hino.VAV.Managers
 {
@@ -7,11 +9,10 @@ namespace Hino.VAV.Managers
     /// </summary>
     public interface IMoManager
     {
-        /// <summary>
-        /// Returns info for the template
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Mo GetMo(string id);
+        Task<Mo> GetMo(string id);
+
+        Task<IEnumerable<Mo>> GetMoList();
+
+        Task<IEnumerable<MoChassis>> GetChassis(string id);
     }
 }

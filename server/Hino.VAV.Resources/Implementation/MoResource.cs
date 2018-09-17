@@ -1,5 +1,11 @@
-﻿using Hino.VAV.Concerns.Common;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Hino.VAV.Concerns.Common;
 using Hino.VAV.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hino.VAV.Resources.Implementation
 {
@@ -11,19 +17,27 @@ namespace Hino.VAV.Resources.Implementation
     public class MoResource : IMoResource
     {
         private readonly IRequestContext _requestContext;
+        private readonly VavContext _context;
 
-        public MoResource(IRequestContext requestContext)
+        public MoResource(IRequestContext requestContext, VavContext context)
         {
             _requestContext = requestContext;
+            _context = context;
         }
 
-        public Mo GetMo()
+        public async Task<Mo> GetMo(string id)
         {
-            return new Mo
-            {
-                Name = "template",
-                Value = "This is a template value for " + _requestContext.Identity.Name
-            };
+            return await _context.Mo.FirstOrDefaultAsync(c => c.Id == id);
+        }
+
+        public async Task<IEnumerable<MoChassis>> GetChassis(string id)
+        {
+            return await _context.MoChassis.Where(c => c.MoId == id).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Mo>> GetMoList()
+        {
+            return await _context.Mo.ToListAsync();
         }
     }
 }

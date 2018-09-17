@@ -1,0 +1,107 @@
+﻿DROP TABLE dbo.Mo
+GO
+
+CREATE TABLE [dbo].[Mo] (
+    [Id]			NVARCHAR(50)           NOT NULL,
+    [Date]			SMALLDATETIME NOT NULL,
+    [Status]		NCHAR (10)    NULL,
+	Dealer			NVARCHAR(100)	NOT NULL,
+	Customer		NVARCHAR(100)	NOT NULL,
+	ChassisModel	NVARCHAR(100)	NOT NULL,
+	Quantity		INT				NOT NULL,
+	TypeOfBody		NVARCHAR(100)	NOT NULL,
+	PaintScheme		NVARCHAR(100)	NOT NULL,
+	BodyDimension	NVARCHAR(200)	NOT NULL,
+	ChassisArrivalDate	SMALLDATETIME	NOT NULL,
+	OtherInstruction	NVARCHAR(MAX)	NULL
+);
+GO
+INSERT INTO dbo.Mo VALUES
+(
+'POTK-2018-2073',
+'8/1/2018',
+'New',
+'HNEA',
+'Castellano Drug',
+'XZU342LM-CBU',
+25,
+'Aluminum Van',
+'White',
+'15ft L x 6.5ft W x 6.5ft H',
+'8/1/2018',
+'MOCK DATA'
+)
+
+INSERT INTO dbo.Mo VALUES
+(
+'POTK-2018-2074',
+'9/1/2018',
+'New',
+'MOCK DEALER',
+'Test Customer',
+'XYZ342LM-CKB',
+10,
+'Aluminum Van',
+'White',
+'15ft L x 6.5ft W x 6.5ft H',
+'8/1/2018',
+'THIS IS SOME INSTRUCTIONS THAT CAME FROM ERIC'
+)
+GO
+DROP TABLE dbo.MoChassis
+GO
+CREATE TABLE [dbo].[MoChassis] (
+    [Id]	NVARCHAR(50) NOT NULL,
+    [MoId]			NVARCHAR(50) NOT NULL
+);
+
+INSERT INTO dbo.MoChassis VALUES
+(
+'XZU342LM-001',
+'POTK-2018-2073'
+)
+INSERT INTO dbo.MoChassis VALUES
+(
+'XZU342LM-002',
+'POTK-2018-2073'
+)
+INSERT INTO dbo.MoChassis VALUES
+(
+'XZU342LM-003',
+'POTK-2018-2073'
+)
+INSERT INTO dbo.MoChassis VALUES
+(
+'XZU342LM-005',
+'POTK-2018-2073'
+)
+INSERT INTO dbo.MoChassis VALUES
+(
+'XYZ342LM-001',
+'POTK-2018-2074'
+)
+INSERT INTO dbo.MoChassis VALUES
+(
+'XYZ342LM-002',
+'POTK-2018-2074'
+)
+INSERT INTO dbo.MoChassis VALUES
+(
+'XYZ342LM-003',
+'POTK-2018-2074'
+)
+INSERT INTO dbo.MoChassis VALUES
+(
+'XYZ342LM-004',
+'POTK-2018-2074'
+)
+INSERT INTO dbo.MoChassis VALUES
+(
+'XYZ342LM-005',
+'POTK-2018-2074'
+)
+INSERT INTO dbo.MoChassis VALUES
+(
+'XYZ342LM-006',
+'POTK-2018-2074'
+)

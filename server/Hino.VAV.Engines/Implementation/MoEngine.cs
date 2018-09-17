@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Hino.VAV.Concerns.Common;
 using Hino.VAV.Models;
 using Hino.VAV.Resources;
@@ -26,11 +28,23 @@ namespace Hino.VAV.Engines.Implementation
             _moResource = moResource;
         }
 
-        public Mo GetMo()
+        public async Task<Mo> GetMo(string id)
         {
-            _requestContext?.Logger?.Debug("MoEngine: Resolving template at {time}", DateTime.Now);
+            _requestContext?.Logger?.Debug("MoEngine: Getting mo details {id}", id);
 
-            return _moResource.GetMo();
+            return await _moResource.GetMo(id);
+        }
+
+        public async Task<IEnumerable<Mo>> GetMoList()
+        {
+            _requestContext?.Logger?.Debug("MoEngine: Getting mo list");
+
+            return await _moResource.GetMoList();
+        }
+
+        public async Task<IEnumerable<MoChassis>> GetChassis(string id)
+        {
+            return await _moResource.GetChassis(id);
         }
     }
 }

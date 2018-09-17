@@ -1,24 +1,34 @@
-﻿namespace Hino.VAV.Models
+﻿using System;
+
+namespace Hino.VAV.Models
 {
     /// <summary>
     /// Mo information
     /// </summary>
     public class Mo
     {
-        /// <summary>
-        /// Gets or sets the name of the template.
-        /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
-        public string Name { get; set; }
+        public string Id { get; set; }
 
-        /// <summary>
-        /// Gets or sets the value of the template.
-        /// </summary>
-        /// <value>
-        /// The value.
-        /// </value>
-        public string Value { get; set; }
+        public DateTime Date { get; set; }
+
+        public string Status { get; set; }
+
+        public string Dealer { get; set; }
+
+        public string Customer { get; set; }
+
+        public string ChassisModel { get; set; }
+
+        public int Quantity { get; set; }
+
+        public string TypeOfBody { get; set; }
+
+        public string PaintScheme { get; set; }
+
+        public string BodyDimension { get; set; }
+
+        public DateTime ChassisArrivalDate { get; set; }
+
+        public string OtherInstruction { get; set; }
     }
 }

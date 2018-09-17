@@ -1,4 +1,6 @@
-﻿using Hino.VAV.Models;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Hino.VAV.Models;
 
 namespace Hino.VAV.Resources
 {
@@ -7,10 +9,10 @@ namespace Hino.VAV.Resources
     /// </summary>
     public interface IMoResource
     {
-        /// <summary>
-        /// Gets the template.
-        /// </summary>
-        /// <returns></returns>
-        Mo GetMo();
+        Task<Mo> GetMo(string id);
+
+        Task<IEnumerable<Mo>> GetMoList();
+
+        Task<IEnumerable<MoChassis>> GetChassis(string id);
     }
 }
