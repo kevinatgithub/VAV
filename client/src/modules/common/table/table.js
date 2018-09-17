@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Griddle, { plugins, RowDefinition, ColumnDefinition } from 'griddle-react';
-import { Icon, H6 } from '@blueprintjs/core';
+import { Icon } from '@blueprintjs/core';
 import PageDropdown from './page-dropdown';
 import tableStyle from './table-style';
 import { Button, Flex } from '../../ui';
@@ -32,7 +32,7 @@ const Table = ({ data, className, children, width }) => {
       <Griddle
         components={{
           PageDropdown,
-          Loading: () => <H6>Loading...</H6>,
+          Loading: () => <Flex marginTop={15} marginBottom={15}>Loading...</Flex>,
           Filter: props => <Toolbar {...props} />,
           NextButton: props => <Button {...props} icon='chevron-right' disabled={!props.hasNext} />,
           PreviousButton: props => <Button {...props} icon='chevron-left' disabled={!props.hasPrevious} />,
