@@ -1,13 +1,14 @@
 import { delay } from 'redux-saga';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { Intent } from '@blueprintjs/core';
-import { saveSettingsSuccess, saveSettingsFail, getBodyTypesSuccess, getBodyTypesFail } from './settings-actions';
-import { SAVE_SETTINGS_REQUEST, GET_BODY_TYPES_REQUEST } from './settings-action-types';
-import { showAppLoading, hideAppLoading, showToast } from '../../app/containers/app-actions';
+import { getBodyTypesSuccess, getBodyTypesFail, saveBodyTypeFail, saveBodyTypeSuccess } from './settings-actions';
+import { SAVE_BODY_TYPE_REQUEST, GET_BODY_TYPES_REQUEST } from './settings-action-types';
+import { showAppLoading, showToast } from '../../app/containers/app-actions';
+import { showSideDialog } from '../../common/side-dialog/containers/side-dialog-actions';
 
 function* getBodyTypes() {
   try {
-    yield put(showAppLoading());
+    yield put(showAppLoading(true));
 
     yield call(delay, 3000);
 
@@ -30,17 +31,17 @@ function* getBodyTypes() {
   } catch (error) {
     yield put(getBodyTypesFail(error));
   } finally {
-    yield put(hideAppLoading());
+    yield put(showAppLoading(false));
   }
 }
 
-function* saveSettings({ payload }) {
+function* saveBodyType({ payload }) {
   try {
     yield call(delay, 3000);
 
     const result = yield payload;
 
-    yield put(saveSettingsSuccess(result));
+    yield put(saveBodyTypeSuccess(result));
 
     yield put(
       showToast({
@@ -48,12 +49,14 @@ function* saveSettings({ payload }) {
         message: 'Settings has been updated.',
       }),
     );
+
+    yield put(showSideDialog(false));
   } catch (error) {
-    yield put(saveSettingsFail(error));
+    yield put(saveBodyTypeFail(error));
   }
 }
 
 export default [
-  takeLatest(SAVE_SETTINGS_REQUEST, saveSettings),
+  takeLatest(SAVE_BODY_TYPE_REQUEST, saveBodyType),
   takeLatest(GET_BODY_TYPES_REQUEST, getBodyTypes),
 ];

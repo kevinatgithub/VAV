@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import LoadingBar from 'common/loading-bar/components/loading-bar';
 import { Flex } from 'ui';
 import style from './side-dialog-style';
+import { Div } from '../../../ui';
 
 const { Dialog } = style;
 
@@ -31,10 +32,12 @@ class SideDialog extends Component {
         title={title}
         backdropClassName='side-dialog-backdrop'
       >
-        <Flex flex={1} margin={25}>
+        <Div flex={1}>
           <LoadingBar visible={loading} />
-          {children(onClose)}
-        </Flex>
+          <Flex flex={1} margin={25}>
+            {children(onClose)}
+          </Flex>
+        </Div>
       </Dialog>
     );
   }

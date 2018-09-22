@@ -12,8 +12,6 @@ const { TabsWrapper } = settingsStyle;
 class Settings extends Component {
   static propTypes = {
     bodyTypes: PropTypes.array,
-    isSaving: PropTypes.bool.isRequired,
-    saveSettingsRequest: PropTypes.func.isRequired,
     getBodyTypesRequest: PropTypes.func.isRequired,
   };
   state = { selectedTabId: 'bodyTypes' };

@@ -1,17 +1,19 @@
 import { connect } from 'react-redux';
 import Settings from '../components/settings';
-import { saveSettingsRequest, getBodyTypesRequest } from './settings-actions';
+import { saveBodyTypeRequest, getBodyTypesRequest, selectBodyType } from './settings-actions';
 import { showSideDialog } from '../../common/side-dialog/containers/side-dialog-actions';
 
 const mapStateToProps = ({ settings }) => ({
-  isSaving: settings.isSaving,
+  isSavingBodyType: settings.isSavingBodyType,
   bodyTypes: settings.bodyTypes,
+  selectedBodyType: settings.selectedBodyType,
 });
 
 const mapDispatchToProps = {
-  saveSettingsRequest,
+  saveBodyTypeRequest,
   getBodyTypesRequest,
   showSideDialog,
+  selectBodyType,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);

@@ -1,18 +1,19 @@
 import { handleActions } from 'redux-actions';
 import { combineReducers } from 'redux';
 import {
-  SAVE_SETTINGS_REQUEST,
-  SAVE_SETTINGS_SUCCESS,
-  SAVE_SETTINGS_FAIL,
+  SAVE_BODY_TYPE_REQUEST,
+  SAVE_BODY_TYPE_SUCCESS,
+  SAVE_BODY_TYPE_FAIL,
   GET_BODY_TYPES_REQUEST,
   GET_BODY_TYPES_SUCCESS,
+  SELECT_BODY_TYPE,
 } from './settings-action-types';
 
-export const isSaving = handleActions(
+export const isSavingBodyType = handleActions(
   {
-    [SAVE_SETTINGS_REQUEST]: () => true,
-    [SAVE_SETTINGS_SUCCESS]: () => false,
-    [SAVE_SETTINGS_FAIL]: () => false,
+    [SAVE_BODY_TYPE_REQUEST]: () => true,
+    [SAVE_BODY_TYPE_SUCCESS]: () => false,
+    [SAVE_BODY_TYPE_FAIL]: () => false,
   },
   false,
 );
@@ -25,7 +26,16 @@ export const bodyTypes = handleActions(
   null,
 );
 
+export const selectedBodyType = handleActions(
+  {
+    [SELECT_BODY_TYPE]: (_, { payload }) => payload,
+    [GET_BODY_TYPES_REQUEST]: () => null,
+  },
+  null,
+);
+
 export default combineReducers({
-  isSaving,
+  isSavingBodyType,
   bodyTypes,
+  selectedBodyType,
 });

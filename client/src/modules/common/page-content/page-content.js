@@ -5,8 +5,11 @@ import { Flex } from '../../ui';
 import theme from '../../../theme';
 
 const PageContent = ({ children, title }) =>
-  <Flex fdc padding={25} marginLeft={theme.metrics.sidebar}>
-    <Flex paddingBottom={10}>
+  <Flex
+    fdc paddingLeft={25} paddingRight={25} paddingTop={15} paddingBottom={15}
+    marginLeft={theme.metrics.sidebar}
+  >
+    <Flex paddingBottom={2}>
       <H2>{title}</H2>
     </Flex>
     <Flex>

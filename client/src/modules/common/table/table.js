@@ -5,6 +5,7 @@ import { Icon } from '@blueprintjs/core';
 import PageDropdown from './page-dropdown';
 import tableStyle from './table-style';
 import { Button, Flex } from '../../ui';
+import ToolbarWrapper from './toolbar-wrapper';
 import Toolbar from './toolbar';
 
 const { Wrapper } = tableStyle;
@@ -25,7 +26,9 @@ const actionsHeading = () => <Flex jcc>Actions</Flex>;
 const actionsSort = dataToSort => dataToSort;
 
 const Table = ({ data, className, children, width }) => {
-  const RowDef = React.Children.only(children);
+  const tableDefs = React.Children.toArray(children);
+  const rowDef = tableDefs.find(t => t.type.name === 'RowDefinition');
+  const toolbarDef = tableDefs.find(t => t.type.name === 'Toolbar');
 
   return (
     <Wrapper width={width}>
@@ -33,7 +36,8 @@ const Table = ({ data, className, children, width }) => {
         components={{
           PageDropdown,
           Loading: () => <Flex marginTop={15} marginBottom={15}>Loading...</Flex>,
-          Filter: props => <Toolbar {...props} />,
+          NoResults: () => <Flex marginTop={15} marginBottom={15}>No results found.</Flex>,
+          Filter: props => <ToolbarWrapper {...props} >{toolbarDef.props.children}</ToolbarWrapper>,
           NextButton: props => <Button {...props} icon='chevron-right' disabled={!props.hasNext} />,
           PreviousButton: props => <Button {...props} icon='chevron-left' disabled={!props.hasPrevious} />,
         }}
@@ -43,10 +47,10 @@ const Table = ({ data, className, children, width }) => {
         enableSettings={false}
         styleConfig={tableStyleConfig}
       >
-        {
+        {rowDef &&
           <RowDefinition>
             {React.Children.map(
-              RowDef.props.children,
+              rowDef.props.children,
               ({ props: { actions, ...props } }) =>
                 actions ?
                   <Table.ColumnDefinition
@@ -68,6 +72,7 @@ const Table = ({ data, className, children, width }) => {
 
 Table.RowDefinition = RowDefinition;
 Table.ColumnDefinition = ColumnDefinition;
+Table.Toolbar = Toolbar;
 
 Table.propTypes = {
   data: PropTypes.array,
