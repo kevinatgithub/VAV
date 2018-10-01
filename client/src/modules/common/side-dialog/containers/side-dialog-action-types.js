@@ -1,0 +1,2 @@
+export const SHOW_SIDE_DIALOG = 'SHOW_SIDE_DIALOG';
+

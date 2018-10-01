@@ -20,12 +20,12 @@ const Sidebar = ({ history, location }) => {
 
   return (
     <Wrapper>
-      <Menu className={Classes.ELEVATION_1}>
+      <Menu className={Classes.ELEVATION_0}>
         <MenuItem {...linkProps('/')} icon={<Icon icon='dashboard' iconSize={20} />} text='Board' />
         <MenuDivider />
-        <MenuItem {...linkProps('/not')} icon={<Icon icon='multi-select' iconSize={20} />} text='MO/PO' />
+        <MenuItem {...linkProps('/mo')} icon={<Icon icon='multi-select' iconSize={20} />} text='MO' />
         <MenuDivider />
-        <MenuItem {...linkProps('/not')} icon={<Icon icon='people' iconSize={20} />} text='Users' />
+        <MenuItem {...linkProps('/users')} icon={<Icon icon='people' iconSize={20} />} text='Users' />
         <MenuDivider />
         <MenuItem {...linkProps('/settings')} icon={<Icon icon='cog' iconSize={20} />} text='Settings' />
       </Menu>

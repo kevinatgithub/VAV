@@ -18,7 +18,7 @@ import {
 
 const MainContent = styled.main`
   display: flex;
-  margin-left: 85px;
+  margin-left: ${p => p.theme.metrics.sidebar};
   padding: 20px;
   ${mainProps};
   ${widthProps};

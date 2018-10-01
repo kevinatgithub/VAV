@@ -37,7 +37,7 @@ const Header = () => {
         <NavbarDivider />
         <Button className={Classes.MINIMAL} icon='help' />
         <NavbarDivider />
-        <Popover content={fileMenu} position={Position.BOTTOM_RIGHT} interactionKind={PopoverInteractionKind.HOVER}>
+        <Popover content={fileMenu} position={Position.BOTTOM_RIGHT} interactionKind={PopoverInteractionKind.CLICK}>
           <Button className={Classes.MINIMAL} icon='user' text='John Doe' />
         </Popover>
       </NavbarGroup>
