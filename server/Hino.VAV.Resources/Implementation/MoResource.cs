@@ -35,9 +35,15 @@ namespace Hino.VAV.Resources.Implementation
             return await _context.MoChassis.Where(c => c.MoId == id).ToListAsync();
         }
 
-        public async Task<IEnumerable<Mo>> GetMoList()
+        public async Task<IEnumerable<Mo>> GetMoList(string status, string keyWord)
         {
-            return await _context.Mo.ToListAsync();
+            return await _context.Mo
+                 .Where(c =>
+                    (EF.Functions.Like(c.ChassisModel, keyWord) ||
+                    EF.Functions.Like(c.Customer, keyWord) ||
+                    EF.Functions.Like(c.Dealer, keyWord)) &&
+                    EF.Functions.Like(c.Status.Trim(), status))
+                .ToListAsync();
         }
     }
 }

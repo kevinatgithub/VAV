@@ -22,11 +22,6 @@ namespace Hino.VAV.Api.Models.BaseResponse
             TotalPages = totalRecords == 0 ? 0
                 : (totalRecords / pageSize) == 0 ? (totalRecords / pageSize) + 1 : (totalRecords / pageSize);
 
-            if (pageNo > TotalPages)
-            {
-                throw new AppTechnicalException("PaginationExceeded", "Page number specified exceeded total number of pages");
-            }
-
             _mapper = mapper;
             Page = pageNo;
             IEnumerable<T> pagedRecord = entity.Skip(pageSize * (pageNo - 1)).Take(pageSize).ToArray();

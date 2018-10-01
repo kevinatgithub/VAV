@@ -13,7 +13,7 @@ namespace Hino.VAV.Resources
     {
         Task<Mo> GetMo(string id);
 
-        Task<IEnumerable<Mo>> GetMoList();
+        Task<IEnumerable<Mo>> GetMoList(string status, string keyWord);
 
         Task<IEnumerable<MoChassis>> GetChassis(string id);
     }
