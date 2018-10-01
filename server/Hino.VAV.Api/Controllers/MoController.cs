@@ -45,14 +45,14 @@ namespace Hino.VAV.Api.Controllers
 
         [HttpGet]
         [Route("api/mos")]
-        public async Task<ActionResult<PagedResponse<Mo, MoListResponseDto>>> GetMoList(int pageSize = 10, int pageNo = 1)
+        public async Task<ActionResult<PagedResponse<Mo, MoListResponseDto>>> GetMoList(string status = "%", string keyWord = "%", int pageSize = 10, int pageNo = 1)
         {
             if (pageSize == 0 || pageNo == 0)
             {
                 throw new AppTechnicalException("InvalidPagination", "Invalid pagination values");
             }
 
-            var result = await _moManager.GetMoList();
+            var result = await _moManager.GetMoList(status, keyWord);
             var pagedResult = new PagedResponse<Mo, MoListResponseDto>(_mapper, result, pageSize, pageNo);
 
             return new OkObjectResult(pagedResult);

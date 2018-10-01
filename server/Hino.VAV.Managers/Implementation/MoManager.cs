@@ -33,9 +33,9 @@ namespace Hino.VAV.Managers.Implementation
             return await _moEngine.GetMo(id);
         }
 
-        public async Task<IEnumerable<Mo>> GetMoList()
+        public async Task<IEnumerable<Mo>> GetMoList(string status = "", string keyWord = "")
         {
-            return await _moEngine.GetMoList();
+            return await _moEngine.GetMoList(status, keyWord);
         }
 
         public async Task<IEnumerable<MoChassis>> GetChassis(string id)
