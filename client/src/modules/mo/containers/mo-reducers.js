@@ -4,14 +4,15 @@ import {
   GET_MOS_SUCCESS,
   GET_MO_DETAILS_SUCCESS,
   GET_MO_DETAILS_REQUEST,
-  FILTER_BY_STATUS,
+  // FILTER_BY_STATUS,
   UNSELECT_MACHINE,
+  // SEARCH_MO,
 } from './mo-action-types';
 
 export const mos = handleActions(
   {
     [GET_MOS_SUCCESS]: (_, { payload }) => payload,
-    [FILTER_BY_STATUS]: state => ({ ...state, result: [] }),
+    // [combineActions(FILTER_BY_STATUS, SEARCH_MO)]: state => ({ ...state, result: [] }),
   },
   null,
 );

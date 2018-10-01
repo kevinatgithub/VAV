@@ -14,5 +14,7 @@ export const {
 
 export const FILTER_BY_STATUS = 'FILTER_BY_STATUS';
 
+export const SEARCH_MO = 'SEARCH_MO';
+
 export const UNSELECT_MACHINE = 'UNSELECT_MACHINE';
 

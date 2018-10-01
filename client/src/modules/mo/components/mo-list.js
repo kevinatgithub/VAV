@@ -17,18 +17,34 @@ const statusOptions = [
   { value: moStatuses.NEW, label: MoStatus.getStatusText(moStatuses.NEW) },
 ];
 
-const MoList = ({ mos, onLoadMore, onFilterByStatus, ...rest }) => {
+const MoList = ({ mos, onLoadMore, onFilterByStatus, onSearchTermChange, onSearch, searchTerm, ...rest }) => {
   const handleStatusFilterChange = (e) => {
     onFilterByStatus(e.target.value);
   };
+
+  const handleSearchTermChange = (e) => {
+    onSearchTermChange(e.target.value);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      onSearch();
+    }
+  };
+
   return (
     mos &&
       <Wrapper>
         <SectionTitle>Manufacturing Orders</SectionTitle>
         <ControlGroup>
           <Select options={statusOptions} onChange={handleStatusFilterChange} />
-          <InputGroup placeholder='Search...' />
-          <Button icon='search' />
+          <InputGroup
+            placeholder='Search...'
+            value={searchTerm}
+            onChange={handleSearchTermChange}
+            onKeyPress={handleKeyPress}
+          />
+          <Button icon='search' onClick={onSearch} />
         </ControlGroup>
         <Flex fdc overflowY={'auto'} padding={1}>
           <InfiniteScroll
@@ -57,9 +73,12 @@ const MoList = ({ mos, onLoadMore, onFilterByStatus, ...rest }) => {
 MoList.propTypes = {
   mo: PropTypes.object,
   selectedMoId: PropTypes.string,
-  onLoadMore: PropTypes.func,
-  onSelectMo: PropTypes.func,
-  onFilterByStatus: PropTypes.func,
+  searchTerm: PropTypes.string.isRequired,
+  onLoadMore: PropTypes.func.isRequired,
+  onSelectMo: PropTypes.func.isRequired,
+  onFilterByStatus: PropTypes.func.isRequired,
+  onSearch: PropTypes.func.isRequired,
+  onSearchTermChange: PropTypes.func.isRequired,
 };
 
 export default MoList;

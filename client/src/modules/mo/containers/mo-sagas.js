@@ -1,16 +1,20 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { getMosSuccess, getMosFail, getMoDetailsSuccess, getMoDetailsFail } from './mo-actions';
-import { GET_MOS_REQUEST, GET_MO_DETAILS_REQUEST, FILTER_BY_STATUS } from './mo-action-types';
+import { GET_MOS_REQUEST, GET_MO_DETAILS_REQUEST, FILTER_BY_STATUS, SEARCH_MO } from './mo-action-types';
 import { showAppLoading } from '../../app/containers/app-actions';
 import api from '../../utils/api';
 
-function* getMos({ payload: { status, pageNo } }) {
+function* getMos({ payload: { statusFilter, pageNo, searchTerm } }) {
   try {
     yield put(showAppLoading(true));
 
     const pageSize = (pageNo || 1) * 10;
 
-    const qs = encodeURI(`pageSize=${pageSize}&${status ? `status=${status}` : ''}&pageNo=1`);
+    const qs = encodeURI(
+      `pageSize=${pageSize}${searchTerm ? `&keyWord=${searchTerm}` : ''}${
+        statusFilter ? `&status=${statusFilter}` : ''
+      }&pageNo=1`,
+    );
 
     const result = yield call(api, { endpoint: `mos?${qs}` });
 
@@ -41,8 +45,7 @@ function* getMoDetails({ payload }) {
   }
 }
 
-
 export default [
-  takeLatest([GET_MOS_REQUEST, FILTER_BY_STATUS], getMos),
+  takeLatest([GET_MOS_REQUEST, FILTER_BY_STATUS, SEARCH_MO], getMos),
   takeLatest(GET_MO_DETAILS_REQUEST, getMoDetails),
 ];

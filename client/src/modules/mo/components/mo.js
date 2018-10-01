@@ -13,15 +13,17 @@ class MO extends Component {
     getMosRequest: PropTypes.func.isRequired,
     getMoDetailsRequest: PropTypes.func.isRequired,
     filterByStatus: PropTypes.func.isRequired,
+    searchMo: PropTypes.func.isRequired,
     unselectMachine: PropTypes.func.isRequired,
   };
   state = {
     selectedMoId: null,
     statusFilter: '',
+    searchTerm: '',
   };
 
   componentDidMount() {
-    this.props.getMosRequest({ status: this.state.statusFilter, pageNo: 1 });
+    this.props.getMosRequest({ pageNo: 1 });
   }
 
   handleDialogOpen = () => {
@@ -38,7 +40,16 @@ class MO extends Component {
 
   handleFilterByStatus = (statusFilter) => {
     this.setState({ statusFilter, selectedMoId: null }, () => {
-      this.props.filterByStatus({ status: this.state.statusFilter });
+      const { searchTerm } = this.state;
+      this.props.filterByStatus({ statusFilter, searchTerm });
+      this.props.unselectMachine();
+    });
+  };
+
+  handleSearch = () => {
+    this.setState({ selectedMoId: null }, () => {
+      const { statusFilter, searchTerm } = this.state;
+      this.props.searchMo({ statusFilter, searchTerm });
       this.props.unselectMachine();
     });
   };
@@ -55,6 +66,10 @@ class MO extends Component {
     });
   };
 
+  handleSearchTermChange = (searchTerm) => {
+    this.setState({ searchTerm });
+  }
+
   render() {
     const { mos, selectedMo } = this.props;
     return (
@@ -69,6 +84,9 @@ class MO extends Component {
                 onSelectMo={this.handleSelectMo}
                 selectedMoId={this.state.selectedMoId}
                 onFilterByStatus={this.handleFilterByStatus}
+                onSearch={this.handleSearch}
+                onSearchTermChange={this.handleSearchTermChange}
+                searchTerm={this.state.searchTerm}
               />
             </Row.Col>
             <Row.Col sm={6} md={6} style={{ paddingLeft: 0, paddingRight: 0, zIndex: 7 }}>

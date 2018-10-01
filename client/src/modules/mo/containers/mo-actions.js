@@ -9,6 +9,7 @@ import {
   GET_MO_DETAILS_REQUEST,
   FILTER_BY_STATUS,
   UNSELECT_MACHINE,
+  SEARCH_MO,
 } from './mo-action-types';
 
 export const { getMosRequest, getMosSuccess, getMosFail } = createAsyncActions(
@@ -24,6 +25,8 @@ export const { getMoDetailsRequest, getMoDetailsSuccess, getMoDetailsFail } = cr
 );
 
 export const filterByStatus = createAction(FILTER_BY_STATUS);
+
+export const searchMo = createAction(SEARCH_MO);
 
 export const unselectMachine = createAction(UNSELECT_MACHINE);
 
