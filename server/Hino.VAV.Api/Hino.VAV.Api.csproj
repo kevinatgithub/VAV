@@ -5,6 +5,7 @@
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <CodeAnalysisRuleSet>./../StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <UserSecretsId>3b7d0d6b-1507-4c14-95c5-1f5e3db2d59d</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

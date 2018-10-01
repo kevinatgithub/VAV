@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Hino.VAV.Api.Models;
+using Hino.VAV.Api.Models.BaseResponse;
 using Hino.VAV.Concerns.Common;
+using Hino.VAV.Concerns.Exceptions;
 using Hino.VAV.Managers;
 using Hino.VAV.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -43,11 +45,17 @@ namespace Hino.VAV.Api.Controllers
 
         [HttpGet]
         [Route("api/mos")]
-        public async Task<ActionResult<MoListResponseDto[]>> GetMoList()
+        public async Task<ActionResult<PagedResponse<Mo, MoListResponseDto>>> GetMoList(int pageSize = 10, int pageNo = 1)
         {
-            var result = _mapper.Map<MoListResponseDto[]>(await _moManager.GetMoList());
+            if (pageSize == 0 || pageNo == 0)
+            {
+                throw new AppTechnicalException("InvalidPagination", "Invalid pagination values");
+            }
 
-            return new OkObjectResult(result);
+            var result = await _moManager.GetMoList();
+            var pagedResult = new PagedResponse<Mo, MoListResponseDto>(_mapper, result, pageSize, pageNo);
+
+            return new OkObjectResult(pagedResult);
         }
     }
 }
