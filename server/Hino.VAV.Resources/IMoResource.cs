@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Hino.VAV.Models;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace Hino.VAV.Resources
 {
@@ -11,7 +13,7 @@ namespace Hino.VAV.Resources
     {
         Task<Mo> GetMo(string id);
 
-        Task<IEnumerable<Mo>> GetMoList();
+        Task<IEnumerable<Mo>> GetMoList(string status, string keyWord);
 
         Task<IEnumerable<MoChassis>> GetChassis(string id);
     }

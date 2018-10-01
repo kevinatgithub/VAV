@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Hino.VAV.Models;
 
@@ -11,7 +12,7 @@ namespace Hino.VAV.Managers
     {
         Task<Mo> GetMo(string id);
 
-        Task<IEnumerable<Mo>> GetMoList();
+        Task<IEnumerable<Mo>> GetMoList(string status = "", string keyWord = "");
 
         Task<IEnumerable<MoChassis>> GetChassis(string id);
     }

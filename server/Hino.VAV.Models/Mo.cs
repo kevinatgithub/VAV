@@ -5,7 +5,7 @@ namespace Hino.VAV.Models
     /// <summary>
     /// Mo information
     /// </summary>
-    public class Mo
+    public class Mo : IEntityRoot
     {
         public string Id { get; set; }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Hino.VAV.Concerns.Common;
 using Hino.VAV.Models;
@@ -35,11 +36,14 @@ namespace Hino.VAV.Engines.Implementation
             return await _moResource.GetMo(id);
         }
 
-        public async Task<IEnumerable<Mo>> GetMoList()
+        public async Task<IEnumerable<Mo>> GetMoList(string status, string keyWord)
         {
             _requestContext?.Logger?.Debug("MoEngine: Getting mo list");
 
-            return await _moResource.GetMoList();
+            status = status == string.Empty ? "%" : status;
+            keyWord = keyWord == string.Empty ? "%" : "%" + keyWord + "%";
+
+            return await _moResource.GetMoList(status, keyWord);
         }
 
         public async Task<IEnumerable<MoChassis>> GetChassis(string id)
