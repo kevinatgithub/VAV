@@ -7,6 +7,7 @@ import {
   GET_BODY_TYPES_REQUEST,
   GET_BODY_TYPES_SUCCESS,
   SELECT_BODY_TYPE,
+  DELETE_BODY_TYPE_SUCCESS,
 } from './settings-action-types';
 
 export const isSavingBodyType = handleActions(
@@ -22,6 +23,7 @@ export const bodyTypes = handleActions(
   {
     [GET_BODY_TYPES_REQUEST]: () => null,
     [GET_BODY_TYPES_SUCCESS]: (_, { payload }) => payload,
+    [DELETE_BODY_TYPE_SUCCESS]: (state, { payload }) => state.filter(bodyType => bodyType.id !== payload),
   },
   null,
 );

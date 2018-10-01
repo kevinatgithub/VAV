@@ -31,6 +31,8 @@ class SideDialog extends Component {
         onClose={onClose}
         title={title}
         backdropClassName='side-dialog-backdrop'
+        transitionName='slide'
+        transitionDuration={300}
       >
         <Div flex={1}>
           <LoadingBar visible={loading} />

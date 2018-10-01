@@ -4,17 +4,31 @@ import styled from 'styled-components';
 import { Button as ButtonRaw, Intent } from '@blueprintjs/core';
 import { marginProps, heightProps, paddingProps } from './styling/styling';
 
-const Button = ({ children, onClick, className, type = 'button', icon, intent, loading, disabled, minimal }) => {
+const Button = ({
+  children,
+  onClick,
+  className,
+  type = 'button',
+  icon,
+  rightIcon,
+  intent,
+  loading,
+  disabled,
+  minimal,
+  large,
+}) => {
   return (
     <ButtonRaw
       onClick={onClick}
       className={className}
       type={type}
       icon={icon}
+      rightIcon={rightIcon}
       intent={intent}
       loading={loading}
       disabled={disabled}
       minimal={minimal}
+      large={large}
     >
       {children}
     </ButtonRaw>
@@ -27,10 +41,12 @@ Button.propTypes = {
   className: PropTypes.string,
   type: PropTypes.oneOf(['button', 'submit', 'reset']),
   icon: PropTypes.string,
+  rightIcon: PropTypes.string,
   intent: PropTypes.oneOf([...Object.values(Intent)]),
   loading: PropTypes.bool,
   disabled: PropTypes.bool,
   minimal: PropTypes.bool,
+  large: PropTypes.bool,
 };
 
 export default styled(Button)`

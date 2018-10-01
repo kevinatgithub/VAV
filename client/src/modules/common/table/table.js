@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Griddle, { plugins, RowDefinition, ColumnDefinition } from 'griddle-react';
+import Griddle, { RowDefinition, ColumnDefinition, plugins } from 'griddle-react';
 import { Icon } from '@blueprintjs/core';
 import PageDropdown from './page-dropdown';
 import tableStyle from './table-style';
@@ -33,6 +33,7 @@ const Table = ({ data, className, children, width }) => {
   return (
     <Wrapper width={width}>
       <Griddle
+        storeKey='id'
         components={{
           PageDropdown,
           Loading: () => <Flex marginTop={15} marginBottom={15}>Loading...</Flex>,

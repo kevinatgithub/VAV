@@ -7,13 +7,22 @@ import {
   GET_BODY_TYPES_SUCCESS,
   GET_BODY_TYPES_FAIL,
   SELECT_BODY_TYPE,
+  DELETE_BODY_TYPE_REQUEST,
+  DELETE_BODY_TYPE_SUCCESS,
+  DELETE_BODY_TYPE_FAIL,
 } from './settings-action-types';
-import { createAsyncActions } from '../../utils/redux-async-actions';
+import { createAsyncActions } from '../../utils/redux-actions';
 
 export const { saveBodyTypeRequest, saveBodyTypeSuccess, saveBodyTypeFail } = createAsyncActions(
   SAVE_BODY_TYPE_REQUEST,
   SAVE_BODY_TYPE_SUCCESS,
   SAVE_BODY_TYPE_FAIL,
+);
+
+export const { deleteBodyTypeRequest, deleteBodyTypeSuccess, deleteBodyTypeFail } = createAsyncActions(
+  DELETE_BODY_TYPE_REQUEST,
+  DELETE_BODY_TYPE_SUCCESS,
+  DELETE_BODY_TYPE_FAIL,
 );
 
 export const { getBodyTypesRequest, getBodyTypesSuccess, getBodyTypesFail } = createAsyncActions(

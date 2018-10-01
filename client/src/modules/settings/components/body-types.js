@@ -13,6 +13,7 @@ class BodyTypes extends Component {
     bodyTypes: PropTypes.array,
     isSavingBodyType: PropTypes.bool.isRequired,
     saveBodyTypeRequest: PropTypes.func.isRequired,
+    deleteBodyTypeRequest: PropTypes.func.isRequired,
     showSideDialog: PropTypes.func.isRequired,
     selectBodyType: PropTypes.func.isRequired,
     selectedBodyType: PropTypes.object,
@@ -53,7 +54,7 @@ class BodyTypes extends Component {
   };
 
   handleDelete = value => () => {
-    console.log(value); //eslint-disable-line
+    this.props.deleteBodyTypeRequest(value);
   };
 
   handleDialogClose = () => {

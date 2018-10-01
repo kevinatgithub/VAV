@@ -22,6 +22,8 @@ import CenterBody from './center-body';
 import Select, { Option } from './select';
 import Aside from './aside';
 import MainContent from './main-content';
+import Row from './row';
+import Spinner from './spinner';
 
 export {
   Div,
@@ -50,4 +52,6 @@ export {
   Option,
   Aside,
   MainContent,
+  Row,
+  Spinner,
 };

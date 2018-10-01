@@ -9,6 +9,7 @@ const Progress = Div.extend`
   border-radius: 2px;
   background-clip: padding-box;
   overflow: hidden;
+  top: ${p => p.top || p.theme.metrics.header};
 
 @-webkit-keyframes indeterminate {
   0% {

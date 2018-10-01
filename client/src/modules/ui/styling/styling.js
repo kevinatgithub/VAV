@@ -28,6 +28,7 @@ export const positionProps = props => css`
 `;
 
 export const widthProps = props => css`
+  ${props.full && 'width: 100%'};
   ${props.width && `width: ${format(props.width)}`};
   ${props.minWidth && `min-width: ${format(props.minWidth)}`};
   ${props.maxWidth && `max-width: ${format(props.maxWidth)}`};
