@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Hino.VAV.Models;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace Hino.VAV.Resources
 {
