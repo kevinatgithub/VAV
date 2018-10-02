@@ -19,7 +19,7 @@ import { moStatuses } from '../../utils/values';
 
 const { Wrapper, Header, Title, Details, SectionTitle } = style;
 
-const MoDetails = ({ mo, onClose }) => {
+const MoDetails = ({ mo, onClose, onShowReleaseToProdPane, releaseToProd }) => {
   const labelClassName = `${Classes.TEXT_MUTED} ${Classes.TEXT_SMALL}`;
   const fileMenu =
     <Menu>
@@ -35,7 +35,7 @@ const MoDetails = ({ mo, onClose }) => {
             {mo.status.trim()}
           </MoStatus>
         </Flex>
-        <Button minimal icon='cross' onClick={onClose} />
+        {!releaseToProd && <Button minimal icon='cross' onClick={onClose} />}
       </Header>
       <Details>
         <Flex fdc aic flex={1}>
@@ -119,20 +119,22 @@ const MoDetails = ({ mo, onClose }) => {
           </Row.Col>
         </Row>
       </CardBody>
+      {!releaseToProd &&
       <CardFooter jcfe paddingBottom={20}>
         {mo.status === moStatuses.IN_PROGRESS &&
         <Popover content={fileMenu} position={Position.BOTTOM_RIGHT} interactionKind={PopoverInteractionKind.CLICK}>
           <Button rightIcon='caret-down' marginRight={5}>
-              Actions
+                Actions
           </Button>
         </Popover>
         }
         {mo.status !== moStatuses.CLOSED &&
-        <Button rightIcon='chevron-right' intent={Intent.PRIMARY}>
-            Release to Production
+        <Button rightIcon='chevron-right' intent={Intent.PRIMARY} onClick={onShowReleaseToProdPane}>
+              Release to Production
         </Button>
         }
       </CardFooter>
+      }
     </Wrapper>
   );
 };
@@ -140,6 +142,8 @@ const MoDetails = ({ mo, onClose }) => {
 MoDetails.propTypes = {
   mo: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
+  onShowReleaseToProdPane: PropTypes.func.isRequired,
+  releaseToProd: PropTypes.bool.isRequired,
 };
 
 export default MoDetails;

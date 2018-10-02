@@ -37,7 +37,13 @@ function* getMoDetails({ payload }) {
 
     const result = yield call(api, { endpoint: `mo/${payload}` });
 
-    yield put(getMoDetailsSuccess({ ...result, date: new Date(result.date).toLocaleDateString() }));
+    yield put(
+      getMoDetailsSuccess({
+        ...result,
+        date: new Date(result.date).toLocaleDateString(),
+        chassisArrivalDate: new Date(result.chassisArrivalDate).toLocaleDateString(),
+      }),
+    );
   } catch (error) {
     yield put(getMoDetailsFail(error));
   } finally {

@@ -5,6 +5,7 @@ import PageContent from '../../common/page-content/page-content';
 import { Div, Row } from '../../ui';
 import MoList from './mo-list';
 import MoDetails from './mo-details';
+import MoProcessing from './mo-processing';
 
 class MO extends Component {
   static propTypes = {
@@ -20,6 +21,7 @@ class MO extends Component {
     selectedMoId: null,
     statusFilter: '',
     searchTerm: '',
+    showReleaseToProdPane: false,
   };
 
   componentDidMount() {
@@ -35,7 +37,7 @@ class MO extends Component {
   };
 
   handleLoadMoreMos = (pageNo) => {
-    this.props.getMosRequest({ status: this.state.statusFilter, pageNo });
+    this.props.getMosRequest({ statusFilter: this.state.statusFilter, pageNo });
   };
 
   handleFilterByStatus = (statusFilter) => {
@@ -68,10 +70,19 @@ class MO extends Component {
 
   handleSearchTermChange = (searchTerm) => {
     this.setState({ searchTerm });
-  }
+  };
+
+  handleShowReleaseToProdPane = () => {
+    this.setState({ showReleaseToProdPane: true });
+  };
+
+  handleHidwReleaseToProdPane = () => {
+    this.setState({ showReleaseToProdPane: false });
+  };
 
   render() {
     const { mos, selectedMo } = this.props;
+    const { showReleaseToProdPane, searchTerm } = this.state;
     return (
       <PageContent paddingLess>
         <DocumentTitle pageTitle='Manufacturing Orders' />
@@ -83,14 +94,26 @@ class MO extends Component {
                 onLoadMore={this.handleLoadMoreMos}
                 onSelectMo={this.handleSelectMo}
                 selectedMoId={this.state.selectedMoId}
+                searchTerm={searchTerm}
                 onFilterByStatus={this.handleFilterByStatus}
                 onSearch={this.handleSearch}
                 onSearchTermChange={this.handleSearchTermChange}
-                searchTerm={this.state.searchTerm}
+                onShowReleaseToProdPane={this.handleShowReleaseToProdPane}
               />
             </Row.Col>
-            <Row.Col sm={6} md={6} style={{ paddingLeft: 0, paddingRight: 0, zIndex: 7 }}>
-              {selectedMo && <MoDetails mo={selectedMo} onClose={this.handleMoDetailsClose} />}
+            <Row.Col sm={6} md={5} style={{ paddingLeft: 0, paddingRight: 0, zIndex: 7 }}>
+              {selectedMo &&
+                <MoDetails
+                  mo={selectedMo}
+                  onClose={this.handleMoDetailsClose}
+                  onShowReleaseToProdPane={this.handleShowReleaseToProdPane}
+                  releaseToProd={showReleaseToProdPane}
+                />
+              }
+            </Row.Col>
+            <Row.Col sm={12} md={4} style={{ paddingLeft: 0, paddingRight: 0, zIndex: 8 }}>
+              {showReleaseToProdPane &&
+                selectedMo && <MoProcessing mo={selectedMo} onClose={this.handleHidwReleaseToProdPane} />}
             </Row.Col>
           </Row>
         </Div>
