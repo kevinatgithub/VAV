@@ -31,8 +31,8 @@ const MoDetails = ({ mo, onClose, onShowReleaseToProdPane, releaseToProd }) => {
       <Header>
         <Flex flex={1} aic>
           <Title>{mo.id}</Title>
-          <MoStatus round intent={MoStatus.getStatusIntent(mo.status.trim())}>
-            {mo.status.trim()}
+          <MoStatus round intent={MoStatus.getStatusIntent(mo.status)}>
+            {mo.status}
           </MoStatus>
         </Flex>
         {!releaseToProd && <Button minimal icon='cross' onClick={onClose} />}

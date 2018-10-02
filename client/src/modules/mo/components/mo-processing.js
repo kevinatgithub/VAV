@@ -56,7 +56,7 @@ const MoProcessing = ({ mo, onProcess, onClose }) => {
                 <Button marginRight={5} onClick={onClose}>
               Cancel
                 </Button>
-                <Button icon='floppy-disk' intent={Intent.SUCCESS} type='submit'>
+                <Button icon='barcode' intent={Intent.SUCCESS} type='submit'>
               Process
                 </Button>
               </Flex>

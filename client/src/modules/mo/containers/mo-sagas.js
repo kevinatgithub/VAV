@@ -20,7 +20,11 @@ function* getMos({ payload: { statusFilter, pageNo, searchTerm } }) {
 
     const formattedResult = result && {
       ...result,
-      result: result.result.map(r => ({ ...r, date: new Date(r.date).toLocaleDateString() })),
+      result: result.result.map(r => ({
+        ...r,
+        date: new Date(r.date).toLocaleDateString(),
+        status: r.status && r.status.trim(),
+      })),
     };
 
     yield put(getMosSuccess(formattedResult));
@@ -41,6 +45,7 @@ function* getMoDetails({ payload }) {
       getMoDetailsSuccess({
         ...result,
         date: new Date(result.date).toLocaleDateString(),
+        status: result.status && result.status.trim(),
         chassisArrivalDate: new Date(result.chassisArrivalDate).toLocaleDateString(),
       }),
     );

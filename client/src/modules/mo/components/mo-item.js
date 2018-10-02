@@ -18,8 +18,8 @@ const MoItem = ({ mo, onSelectMo, selectedMoId }) => {
             {mo.date}
           </Span>
         </Flex>
-        <MoStatus round intent={MoStatus.getStatusIntent(mo.status.trim())}>
-          {mo.status.trim()}
+        <MoStatus round intent={MoStatus.getStatusIntent(mo.status)}>
+          {mo.status}
         </MoStatus>
       </Flex>
       <StatWrapper paddingTop={10}>
