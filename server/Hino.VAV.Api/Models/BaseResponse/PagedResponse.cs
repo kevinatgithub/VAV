@@ -20,7 +20,9 @@ namespace Hino.VAV.Api.Models.BaseResponse
         {
             var totalRecords = entity.Count();
             TotalPages = totalRecords == 0 ? 0
-                : (totalRecords / pageSize) == 0 ? (totalRecords / pageSize) + 1 : (totalRecords / pageSize);
+                : (totalRecords / pageSize);
+
+            TotalPages = totalRecords % pageSize != 0 ? TotalPages + 1 : TotalPages;
 
             _mapper = mapper;
             Page = pageNo;
