@@ -16,7 +16,7 @@ namespace Hino.VAV.Api.AppStart
                     fileContext.Context.Response.Headers.Add("Referrer-Policy", "strict-origin");
                     fileContext.Context.Response.Headers.Add(
                         "Content-Security-Policy",
-                        @"default-src 'self' ; script-src 'self' ; style-src 'self' 'unsafe-inline' ; img-src 'self' ; font-src 'self' ;");
+                        @"default-src 'self' ; script-src https://* ; style-src https://* 'unsafe-inline' ; img-src https://* data; font-src https://* ;");
                     if (!fileContext.Context.Request.Host.Host.Equals("localhost"))
                     {
                         fileContext.Context.Response.Headers.Add("Strict-Transport-Security", "max-age=31536000");
