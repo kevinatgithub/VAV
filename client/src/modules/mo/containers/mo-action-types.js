@@ -12,6 +12,8 @@ export const {
   GET_MO_DETAILS_FAIL,
 } = createAsyncActionTypes('GET_MO_DETAILS');
 
+export const MO_RESET = 'MO_RESET';
+
 export const FILTER_BY_STATUS = 'FILTER_BY_STATUS';
 
 export const SEARCH_MO = 'SEARCH_MO';

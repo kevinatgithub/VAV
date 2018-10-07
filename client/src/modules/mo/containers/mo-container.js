@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import MO from '../components/mo';
-import { getMosRequest, getMoDetailsRequest, filterByStatus, unselectMachine, searchMo } from './mo-actions';
+import { getMosRequest, getMoDetailsRequest, filterByStatus, unselectMachine, searchMo, resetMo } from './mo-actions';
 
 const mapStateToProps = ({ mo }) => ({
   mos: mo.mos,
@@ -13,6 +13,7 @@ const mapDispatchToProps = {
   filterByStatus,
   searchMo,
   unselectMachine,
+  resetMo,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MO);

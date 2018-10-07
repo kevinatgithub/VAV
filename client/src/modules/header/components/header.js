@@ -27,7 +27,7 @@ const Header = () => {
         <NavbarHeading>
           <Image src={images.hinoLogo} width={134} height={'auto'} />
           <Span fontSize={17} fontWeight={'bold'} marginLeft={8}>
-              VAVB
+              VALV
           </Span>
           <Span marginLeft={8} marginTop={0} fontSize={13}>v1.0</Span>
         </NavbarHeading>

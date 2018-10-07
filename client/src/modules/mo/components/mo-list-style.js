@@ -13,12 +13,22 @@ import { Flex } from '../../ui';
 const Wrapper = Flex.extend`
   flex-direction: column;
   height: 100%;
+  box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.15), 0 0 0 rgba(16, 22, 26, 0), 0 0 0 rgba(16, 22, 26, 0);
+  background: #fff;
+`;
+
+const Header = Flex.extend`
+  flex-direction: column;
+  flex-shrink: 0;
+
+  margin: 0 1px;
 `;
 
 const Item = styled(Card)`
   flex-direction: column;
   background-color: ${Colors.WHITE};
   border-radius: 0;
+  padding: 18px;
 
   &.bp3-active, &:active, &:focus {
     background-color: ${p => p.theme.color.background};
@@ -30,7 +40,7 @@ const Title = styled(H5)`
 `;
 
 const ControlGroup = styled(ControlGroupRaw)`
-  padding: 0 2px 2px;
+  padding: 0 4px 2px;
   display: flex;
   flex-shrink: 0;
 
@@ -69,6 +79,7 @@ const InfiniteScroll = styled(InfiniteScrollRaw)`
 
 export default {
   Wrapper,
+  Header,
   Item,
   Title,
   ControlGroup,

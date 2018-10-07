@@ -10,6 +10,7 @@ import {
   FILTER_BY_STATUS,
   UNSELECT_MACHINE,
   SEARCH_MO,
+  MO_RESET,
 } from './mo-action-types';
 
 export const { getMosRequest, getMosSuccess, getMosFail } = createAsyncActions(
@@ -23,6 +24,8 @@ export const { getMoDetailsRequest, getMoDetailsSuccess, getMoDetailsFail } = cr
   GET_MO_DETAILS_SUCCESS,
   GET_MO_DETAILS_FAIL,
 );
+
+export const resetMo = createAction(MO_RESET);
 
 export const filterByStatus = createAction(FILTER_BY_STATUS);
 

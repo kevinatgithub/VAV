@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { NonIdealState } from '@blueprintjs/core';
 import DocumentTitle from '../../common/document-title/document-title';
 import PageContent from '../../common/page-content/page-content';
-import { Div, Row } from '../../ui';
+import { Div, Row, CenterBody, Flex } from '../../ui';
 import MoList from './mo-list';
 import MoDetails from './mo-details';
 import MoProcessing from './mo-processing';
@@ -16,6 +17,7 @@ class MO extends Component {
     filterByStatus: PropTypes.func.isRequired,
     searchMo: PropTypes.func.isRequired,
     unselectMachine: PropTypes.func.isRequired,
+    resetMo: PropTypes.func.isRequired,
   };
   state = {
     selectedMoId: null,
@@ -26,6 +28,10 @@ class MO extends Component {
 
   componentDidMount() {
     this.props.getMosRequest({ pageNo: 1 });
+  }
+
+  componentWillUnmount() {
+    this.props.resetMo();
   }
 
   handleDialogOpen = () => {
@@ -41,7 +47,7 @@ class MO extends Component {
   };
 
   handleFilterByStatus = (statusFilter) => {
-    this.setState({ statusFilter, selectedMoId: null }, () => {
+    this.setState({ statusFilter, selectedMoId: null, showReleaseToProdPane: false }, () => {
       const { searchTerm } = this.state;
       this.props.filterByStatus({ statusFilter, searchTerm });
       this.props.unselectMachine();
@@ -49,7 +55,7 @@ class MO extends Component {
   };
 
   handleSearch = () => {
-    this.setState({ selectedMoId: null }, () => {
+    this.setState({ selectedMoId: null, showReleaseToProdPane: false }, () => {
       const { statusFilter, searchTerm } = this.state;
       this.props.searchMo({ statusFilter, searchTerm });
       this.props.unselectMachine();
@@ -57,7 +63,7 @@ class MO extends Component {
   };
 
   handleSelectMo = (mo) => {
-    this.setState({ selectedMoId: mo.id }, () => {
+    this.setState({ selectedMoId: mo.id, showReleaseToProdPane: false }, () => {
       this.props.getMoDetailsRequest(mo.id);
     });
   };
@@ -83,6 +89,8 @@ class MO extends Component {
   render() {
     const { mos, selectedMo } = this.props;
     const { showReleaseToProdPane, searchTerm } = this.state;
+    const rowStyle = { paddingLeft: 0, paddingRight: 0, zIndex: 7 };
+
     return (
       <PageContent paddingLess>
         <DocumentTitle pageTitle='Manufacturing Orders' />
@@ -101,20 +109,36 @@ class MO extends Component {
                 onShowReleaseToProdPane={this.handleShowReleaseToProdPane}
               />
             </Row.Col>
-            <Row.Col sm={6} md={5} style={{ paddingLeft: 0, paddingRight: 0, zIndex: 7 }}>
-              {selectedMo &&
+            {selectedMo &&
+              <Row.Col sm={6} md={5} style={rowStyle}>
                 <MoDetails
                   mo={selectedMo}
                   onClose={this.handleMoDetailsClose}
                   onShowReleaseToProdPane={this.handleShowReleaseToProdPane}
                   releaseToProd={showReleaseToProdPane}
                 />
-              }
-            </Row.Col>
-            <Row.Col sm={12} md={4} style={{ paddingLeft: 0, paddingRight: 0, zIndex: 8 }}>
-              {showReleaseToProdPane &&
-                selectedMo && <MoProcessing mo={selectedMo} onClose={this.handleHidwReleaseToProdPane} />}
-            </Row.Col>
+              </Row.Col>
+            }
+            {showReleaseToProdPane &&
+              selectedMo &&
+                <Row.Col sm={12} md={4} style={rowStyle}>
+                  <MoProcessing mo={selectedMo} onClose={this.handleHidwReleaseToProdPane} />
+                </Row.Col>
+            }
+            {!selectedMo &&
+              (mos && mos.result.length > 0) &&
+                <Row.Col sm={12} md={9} style={rowStyle}>
+                  <CenterBody>
+                    <Flex fdr jcc>
+                      <NonIdealState
+                        icon='info-sign'
+                        title='Hey, there!'
+                        description={'You can select an MO on the list to view details and start processing.'}
+                      />
+                    </Flex>
+                  </CenterBody>
+                </Row.Col>
+            }
           </Row>
         </Div>
       </PageContent>

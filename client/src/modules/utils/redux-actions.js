@@ -26,5 +26,5 @@ export function createAsyncActions(requestActionType, successActionType, failAct
 }
 
 export function handleActionsWithReset(reducerMap, initialState, resetActionType) {
-  return handleActions({ ...reducerMap, [resetActionType]: initialState }, initialState);
+  return handleActions({ ...reducerMap, [resetActionType]: () => initialState }, initialState);
 }

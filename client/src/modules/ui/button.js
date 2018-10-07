@@ -16,6 +16,7 @@ const Button = ({
   disabled,
   minimal,
   large,
+  fill,
 }) => {
   return (
     <ButtonRaw
@@ -29,6 +30,7 @@ const Button = ({
       disabled={disabled}
       minimal={minimal}
       large={large}
+      fill={fill}
     >
       {children}
     </ButtonRaw>
@@ -47,6 +49,7 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   minimal: PropTypes.bool,
   large: PropTypes.bool,
+  fill: PropTypes.bool,
 };
 
 export default styled(Button)`

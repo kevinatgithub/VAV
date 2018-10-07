@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroller';
-import { InputGroup } from '@blueprintjs/core';
-import { Flex, Span, Select, Button, Spinner } from '../../ui';
+import { InputGroup, Classes } from '@blueprintjs/core';
+import { Flex, Span, Select, Spinner } from '../../ui';
 import styles from './mo-list-style';
 import MoItem from './mo-item';
 import { moStatuses } from '../../utils/values';
@@ -34,23 +34,22 @@ const MoList = ({ mos, onLoadMore, onFilterByStatus, onSearchTermChange, onSearc
 
   return (
     mos &&
-      <Wrapper>
+      <Wrapper className={Classes.ELEVATION_2}>
         <SectionTitle>Manufacturing Orders</SectionTitle>
         <ControlGroup>
-          <Select options={statusOptions} onChange={handleStatusFilterChange} />
           <InputGroup
-            placeholder='Search...'
+            placeholder='Enter a keyword to search...'
             value={searchTerm}
             onChange={handleSearchTermChange}
             onKeyPress={handleKeyPress}
           />
-          <Button icon='search' onClick={onSearch} />
+          <Select options={statusOptions} onChange={handleStatusFilterChange} />
         </ControlGroup>
-        <Flex fdc overflowY={'auto'} padding={1}>
+        <Flex fdc overflowY={'auto'}>
           <InfiniteScroll
             pageStart={1}
             loadMore={onLoadMore}
-            threshold={180}
+            threshold={200}
             hasMore={mos.page < mos.totalPages}
             loader={
               <Flex key={0} jcc aic padding={10}>

@@ -32,31 +32,27 @@ const MoProcessing = ({ mo, onProcess, onClose }) => {
           onSubmit={onProcess}
           validationSchema={validationSchema}
           render={() =>
-            <Form style={{ width: '100%', display: 'flex', flexDirection: 'column', flex: 1 }}>
-              <Flex fdc flex={1}>
-                <Field
-                  type='text'
-                  name='specialProject'
-                  label='Special Project'
-                  component={FormGroupSwitch}
-                  inline
-                  optional
-                />
-                <FormGroup
-                  label='Select Chassis Numbers'
-                  labelFor='selectChassis'
-                  inline
-                >
-                  {mo && mo.chassis.map(c =>
-                    <Checkbox key={c} label={c} />,
-                  ) }
-                </FormGroup>
-              </Flex>
-              <Flex paddingBottom={20} fdr jcfe>
-                <Button marginRight={5} onClick={onClose}>
-              Cancel
-                </Button>
-                <Button icon='barcode' intent={Intent.SUCCESS} type='submit'>
+            <Form style={{ width: '100%' }}>
+              <Field
+                type='text'
+                name='specialProject'
+                label='Special Project'
+                component={FormGroupSwitch}
+                inline
+                optional
+              />
+              <FormGroup
+                label='Select Chassis Numbers'
+                labelFor='selectChassis'
+                inline
+              >
+                {mo && mo.chassis.map(c =>
+                  <Checkbox key={c} label={c} />,
+                ) }
+              </FormGroup>
+
+              <Flex paddingTop={50} fdr jcfe>
+                <Button fill large icon='tick-circle' intent={Intent.SUCCESS} type='submit'>
               Process
                 </Button>
               </Flex>
