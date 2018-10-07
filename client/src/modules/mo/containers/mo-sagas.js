@@ -24,6 +24,7 @@ function* getMos({ payload: { statusFilter, pageNo, searchTerm } }) {
         ...r,
         date: new Date(r.date).toLocaleDateString(),
         status: r.status && r.status.trim(),
+        chassisHit: ['12345', '43245'],
       })),
     };
 

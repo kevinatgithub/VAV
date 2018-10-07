@@ -5,6 +5,7 @@ import {
   ControlGroup as ControlGroupRaw,
   Divider as DividerRaw,
   H3,
+  Icon,
 } from '@blueprintjs/core';
 import InfiniteScrollRaw from 'react-infinite-scroller';
 import styled from 'styled-components';
@@ -77,6 +78,11 @@ const InfiniteScroll = styled(InfiniteScrollRaw)`
   overflow-y: auto;
 `;
 
+const ChassisInfoIcon = styled(Icon)`
+  margin-right: 4px;
+  margin-top: 1px;
+`;
+
 export default {
   Wrapper,
   Header,
@@ -88,4 +94,5 @@ export default {
   Divider,
   SectionTitle,
   InfiniteScroll,
+  ChassisInfoIcon,
 };
