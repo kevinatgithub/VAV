@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import LoginComponent from '../components/login.component';
-import { getUserRequest } from '../../user/containers/user-actions';
 
 /**
  * Higher order function that will validate authentication before rendering component
@@ -14,7 +13,6 @@ export default function(ComposedComponent) {
   });
 
   const mapDispatchToProps = {
-    getUserRequest,
   };
 
   return connect(mapStateToProps, mapDispatchToProps)(LoginComponent);
