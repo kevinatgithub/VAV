@@ -6,9 +6,9 @@ import LoginComponent from '../components/login.component';
  * @param {Component} ComposedComponent Component that will be rendered after successful authentication
  */
 export default function(ComposedComponent) {
-  const mapStateToProps = state => ({
-    userDetails: state.user.details,
-    userLoading: state.user.loading,
+  const mapStateToProps = () => ({
+    userDetails: null,
+    userLoading: null,
     composedComponent: ComposedComponent,
   });
 

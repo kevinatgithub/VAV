@@ -11,3 +11,5 @@ export const moStatuses = {
   IN_PROGRESS: 'InProgress',
   NEW: 'New',
 };
+
+export const TRANSITION_TIMEOUT = 300;

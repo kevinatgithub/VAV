@@ -46,7 +46,7 @@ injectGlobal`
   }
   .fade-enter-active, .fade-appear-active {
     opacity: 1;
-    transition: opacity 500ms ease-in;
+    transition: opacity 300ms ease-in;
   }
   .fade-exit {
     opacity: 1;

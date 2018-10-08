@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Intent, FormGroup, Checkbox, Classes } from '@blueprintjs/core';
+import { Intent, Classes } from '@blueprintjs/core';
 import { Formik, Form, Field } from 'formik';
 import * as yup from 'yup';
 import FormGroupSwitch from 'common/x-form/components/form-group-switch';
+import FormCheckboxGroup from 'common/x-form/components/form-checkbox-group';
 import { Flex, Button } from '../../ui';
 import style from './mo-details-style';
 import { CardBody } from '../../ui/card';
@@ -11,10 +12,7 @@ import { CardBody } from '../../ui/card';
 const { Wrapper, Header, Title } = style;
 
 const validationSchema = yup.object().shape({
-  chassisNumbers: yup
-    .string()
-    .max(150, 'Should not exceed 150 characters')
-    .required('Code is required'),
+  selectedChassisNumbers: yup.string().required('At least 1 chassis number is required'),
 });
 
 const MoProcessing = ({ mo, onProcess, onClose }) => {
@@ -28,10 +26,10 @@ const MoProcessing = ({ mo, onProcess, onClose }) => {
       </Header>
       <CardBody>
         <Formik
-          initialValues={{ specialProject: false, chassisNumbers: '' }}
+          initialValues={{ specialProject: false, selectedChassisNumbers: [''] }}
           onSubmit={onProcess}
           validationSchema={validationSchema}
-          render={() =>
+          render={({ dirty }) =>
             <Form style={{ width: '100%' }}>
               <Field
                 type='text'
@@ -41,19 +39,19 @@ const MoProcessing = ({ mo, onProcess, onClose }) => {
                 inline
                 optional
               />
-              <FormGroup
-                label='Select Chassis Numbers'
-                labelFor='selectChassis'
+              <Field
+                name='selectedChassisNumbers'
+                label='Select Chassis Number(s)'
+                component={FormCheckboxGroup}
                 inline
-              >
-                {mo && mo.chassis.map(c =>
-                  <Checkbox key={c} label={c} />,
-                ) }
-              </FormGroup>
-
+                options={mo.chassis.map(c => ({ value: c, label: c }))}
+              />
               <Flex paddingTop={50} fdr jcfe>
-                <Button fill large icon='tick-circle' intent={Intent.SUCCESS} type='submit'>
-              Process
+                <Button
+                  fill large icon='tick-circle' intent={Intent.SUCCESS} type='submit'
+                  disabled={!dirty}
+                >
+                  Process
                 </Button>
               </Flex>
             </Form>

@@ -21,6 +21,7 @@ const { Wrapper, Header, Title, Details, SectionTitle } = style;
 
 const MoDetails = ({ mo, onClose, onShowReleaseToProdPane, releaseToProd }) => {
   const labelClassName = `${Classes.TEXT_MUTED} ${Classes.TEXT_SMALL}`;
+  const sectionRowStyles = { marginBottom: 22, flexShrink: 0 };
   const fileMenu =
     <Menu>
       <MenuItem icon='print' text='Re-print' />
@@ -64,66 +65,72 @@ const MoDetails = ({ mo, onClose, onShowReleaseToProdPane, releaseToProd }) => {
         </Flex>
       </Details>
       <CardBody>
-        <SectionTitle>Body</SectionTitle>
-        <Row style={{ paddingBottom: 25 }}>
-          <Row.Col md={6}>
-            <Flex fdc flex={1}>
-              <Span className={Classes.TEXT_MUTED}>Type of Body</Span>
-              <Span marginTop={3}>{mo.typeOfBody}</Span>
-            </Flex>
-          </Row.Col>
-          <Row.Col md={6}>
-            <Flex fdc flex={1}>
-              <Span className={Classes.TEXT_MUTED}>Paint Scheme</Span>
-              <Span marginTop={3}>{mo.paintScheme}</Span>
-            </Flex>
-          </Row.Col>
-        </Row>
-        <Row style={{ paddingBottom: 45 }}>
-          <Row.Col md={6}>
-            <Flex fdc flex={1}>
-              <Span className={Classes.TEXT_MUTED}>Body Dimension</Span>
-              <Span marginTop={3}>{mo.bodyDimension}</Span>
-            </Flex>
-          </Row.Col>
-        </Row>
-        <SectionTitle>Chassis Information</SectionTitle>
-        <Row style={{ paddingBottom: 25 }}>
-          <Row.Col md={6}>
-            <Flex fdc flex={1}>
-              <Span className={Classes.TEXT_MUTED}>Chassis Arrival Date</Span>
-              <Span marginTop={3}>{mo.chassisArrivalDate}</Span>
-            </Flex>
-          </Row.Col>
-          <Row.Col md={6}>
-            <Flex fdc flex={1}>
-              <Span className={Classes.TEXT_MUTED}>Other Instructions</Span>
-              <Span marginTop={3}>{mo.otherInstruction}</Span>
-            </Flex>
-          </Row.Col>
-        </Row>
-        <Row style={{ paddingBottom: 45 }}>
-          <Row.Col md={12}>
-            <Flex fdc flex={1}>
-              <Span className={Classes.TEXT_MUTED}>Chassis Numbers</Span>
-              <Flex marginTop={3}>
-                {mo.chassis.length
-                  ? mo.chassis.map(c =>
-                    <Flex height='auto' key={c} marginRight={6} marginBottom={6}>
-                      <Tag>{c}</Tag>
-                    </Flex>,
-                  )
-                  : 'Not available'}
+        <Flex flexShrink='0' fdc paddingBottom={10}>
+          <SectionTitle>Body</SectionTitle>
+          <Row style={sectionRowStyles}>
+            <Row.Col md={6}>
+              <Flex fdc flex={1}>
+                <Span className={Classes.TEXT_MUTED}>Type of Body</Span>
+                <Span marginTop={3}>{mo.typeOfBody}</Span>
               </Flex>
-            </Flex>
-          </Row.Col>
-        </Row>
-        <SectionTitle>Attachments</SectionTitle>
-        <Row style={{ paddingBottom: 45 }}>
-          <Row.Col md={12}>
+            </Row.Col>
+            <Row.Col md={6}>
+              <Flex fdc flex={1}>
+                <Span className={Classes.TEXT_MUTED}>Paint Scheme</Span>
+                <Span marginTop={3}>{mo.paintScheme}</Span>
+              </Flex>
+            </Row.Col>
+          </Row>
+          <Row style={sectionRowStyles}>
+            <Row.Col md={6}>
+              <Flex fdc flex={1}>
+                <Span className={Classes.TEXT_MUTED}>Body Dimension</Span>
+                <Span marginTop={3}>{mo.bodyDimension}</Span>
+              </Flex>
+            </Row.Col>
+          </Row>
+        </Flex>
+        <Flex flexShrink='0' fdc paddingBottom={10}>
+          <SectionTitle>Chassis Information</SectionTitle>
+          <Row style={sectionRowStyles}>
+            <Row.Col md={6}>
+              <Flex fdc flex={1}>
+                <Span className={Classes.TEXT_MUTED}>Chassis Arrival Date</Span>
+                <Span marginTop={3}>{mo.chassisArrivalDate}</Span>
+              </Flex>
+            </Row.Col>
+            <Row.Col md={6}>
+              <Flex fdc flex={1}>
+                <Span className={Classes.TEXT_MUTED}>Other Instructions</Span>
+                <Span marginTop={3}>{mo.otherInstruction}</Span>
+              </Flex>
+            </Row.Col>
+          </Row>
+          <Row style={sectionRowStyles}>
+            <Row.Col md={12}>
+              <Flex fdc flex={1}>
+                <Span className={Classes.TEXT_MUTED}>Chassis Numbers</Span>
+                <Flex marginTop={3}>
+                  {mo.chassis.length
+                    ? mo.chassis.map(c =>
+                      <Flex height='auto' key={c} marginRight={6} marginBottom={6}>
+                        <Tag>{c}</Tag>
+                      </Flex>,
+                    )
+                    : 'Not available'}
+                </Flex>
+              </Flex>
+            </Row.Col>
+          </Row>
+        </Flex>
+        <Flex flexShrink='0' fdc paddingBottom={10}>
+          <SectionTitle>Attachments</SectionTitle>
+          <Row style={sectionRowStyles}>
+            <Row.Col md={12}>
             Not yet implemented!
-          </Row.Col>
-        </Row>
+            </Row.Col>
+          </Row>
+        </Flex>
       </CardBody>
       {!releaseToProd &&
         <CardFooter jcfe paddingBottom={30}>
