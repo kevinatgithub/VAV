@@ -20,7 +20,7 @@ const AsyncSettings = Loadable({
   loader: () => import(/* webpackChunkName: "settings" */ './modules/settings/containers/settings-container'),
 });
 const AsyncMO = Loadable({
-  loader: () => import(/* webpackChunkName: "mo" */ './modules/mo/containers/mo-container'),
+  loader: () => import(/* webpackChunkName: "mo" */ './modules/mo/mo-container'),
 });
 const AsyncPageNotFound = Loadable({
   loader: () => import(/* webpackChunkName: "page-not-found" */ './modules/common/non-ideal-state/page-not-found'),
@@ -52,4 +52,5 @@ const Routes = () =>
       <MasterRoute component={AsyncPageNotFound} />
     </Switch>
   </Fragment>;
+
 export default Routes;

@@ -12,83 +12,52 @@ class MO extends Component {
   static propTypes = {
     mos: PropTypes.object,
     selectedMo: PropTypes.object,
+    selectedMoId: PropTypes.string,
+    preparingToProcess: PropTypes.bool,
+    setPreparingToProcess: PropTypes.func.isRequired,
     getMosRequest: PropTypes.func.isRequired,
     getMoDetailsRequest: PropTypes.func.isRequired,
     filterByStatus: PropTypes.func.isRequired,
     searchMo: PropTypes.func.isRequired,
-    unselectMachine: PropTypes.func.isRequired,
-    resetMo: PropTypes.func.isRequired,
-  };
-  state = {
-    selectedMoId: null,
-    statusFilter: '',
-    searchTerm: '',
-    showReleaseToProdPane: false,
+    unselectMo: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
-    this.props.getMosRequest({ pageNo: 1 });
+    this.props.getMosRequest(1);
   }
-
-  componentWillUnmount() {
-    this.props.resetMo();
-  }
-
-  handleDialogOpen = () => {
-    this.setState({ dialogOpen: true });
-  };
-
-  handleDialogClose = () => {
-    this.setState({ dialogOpen: false });
-  };
 
   handleLoadMoreMos = (pageNo) => {
-    this.props.getMosRequest({ statusFilter: this.state.statusFilter, pageNo });
+    this.props.getMosRequest(pageNo);
   };
 
   handleFilterByStatus = (statusFilter) => {
-    this.setState({ statusFilter, selectedMoId: null, showReleaseToProdPane: false }, () => {
-      const { searchTerm } = this.state;
-      this.props.filterByStatus({ statusFilter, searchTerm });
-      this.props.unselectMachine();
-    });
+    this.props.filterByStatus(statusFilter);
+    this.props.unselectMo();
   };
 
-  handleSearch = () => {
-    this.setState({ selectedMoId: null, showReleaseToProdPane: false }, () => {
-      const { statusFilter, searchTerm } = this.state;
-      this.props.searchMo({ statusFilter, searchTerm });
-      this.props.unselectMachine();
-    });
+  handleSearch = (searchTerm) => {
+    this.props.searchMo(searchTerm);
+    this.props.unselectMo();
   };
 
   handleSelectMo = (mo) => {
-    this.setState({ selectedMoId: mo.id, showReleaseToProdPane: false }, () => {
-      this.props.getMoDetailsRequest(mo.id);
-    });
+    this.props.getMoDetailsRequest(mo);
   };
 
   handleMoDetailsClose = () => {
-    this.setState({ selectedMoId: null }, () => {
-      this.props.unselectMachine();
-    });
-  };
-
-  handleSearchTermChange = (searchTerm) => {
-    this.setState({ searchTerm });
+    this.props.unselectMo();
   };
 
   handleShowReleaseToProdPane = () => {
-    this.setState({ showReleaseToProdPane: true });
+    this.props.setPreparingToProcess(true);
   };
 
-  handleHidwReleaseToProdPane = () => {
-    this.setState({ showReleaseToProdPane: false });
+  handleHideReleaseToProdPane = () => {
+    this.props.setPreparingToProcess(false);
   };
 
   render() {
-    const { mos, selectedMo } = this.props;
-    const { showReleaseToProdPane, searchTerm } = this.state;
+    const { mos, selectedMo, selectedMoId, preparingToProcess } = this.props;
     const rowStyle = { paddingLeft: 0, paddingRight: 0, zIndex: 7 };
 
     return (
@@ -99,13 +68,11 @@ class MO extends Component {
             <Row.Col sm={6} md={3} style={{ paddingLeft: 0, paddingRight: 0 }}>
               <MoList
                 mos={mos}
+                selectedMoId={selectedMoId}
                 onLoadMore={this.handleLoadMoreMos}
                 onSelectMo={this.handleSelectMo}
-                selectedMoId={this.state.selectedMoId}
-                searchTerm={searchTerm}
                 onFilterByStatus={this.handleFilterByStatus}
                 onSearch={this.handleSearch}
-                onSearchTermChange={this.handleSearchTermChange}
                 onShowReleaseToProdPane={this.handleShowReleaseToProdPane}
               />
             </Row.Col>
@@ -115,14 +82,14 @@ class MO extends Component {
                   mo={selectedMo}
                   onClose={this.handleMoDetailsClose}
                   onShowReleaseToProdPane={this.handleShowReleaseToProdPane}
-                  releaseToProd={showReleaseToProdPane}
+                  releaseToProd={preparingToProcess}
                 />
               </Row.Col>
             }
-            {showReleaseToProdPane &&
+            {preparingToProcess &&
               selectedMo &&
                 <Row.Col sm={12} md={4} style={rowStyle}>
-                  <MoProcessing mo={selectedMo} onClose={this.handleHidwReleaseToProdPane} />
+                  <MoProcessing mo={selectedMo} onClose={this.handleHideReleaseToProdPane} />
                 </Row.Col>
             }
             {!selectedMo &&

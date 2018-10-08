@@ -17,18 +17,14 @@ const statusOptions = [
   { value: moStatuses.NEW, label: MoStatus.getStatusText(moStatuses.NEW) },
 ];
 
-const MoList = ({ mos, onLoadMore, onFilterByStatus, onSearchTermChange, onSearch, searchTerm, ...rest }) => {
+const MoList = ({ mos, onLoadMore, onFilterByStatus, onSearch, ...rest }) => {
   const handleStatusFilterChange = (e) => {
     onFilterByStatus(e.target.value);
   };
 
-  const handleSearchTermChange = (e) => {
-    onSearchTermChange(e.target.value);
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      onSearch();
+  const handleKeyPress = ({ key, target }) => {
+    if (key === 'Enter') {
+      onSearch(target.value);
     }
   };
 
@@ -37,12 +33,7 @@ const MoList = ({ mos, onLoadMore, onFilterByStatus, onSearchTermChange, onSearc
       <Wrapper className={Classes.ELEVATION_2}>
         <SectionTitle>Manufacturing Orders</SectionTitle>
         <ControlGroup>
-          <InputGroup
-            placeholder='Enter a keyword to search...'
-            value={searchTerm}
-            onChange={handleSearchTermChange}
-            onKeyPress={handleKeyPress}
-          />
+          <InputGroup placeholder='Enter a keyword to search...' onKeyPress={handleKeyPress} />
           <Select options={statusOptions} onChange={handleStatusFilterChange} />
         </ControlGroup>
         <Flex fdc overflowY={'auto'}>
@@ -72,12 +63,10 @@ const MoList = ({ mos, onLoadMore, onFilterByStatus, onSearchTermChange, onSearc
 MoList.propTypes = {
   mo: PropTypes.object,
   selectedMoId: PropTypes.string,
-  searchTerm: PropTypes.string.isRequired,
   onLoadMore: PropTypes.func.isRequired,
   onSelectMo: PropTypes.func.isRequired,
   onFilterByStatus: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
-  onSearchTermChange: PropTypes.func.isRequired,
 };
 
 export default MoList;
