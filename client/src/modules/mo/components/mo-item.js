@@ -2,44 +2,55 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Classes } from '@blueprintjs/core';
 import { Flex, Span } from '../../ui';
-import styles from './mo-list-style';
+import S from './mo-list-style';
 import MoStatus from '../../common/mo-status/mo-status';
 
-const { Item, Title, StatWrapper, Stat, Divider } = styles;
+const { Item, Title, StatWrapper, Stat, Divider } = S;
 
 const MoItem = ({ mo, onSelectMo, selectedMoId }) => {
+  const labelClass = `${Classes.TEXT_MUTED} ${Classes.TEXT_SMALL}`;
+
   const handleSelectMo = () => onSelectMo(mo);
   return (
     <Item key={mo.id} interactive onClick={handleSelectMo} className={mo.id === selectedMoId ? Classes.ACTIVE : null}>
-      <Flex marginBottom={15}>
+      <Flex marginBottom={12}>
         <Flex flex={1} fdc>
           <Title>{mo.id}</Title>
-          <Span className={`${Classes.TEXT_MUTED} ${Classes.TEXT_SMALL}`}>
-            {mo.date}
+          <Span className={labelClass}>
+            {mo.dealer} • {mo.customer}
           </Span>
+          {mo.chassisHit &&
+            mo.chassisHit.length > 0 &&
+              <Flex marginTop={4}>
+                <Span className={labelClass}>Chassis found:</Span>
+                <Span marginLeft={5} fontWeight={500} className={Classes.TEXT_SMALL}>
+                  {mo.chassisHit.join(', ')}
+                </Span>
+              </Flex>
+          }
         </Flex>
         <MoStatus round intent={MoStatus.getStatusIntent(mo.status)}>
           {mo.status}
         </MoStatus>
       </Flex>
-      <StatWrapper paddingTop={10}>
+      <StatWrapper paddingTop={6} paddingBottom={6}>
         <Stat>
-          <Span className={Classes.TEXT_MUTED}>Finished Good</Span>
-          <Span fontWeight='500'>
+          <Span className={labelClass}>Finished Good</Span>
+          <Span className={Classes.TEXT_SMALL} fontWeight='500'>
             {mo.completed}/{mo.completed + mo.unReleased + mo.wip}
           </Span>
         </Stat>
         <Divider />
         <Stat>
-          <Span className={Classes.TEXT_MUTED}>WIP</Span>
-          <Span fontWeight='500'>
+          <Span className={labelClass}>WIP</Span>
+          <Span className={Classes.TEXT_SMALL} fontWeight='500'>
             {mo.wip}
           </Span>
         </Stat>
         <Divider />
         <Stat>
-          <Span className={Classes.TEXT_MUTED}>Unreleased</Span>
-          <Span fontWeight='500'>
+          <Span className={labelClass}>Unreleased</Span>
+          <Span className={Classes.TEXT_SMALL} fontWeight='500'>
             {mo.unReleased}
           </Span>
         </Stat>

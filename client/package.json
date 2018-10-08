@@ -89,6 +89,7 @@
   },
   "dependencies": {
     "@blueprintjs/core": "^3.4.0",
+    "@rematch/core": "^1.0.4",
     "axios": "^0.18.0",
     "formik": "^1.1.1",
     "griddle-react": "^1.13.1",

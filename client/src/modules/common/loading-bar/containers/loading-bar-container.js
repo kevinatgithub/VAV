@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import LoadingBar from '../components/loading-bar';
 
 const mapStateToProps = ({ app }) => ({
-  visible: app.appLoading,
+  visible: app.loading,
 });
 
 const mapActionsToProps = {};

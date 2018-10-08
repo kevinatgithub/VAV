@@ -39,7 +39,7 @@ const MoDetails = ({ mo, onClose, onShowReleaseToProdPane, releaseToProd }) => {
       </Header>
       <Details>
         <Flex fdc aic flex={1}>
-          <Span className={labelClassName}>DATE</Span>
+          <Span className={labelClassName}>MO DATE</Span>
           <Span marginTop={3}>{mo.date}</Span>
         </Flex>
         <Divider />
@@ -118,22 +118,28 @@ const MoDetails = ({ mo, onClose, onShowReleaseToProdPane, releaseToProd }) => {
             </Flex>
           </Row.Col>
         </Row>
+        <SectionTitle>Attachments</SectionTitle>
+        <Row style={{ paddingBottom: 45 }}>
+          <Row.Col md={12}>
+            Not yet implemented!
+          </Row.Col>
+        </Row>
       </CardBody>
       {!releaseToProd &&
-      <CardFooter jcfe paddingBottom={20}>
-        {mo.status === moStatuses.IN_PROGRESS &&
-        <Popover content={fileMenu} position={Position.BOTTOM_RIGHT} interactionKind={PopoverInteractionKind.CLICK}>
-          <Button rightIcon='caret-down' marginRight={5}>
-                Actions
+        <CardFooter jcfe paddingBottom={30}>
+          {mo.status === moStatuses.IN_PROGRESS &&
+          <Popover content={fileMenu} position={Position.BOTTOM_RIGHT} interactionKind={PopoverInteractionKind.CLICK}>
+            <Button rightIcon='caret-down' marginRight={5}>
+                  Actions
+            </Button>
+          </Popover>
+          }
+          {mo.status !== moStatuses.CLOSED &&
+          <Button rightIcon='chevron-right' intent={Intent.PRIMARY} onClick={onShowReleaseToProdPane}>
+                Release to Production
           </Button>
-        </Popover>
-        }
-        {mo.status !== moStatuses.CLOSED &&
-        <Button rightIcon='chevron-right' intent={Intent.PRIMARY} onClick={onShowReleaseToProdPane}>
-              Release to Production
-        </Button>
-        }
-      </CardFooter>
+          }
+        </CardFooter>
       }
     </Wrapper>
   );

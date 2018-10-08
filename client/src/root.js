@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import { BrowserRouter as Router } from 'react-router-dom';
-import App from './modules/app/components/app';
+import App from './modules/app/app-container';
 import Routes from './routes';
 import theme from './theme';
 

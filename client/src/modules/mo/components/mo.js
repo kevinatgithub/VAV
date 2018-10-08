@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { NonIdealState } from '@blueprintjs/core';
 import DocumentTitle from '../../common/document-title/document-title';
 import PageContent from '../../common/page-content/page-content';
-import { Div, Row } from '../../ui';
+import { Div, Row, CenterBody, Flex } from '../../ui';
 import MoList from './mo-list';
 import MoDetails from './mo-details';
 import MoProcessing from './mo-processing';
@@ -11,78 +12,54 @@ class MO extends Component {
   static propTypes = {
     mos: PropTypes.object,
     selectedMo: PropTypes.object,
+    selectedMoId: PropTypes.string,
+    preparingToProcess: PropTypes.bool,
+    setPreparingToProcess: PropTypes.func.isRequired,
     getMosRequest: PropTypes.func.isRequired,
     getMoDetailsRequest: PropTypes.func.isRequired,
     filterByStatus: PropTypes.func.isRequired,
     searchMo: PropTypes.func.isRequired,
-    unselectMachine: PropTypes.func.isRequired,
-  };
-  state = {
-    selectedMoId: null,
-    statusFilter: '',
-    searchTerm: '',
-    showReleaseToProdPane: false,
+    unselectMo: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
-    this.props.getMosRequest({ pageNo: 1 });
+    this.props.getMosRequest(1);
   }
 
-  handleDialogOpen = () => {
-    this.setState({ dialogOpen: true });
-  };
-
-  handleDialogClose = () => {
-    this.setState({ dialogOpen: false });
-  };
-
   handleLoadMoreMos = (pageNo) => {
-    this.props.getMosRequest({ statusFilter: this.state.statusFilter, pageNo });
+    this.props.getMosRequest(pageNo);
   };
 
   handleFilterByStatus = (statusFilter) => {
-    this.setState({ statusFilter, selectedMoId: null }, () => {
-      const { searchTerm } = this.state;
-      this.props.filterByStatus({ statusFilter, searchTerm });
-      this.props.unselectMachine();
-    });
+    this.props.filterByStatus(statusFilter);
+    this.props.unselectMo();
   };
 
-  handleSearch = () => {
-    this.setState({ selectedMoId: null }, () => {
-      const { statusFilter, searchTerm } = this.state;
-      this.props.searchMo({ statusFilter, searchTerm });
-      this.props.unselectMachine();
-    });
+  handleSearch = (searchTerm) => {
+    this.props.searchMo(searchTerm);
+    this.props.unselectMo();
   };
 
   handleSelectMo = (mo) => {
-    this.setState({ selectedMoId: mo.id }, () => {
-      this.props.getMoDetailsRequest(mo.id);
-    });
+    this.props.getMoDetailsRequest(mo);
   };
 
   handleMoDetailsClose = () => {
-    this.setState({ selectedMoId: null }, () => {
-      this.props.unselectMachine();
-    });
-  };
-
-  handleSearchTermChange = (searchTerm) => {
-    this.setState({ searchTerm });
+    this.props.unselectMo();
   };
 
   handleShowReleaseToProdPane = () => {
-    this.setState({ showReleaseToProdPane: true });
+    this.props.setPreparingToProcess(true);
   };
 
-  handleHidwReleaseToProdPane = () => {
-    this.setState({ showReleaseToProdPane: false });
+  handleHideReleaseToProdPane = () => {
+    this.props.setPreparingToProcess(false);
   };
 
   render() {
-    const { mos, selectedMo } = this.props;
-    const { showReleaseToProdPane, searchTerm } = this.state;
+    const { mos, selectedMo, selectedMoId, preparingToProcess } = this.props;
+    const rowStyle = { paddingLeft: 0, paddingRight: 0, zIndex: 7 };
+
     return (
       <PageContent paddingLess>
         <DocumentTitle pageTitle='Manufacturing Orders' />
@@ -91,30 +68,44 @@ class MO extends Component {
             <Row.Col sm={6} md={3} style={{ paddingLeft: 0, paddingRight: 0 }}>
               <MoList
                 mos={mos}
+                selectedMoId={selectedMoId}
                 onLoadMore={this.handleLoadMoreMos}
                 onSelectMo={this.handleSelectMo}
-                selectedMoId={this.state.selectedMoId}
-                searchTerm={searchTerm}
                 onFilterByStatus={this.handleFilterByStatus}
                 onSearch={this.handleSearch}
-                onSearchTermChange={this.handleSearchTermChange}
                 onShowReleaseToProdPane={this.handleShowReleaseToProdPane}
               />
             </Row.Col>
-            <Row.Col sm={6} md={5} style={{ paddingLeft: 0, paddingRight: 0, zIndex: 7 }}>
-              {selectedMo &&
+            {selectedMo &&
+              <Row.Col sm={6} md={5} style={rowStyle}>
                 <MoDetails
                   mo={selectedMo}
                   onClose={this.handleMoDetailsClose}
                   onShowReleaseToProdPane={this.handleShowReleaseToProdPane}
-                  releaseToProd={showReleaseToProdPane}
+                  releaseToProd={preparingToProcess}
                 />
-              }
-            </Row.Col>
-            <Row.Col sm={12} md={4} style={{ paddingLeft: 0, paddingRight: 0, zIndex: 8 }}>
-              {showReleaseToProdPane &&
-                selectedMo && <MoProcessing mo={selectedMo} onClose={this.handleHidwReleaseToProdPane} />}
-            </Row.Col>
+              </Row.Col>
+            }
+            {preparingToProcess &&
+              selectedMo &&
+                <Row.Col sm={12} md={4} style={rowStyle}>
+                  <MoProcessing mo={selectedMo} onClose={this.handleHideReleaseToProdPane} />
+                </Row.Col>
+            }
+            {!selectedMo &&
+              (mos && mos.result.length > 0) &&
+                <Row.Col sm={12} md={9} style={rowStyle}>
+                  <CenterBody>
+                    <Flex fdr jcc>
+                      <NonIdealState
+                        icon='info-sign'
+                        title='Hey, there!'
+                        description={'You can select an MO on the list to view details and start processing.'}
+                      />
+                    </Flex>
+                  </CenterBody>
+                </Row.Col>
+            }
           </Row>
         </Div>
       </PageContent>

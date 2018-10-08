@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroller';
-import { InputGroup } from '@blueprintjs/core';
-import { Flex, Span, Select, Button, Spinner } from '../../ui';
+import { InputGroup, Classes } from '@blueprintjs/core';
+import { Flex, Span, Select, Spinner } from '../../ui';
 import styles from './mo-list-style';
 import MoItem from './mo-item';
 import { moStatuses } from '../../utils/values';
@@ -17,40 +17,30 @@ const statusOptions = [
   { value: moStatuses.NEW, label: MoStatus.getStatusText(moStatuses.NEW) },
 ];
 
-const MoList = ({ mos, onLoadMore, onFilterByStatus, onSearchTermChange, onSearch, searchTerm, ...rest }) => {
+const MoList = ({ mos, onLoadMore, onFilterByStatus, onSearch, ...rest }) => {
   const handleStatusFilterChange = (e) => {
     onFilterByStatus(e.target.value);
   };
 
-  const handleSearchTermChange = (e) => {
-    onSearchTermChange(e.target.value);
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      onSearch();
+  const handleKeyPress = ({ key, target }) => {
+    if (key === 'Enter') {
+      onSearch(target.value);
     }
   };
 
   return (
     mos &&
-      <Wrapper>
+      <Wrapper className={Classes.ELEVATION_2}>
         <SectionTitle>Manufacturing Orders</SectionTitle>
         <ControlGroup>
+          <InputGroup placeholder='Enter a keyword to search...' onKeyPress={handleKeyPress} />
           <Select options={statusOptions} onChange={handleStatusFilterChange} />
-          <InputGroup
-            placeholder='Search...'
-            value={searchTerm}
-            onChange={handleSearchTermChange}
-            onKeyPress={handleKeyPress}
-          />
-          <Button icon='search' onClick={onSearch} />
         </ControlGroup>
-        <Flex fdc overflowY={'auto'} padding={1}>
+        <Flex fdc overflowY={'auto'}>
           <InfiniteScroll
             pageStart={1}
             loadMore={onLoadMore}
-            threshold={180}
+            threshold={200}
             hasMore={mos.page < mos.totalPages}
             loader={
               <Flex key={0} jcc aic padding={10}>
@@ -73,12 +63,10 @@ const MoList = ({ mos, onLoadMore, onFilterByStatus, onSearchTermChange, onSearc
 MoList.propTypes = {
   mo: PropTypes.object,
   selectedMoId: PropTypes.string,
-  searchTerm: PropTypes.string.isRequired,
   onLoadMore: PropTypes.func.isRequired,
   onSelectMo: PropTypes.func.isRequired,
   onFilterByStatus: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
-  onSearchTermChange: PropTypes.func.isRequired,
 };
 
 export default MoList;
