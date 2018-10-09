@@ -1,18 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormGroup, Intent, Switch } from '@blueprintjs/core';
+import { Intent, Switch } from '@blueprintjs/core';
+import FormGroup from './form-group';
 
-const FormGroupSwitch = ({ field, form: { touched, errors }, label, optional, inline }) => {
+const FormSwitch = ({ field, form: { touched, errors }, label, optional, inline }) => {
   const { name: fieldName } = field;
 
   return (
     <FormGroup
       label={label}
-      labelFor={fieldName}
+      name={fieldName}
+      optional={optional}
       inline={inline}
-      labelInfo={optional && '(optional)'}
-      helperText={touched[fieldName] && errors[fieldName] && errors[fieldName]}
-      intent={touched[fieldName] && errors[fieldName] && Intent.DANGER}
+      touched={touched}
+      errors={errors}
     >
       <Switch
         {...field}
@@ -23,7 +24,7 @@ const FormGroupSwitch = ({ field, form: { touched, errors }, label, optional, in
   );
 };
 
-FormGroupSwitch.propTypes = {
+FormSwitch.propTypes = {
   field: PropTypes.object,
   touched: PropTypes.object,
   errors: PropTypes.object,
@@ -32,4 +33,4 @@ FormGroupSwitch.propTypes = {
   inline: PropTypes.bool,
 };
 
-export default FormGroupSwitch;
+export default FormSwitch;

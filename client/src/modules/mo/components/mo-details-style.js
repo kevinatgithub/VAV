@@ -40,8 +40,8 @@ const Details = Flex.extend`
 const SectionTitle = styled(H4)`
   box-shadow: 0 1px 0 ${p => p.theme.color.border};
   padding-bottom: 10px;
-  margin-top: 10px;
-  margin-bottom: 20px;
+  margin-top: 5px;
+  margin-bottom: 15px;
 `;
 
 export default {

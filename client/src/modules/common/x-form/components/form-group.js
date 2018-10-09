@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import { FormGroup as FormGroupRaw, Intent, Colors } from '@blueprintjs/core';
 import styled from 'styled-components';
-import { Span } from 'ui';
 import { TRANSITION_TIMEOUT } from 'utils/values';
+import { Div } from '../../../ui';
 
 const StyledFormGroup = styled(FormGroupRaw)`
   .bp3-label {
@@ -23,7 +23,7 @@ const FormGroup = ({ name, touched, errors, label, optional, inline, children })
       helperText={
         hasError &&
           <CSSTransition in={hasError} appear unmountOnExit timeout={TRANSITION_TIMEOUT} classNames='bounce'>
-            <Span>{errors[name]}</Span>
+            <Div>{errors[name]}</Div>
           </CSSTransition>
 
       }

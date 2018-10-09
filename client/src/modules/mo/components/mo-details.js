@@ -41,27 +41,27 @@ const MoDetails = ({ mo, onClose, onShowReleaseToProdPane, releaseToProd }) => {
       <Details>
         <Flex fdc aic flex={1}>
           <Span className={labelClassName}>MO DATE</Span>
-          <Span marginTop={3}>{mo.date}</Span>
+          <Span marginTop={5}>{mo.date}</Span>
         </Flex>
         <Divider />
         <Flex fdc aic flex={1}>
           <Span className={labelClassName}>DEALER</Span>
-          <Span marginTop={3}>{mo.dealer}</Span>
+          <Span marginTop={5}>{mo.dealer}</Span>
         </Flex>
         <Divider />
         <Flex fdc aic flex={1}>
           <Span className={labelClassName}>CUSTOMER</Span>
-          <Span marginTop={3}>{mo.customer}</Span>
+          <Span marginTop={5}>{mo.customer}</Span>
         </Flex>
         <Divider />
         <Flex fdc aic flex={1}>
           <Span className={labelClassName}>CHASSIS MODEL</Span>
-          <Span marginTop={3}>{mo.chassisModel}</Span>
+          <Span marginTop={5}>{mo.chassisModel}</Span>
         </Flex>
         <Divider />
         <Flex fdc aic flex={1}>
           <Span className={labelClassName}>QUANTITY</Span>
-          <Span marginTop={3}>{mo.quantity}</Span>
+          <Span marginTop={5}>{mo.quantity}</Span>
         </Flex>
       </Details>
       <CardBody>
@@ -71,13 +71,13 @@ const MoDetails = ({ mo, onClose, onShowReleaseToProdPane, releaseToProd }) => {
             <Row.Col md={6}>
               <Flex fdc flex={1}>
                 <Span className={Classes.TEXT_MUTED}>Type of Body</Span>
-                <Span marginTop={3}>{mo.typeOfBody}</Span>
+                <Span marginTop={5}>{mo.typeOfBody}</Span>
               </Flex>
             </Row.Col>
             <Row.Col md={6}>
               <Flex fdc flex={1}>
                 <Span className={Classes.TEXT_MUTED}>Paint Scheme</Span>
-                <Span marginTop={3}>{mo.paintScheme}</Span>
+                <Span marginTop={5}>{mo.paintScheme}</Span>
               </Flex>
             </Row.Col>
           </Row>
@@ -85,7 +85,7 @@ const MoDetails = ({ mo, onClose, onShowReleaseToProdPane, releaseToProd }) => {
             <Row.Col md={6}>
               <Flex fdc flex={1}>
                 <Span className={Classes.TEXT_MUTED}>Body Dimension</Span>
-                <Span marginTop={3}>{mo.bodyDimension}</Span>
+                <Span marginTop={5}>{mo.bodyDimension}</Span>
               </Flex>
             </Row.Col>
           </Row>
@@ -96,13 +96,13 @@ const MoDetails = ({ mo, onClose, onShowReleaseToProdPane, releaseToProd }) => {
             <Row.Col md={6}>
               <Flex fdc flex={1}>
                 <Span className={Classes.TEXT_MUTED}>Chassis Arrival Date</Span>
-                <Span marginTop={3}>{mo.chassisArrivalDate}</Span>
+                <Span marginTop={5}>{mo.chassisArrivalDate}</Span>
               </Flex>
             </Row.Col>
             <Row.Col md={6}>
               <Flex fdc flex={1}>
                 <Span className={Classes.TEXT_MUTED}>Other Instructions</Span>
-                <Span marginTop={3}>{mo.otherInstruction}</Span>
+                <Span marginTop={5}>{mo.otherInstruction}</Span>
               </Flex>
             </Row.Col>
           </Row>
@@ -110,7 +110,7 @@ const MoDetails = ({ mo, onClose, onShowReleaseToProdPane, releaseToProd }) => {
             <Row.Col md={12}>
               <Flex fdc flex={1}>
                 <Span className={Classes.TEXT_MUTED}>Chassis Numbers</Span>
-                <Flex marginTop={3}>
+                <Flex marginTop={5}>
                   {mo.chassis.length
                     ? mo.chassis.map(c =>
                       <Flex height='auto' key={c} marginRight={6} marginBottom={6}>

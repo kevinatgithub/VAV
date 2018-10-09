@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { Intent, Classes } from '@blueprintjs/core';
 import { Formik, Form, Field } from 'formik';
 import * as yup from 'yup';
-import FormGroupSwitch from 'common/x-form/components/form-group-switch';
-import FormCheckboxGroup from 'common/x-form/components/form-checkbox-group';
+import { FormCheckboxGroup, FormSwitch } from '../../common/x-form/components';
 import { Flex, Button } from '../../ui';
 import style from './mo-details-style';
 import { CardBody } from '../../ui/card';
@@ -35,7 +34,7 @@ const MoProcessing = ({ mo, onProcess, onClose }) => {
                 type='text'
                 name='specialProject'
                 label='Special Project'
-                component={FormGroupSwitch}
+                component={FormSwitch}
                 inline
                 optional
               />
