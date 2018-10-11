@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Hino.VAV.Api.Models.BaseResponse;
+using Hino.VAV.Models;
 
 namespace Hino.VAV.Api.Models
 {
@@ -22,6 +23,6 @@ namespace Hino.VAV.Api.Models
 
         public int Quantity { get; set; }
 
-        public string[] Chassis { get; set; }
+        public MoChassis[] Chassis { get; set; }
     }
 }
