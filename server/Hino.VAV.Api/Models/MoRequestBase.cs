@@ -21,5 +21,7 @@ namespace Hino.VAV.Api.Models
         public string ChassisModel { get; set; }
 
         public int Quantity { get; set; }
+
+        public string[] Chassis { get; set; }
     }
 }

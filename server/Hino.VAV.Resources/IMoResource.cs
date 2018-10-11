@@ -15,6 +15,14 @@ namespace Hino.VAV.Resources
 
         Task<IEnumerable<Mo>> GetMoList(string status, string keyWord);
 
+        Task<MoChassis> GetChassisDetails(string id);
+
         Task<IEnumerable<MoChassis>> GetChassis(string id);
+
+        Task<IEnumerable<MoChassis>> SearchChassis(string keyWord);
+
+        Task<Mo> UpdateMo(Mo mo);
+
+        Task<MoChassis> UpdateChassis(MoChassis moChassis);
     }
 }

@@ -9,5 +9,9 @@ namespace Hino.VAV.Models
         public string Id { get; set; }
 
         public string MoId { get; set; }
+
+        public bool IsPrinted { get; set; }
+
+        public DateTime PrintDateTime { get; set; }
     }
 }

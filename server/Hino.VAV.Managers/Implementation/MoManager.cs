@@ -38,9 +38,19 @@ namespace Hino.VAV.Managers.Implementation
             return await _moEngine.GetMoList(status, keyWord);
         }
 
+        public async Task<IEnumerable<MoChassis>> SearchChassis(string keyWord)
+        {
+            return await _moEngine.SearchChassis(keyWord);
+        }
+
         public async Task<IEnumerable<MoChassis>> GetChassis(string id)
         {
             return await _moEngine.GetChassis(id);
+        }
+
+        public async Task<Mo> ProcessMo(string id, string[] chassisNumbers)
+        {
+            return await _moEngine.ProcessMo(id, chassisNumbers);
         }
     }
 }
