@@ -15,6 +15,7 @@ export const CardHeader = Flex.extend`
     background: #ffffff;
     min-height: 40px;
     padding-left: 20px;
+    padding-right: 10px;
     align-items: center;
     border-radius: 6px 6px 0 0;
     font-size: 18px;
@@ -29,6 +30,11 @@ export const CardHeader = Flex.extend`
 
 export const CardBody = Flex.extend`
   flex: 1;
+  flex-direction: column;
+  margin: 20px;
+  line-height: 18px;
+`;
+export const CardFooter = Flex.extend`
   margin: 20px;
   line-height: 18px;
 `;

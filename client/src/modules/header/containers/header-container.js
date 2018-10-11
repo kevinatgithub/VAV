@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import Header from '../components/header';
 
-const mapStateToProps = state => ({
-  user: state.user.details,
+const mapStateToProps = () => ({
+  user: null,
 });
 
 const mapDispatchToProps = {

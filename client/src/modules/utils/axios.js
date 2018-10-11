@@ -1,5 +1,5 @@
 import axios from 'axios';
-import authentication from './auth.manager';
+// import authentication from './auth.manager';
 // import config from '../../../config/dev';
 
 /* eslint-disable */
@@ -16,7 +16,7 @@ const instance = axios.create({
 /**
  * Array of url's that does not require a bearer token
  */
-const unauthorizedUrls = ['app', 'register', 'config.json'];
+const unauthorizedUrls = ['mos', 'mo', 'config.json'];
 
 /**
  * Intercept request and put bearer token in header
@@ -27,21 +27,22 @@ instance.interceptors.request.use(config => {
     return null;
   }
 
-  if (unauthorizedUrls.includes(config.url)) {
+  // const [url] = config.url.split('?');
+  // if (unauthorizedUrls.includes(url)) {
     return Promise.resolve(config);
-  }
-  return authentication()
-    .getToken()
-    .then(token => {
-      if (!token) {
-        throw new Error({ response: 'No valid token found' });
-      }
-      config.headers.Authorization = `Bearer ${token}`;
-      return Promise.resolve(config);
-    })
-    .catch(err => {
-      console.log(err);
-    });
+  // }
+  // return authentication()
+  //   .getToken()
+  //   .then(token => {
+  //     if (!token) {
+  //       throw new Error({ response: 'No valid token found' });
+  //     }
+  //     config.headers.Authorization = `Bearer ${token}`;
+  //     return Promise.resolve(config);
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //   });
 });
 
 /**

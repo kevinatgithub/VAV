@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Settings from '../components/settings';
-import { saveBodyTypeRequest, getBodyTypesRequest, selectBodyType } from './settings-actions';
+import { saveBodyTypeRequest, deleteBodyTypeRequest, getBodyTypesRequest, selectBodyType } from './settings-actions';
 import { showSideDialog } from '../../common/side-dialog/containers/side-dialog-actions';
 
 const mapStateToProps = ({ settings }) => ({
@@ -11,6 +11,7 @@ const mapStateToProps = ({ settings }) => ({
 
 const mapDispatchToProps = {
   saveBodyTypeRequest,
+  deleteBodyTypeRequest,
   getBodyTypesRequest,
   showSideDialog,
   selectBodyType,

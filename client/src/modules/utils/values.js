@@ -5,3 +5,11 @@ export const logLevels = {
   WARN: 4,
   ERROR: 5,
 };
+
+export const moStatuses = {
+  CLOSED: 'Closed',
+  IN_PROGRESS: 'InProgress',
+  NEW: 'New',
+};
+
+export const TRANSITION_TIMEOUT = 300;

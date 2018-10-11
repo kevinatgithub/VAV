@@ -14,7 +14,7 @@ const webpackConfig = require('./webpack.config')();
 const config = {
   host: 'localhost',
   port: yargs.argv.production ? 3005 : 3010,
-  proxyUrl: 'https://avr-dev-connect.azurewebsites.net',
+  proxyUrl: 'https://dev-vav.azurewebsites.net',
 };
 const PATHS = {
   dist: path.join(__dirname, 'dist'),

@@ -4,14 +4,15 @@ import loadingBarStyle from './loading-bar-style';
 
 const { Progress, Indeterminate } = loadingBarStyle;
 
-const LoadingBar = ({ visible }) =>
+const LoadingBar = ({ visible, top }) =>
   !!visible &&
-    <Progress>
+    <Progress top={top}>
       <Indeterminate />
     </Progress>;
 
 LoadingBar.propTypes = {
   visible: PropTypes.bool,
+  top: PropTypes.number,
 };
 
 export default LoadingBar;

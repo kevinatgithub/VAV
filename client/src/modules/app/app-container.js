@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { compose } from 'redux';
-import App from '../components/app';
+import App from './components/app';
 
 const mapDispatchToProps = {};
 

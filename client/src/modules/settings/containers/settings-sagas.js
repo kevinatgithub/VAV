@@ -1,8 +1,15 @@
 import { delay } from 'redux-saga';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { Intent } from '@blueprintjs/core';
-import { getBodyTypesSuccess, getBodyTypesFail, saveBodyTypeFail, saveBodyTypeSuccess } from './settings-actions';
-import { SAVE_BODY_TYPE_REQUEST, GET_BODY_TYPES_REQUEST } from './settings-action-types';
+import {
+  getBodyTypesSuccess,
+  getBodyTypesFail,
+  saveBodyTypeFail,
+  saveBodyTypeSuccess,
+  deleteBodyTypeSuccess,
+  deleteBodyTypeFail,
+} from './settings-actions';
+import { SAVE_BODY_TYPE_REQUEST, GET_BODY_TYPES_REQUEST, DELETE_BODY_TYPE_REQUEST } from './settings-action-types';
 import { showAppLoading, showToast } from '../../app/containers/app-actions';
 import { showSideDialog } from '../../common/side-dialog/containers/side-dialog-actions';
 
@@ -56,7 +63,29 @@ function* saveBodyType({ payload }) {
   }
 }
 
+function* deleteBodyType({ payload }) {
+  try {
+    yield call(delay, 3000);
+
+    const result = yield payload;
+
+    yield put(deleteBodyTypeSuccess(result));
+
+    yield put(
+      showToast({
+        intent: Intent.SUCCESS,
+        message: 'Settings has been updated.',
+      }),
+    );
+
+    yield put(showSideDialog(false));
+  } catch (error) {
+    yield put(deleteBodyTypeFail(error));
+  }
+}
+
 export default [
   takeLatest(SAVE_BODY_TYPE_REQUEST, saveBodyType),
   takeLatest(GET_BODY_TYPES_REQUEST, getBodyTypes),
+  takeLatest(DELETE_BODY_TYPE_REQUEST, deleteBodyType),
 ];

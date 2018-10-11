@@ -1,4 +1,4 @@
-import { createAction } from 'redux-actions';
+import { createAction, handleActions } from 'redux-actions';
 
 function underscoreToCamelCase(str) {
   const arr = str.split(/[_-]/);
@@ -23,4 +23,8 @@ export function createAsyncActions(requestActionType, successActionType, failAct
     [underscoreToCamelCase(successActionType)]: createAction(successActionType),
     [underscoreToCamelCase(failActionType)]: createAction(failActionType),
   };
+}
+
+export function handleActionsWithReset(reducerMap, initialState, resetActionType) {
+  return handleActions({ ...reducerMap, [resetActionType]: () => initialState }, initialState);
 }

@@ -4,22 +4,27 @@ import { H2 } from '@blueprintjs/core';
 import { Flex } from '../../ui';
 import theme from '../../../theme';
 
-const PageContent = ({ children, title }) =>
+const PageContent = ({ children, title, paddingLess }) =>
   <Flex
-    fdc paddingLeft={25} paddingRight={25} paddingTop={15} paddingBottom={15}
+    fdc
+    flex={1}
+    overflowY={'auto'}
+    paddingLeft={paddingLess ? 0 : 25}
+    paddingRight={paddingLess ? 0 : 25}
+    paddingTop={paddingLess ? 0 : 15}
+    paddingBottom={paddingLess ? 0 : 15}
     marginLeft={theme.metrics.sidebar}
   >
     <Flex paddingBottom={2}>
-      <H2>{title}</H2>
+      {title && <H2>{title}</H2>}
     </Flex>
-    <Flex>
-      {children}
-    </Flex>
+    <Flex flex={1}>{children}</Flex>
   </Flex>;
 
 PageContent.propTypes = {
   children: PropTypes.node.isRequired,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  paddingLess: PropTypes.bool,
 };
 
 export default PageContent;

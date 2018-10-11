@@ -6,7 +6,7 @@ const color = {
   text: '#333333',
   textInvert: '#fff',
   textLight: '#797979',
-  border: '#e8e8e8',
+  border: 'rgba(16, 22, 26, 0.15)',
 
   accentBlue: '#2493c1',
   accentBlueLight: '#eef3f8',
