@@ -15,5 +15,9 @@ namespace Hino.VAV.Managers
         Task<IEnumerable<Mo>> GetMoList(string status = "", string keyWord = "");
 
         Task<IEnumerable<MoChassis>> GetChassis(string id);
+
+        Task<IEnumerable<MoChassis>> SearchChassis(string keyWord);
+
+        Task<Mo> ProcessMo(string id, string[] chassisNumbers);
     }
 }

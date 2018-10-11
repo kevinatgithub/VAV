@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Hino.VAV.Api.Models;
 using Hino.VAV.Api.Models.BaseResponse;
+using Hino.VAV.Api.Models.Requests;
 using Hino.VAV.Concerns.Common;
 using Hino.VAV.Concerns.Exceptions;
 using Hino.VAV.Managers;
@@ -38,7 +40,7 @@ namespace Hino.VAV.Api.Controllers
             var mo = await _moManager.GetMo(id);
 
             var result = _mapper.Map<MoDetailsResponseDto>(mo);
-            result.Chassis = chassis.Select(s => s.Id).ToArray();
+            result.Chassis = chassis.ToArray();
 
             return new OkObjectResult(result);
         }
@@ -53,9 +55,30 @@ namespace Hino.VAV.Api.Controllers
             }
 
             var result = await _moManager.GetMoList(status, keyWord);
+
+            var chassis = keyWord != "%" ? await _moManager.SearchChassis(keyWord) : null;
+
             var pagedResult = new PagedResponse<Mo, MoListResponseDto>(_mapper, result, pageSize, pageNo);
+            foreach (var p in pagedResult.Result)
+            {
+                var arr = chassis?.Where(c => c.MoId == p.Id).ToArray();
+                p.Chassis = arr?.Length > 0 ? arr : null;
+            }
 
             return new OkObjectResult(pagedResult);
+        }
+
+        [HttpPost]
+        [Route("api/mo")]
+        public async Task<ActionResult<Mo>> ProcessMo([FromBody] MoProcessRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                throw new AppTechnicalException("InvalidMoRequest", "Invalid MO process request");
+            }
+
+            var result = await _moManager.ProcessMo(request.Id, request.ChassisNumbers);
+            return new OkObjectResult(result);
         }
     }
 }

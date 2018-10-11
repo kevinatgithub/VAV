@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Hino.VAV.Concerns;
 using Hino.VAV.Concerns.Common;
+using Hino.VAV.Concerns.Exceptions;
 using Hino.VAV.Models;
 using Hino.VAV.Resources;
 
@@ -46,9 +48,42 @@ namespace Hino.VAV.Engines.Implementation
             return await _moResource.GetMoList(status, keyWord);
         }
 
+        public async Task<IEnumerable<MoChassis>> SearchChassis(string keyWord)
+        {
+            keyWord = keyWord == string.Empty ? "%" : "%" + keyWord + "%";
+
+            return await _moResource.SearchChassis(keyWord);
+        }
+
         public async Task<IEnumerable<MoChassis>> GetChassis(string id)
         {
             return await _moResource.GetChassis(id);
+        }
+
+        public async Task<Mo> ProcessMo(string id, string[] chassisNumbers)
+        {
+            if (chassisNumbers.Length == 0)
+            {
+                throw new AppBusinessException("InvalidChassis", "Unable to process MO without chassis numbers specified");
+            }
+
+            var mo = await _moResource.GetMo(id);
+            mo.Status = MoStatus.InProgress;
+
+            await _moResource.UpdateMo(mo);
+
+            foreach (var c in chassisNumbers)
+            {
+                var chassis = await _moResource.GetChassisDetails(c);
+                chassis.IsPrinted = true;
+                chassis.PrintDateTime = DateTime.UtcNow;
+
+                await _moResource.UpdateChassis(chassis);
+            }
+
+            return mo;
+
+            // TODO signalR printing
         }
     }
 }
