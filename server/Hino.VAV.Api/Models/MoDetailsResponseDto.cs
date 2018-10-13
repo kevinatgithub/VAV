@@ -16,7 +16,5 @@ namespace Hino.VAV.Api.Models
         public DateTime ChassisArrivalDate { get; set; }
 
         public string OtherInstruction { get; set; }
-
-        public string[] Chassis { get; set; }
     }
 }
