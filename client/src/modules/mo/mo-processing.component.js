@@ -38,7 +38,7 @@ function MoProcessing({ mo, processing, onProcess, onClose }) {
                 label='Select Chassis Number(s)'
                 component={FormCheckboxGroup}
                 inline
-                options={mo.chassis.map(c => ({ value: c.id, label: c.id }))}
+                options={mo.chassis.filter(c => !c.isPrinted).map(c => ({ value: c.id, label: c.id }))}
               />
               <Flex paddingTop={50} fdr jcfe>
                 <Button
