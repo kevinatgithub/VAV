@@ -12,6 +12,6 @@ namespace Hino.VAV.Models
 
         public bool IsPrinted { get; set; }
 
-        public DateTime PrintDateTime { get; set; }
+        public DateTime? PrintDateTime { get; set; }
     }
 }
