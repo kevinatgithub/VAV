@@ -7,7 +7,7 @@ import S from './mo-list.style';
 
 const { Item, Title, StatWrapper, Stat, Divider } = S;
 
-const MoItem = ({ mo, onSelectMo, selectedMoId }) => {
+function MoItem({ mo, onSelectMo, selectedMoId }) {
   const labelClass = `${Classes.TEXT_MUTED} ${Classes.TEXT_SMALL}`;
 
   const handleSelectMo = () => onSelectMo(mo);
@@ -19,12 +19,12 @@ const MoItem = ({ mo, onSelectMo, selectedMoId }) => {
           <Span className={labelClass}>
             {mo.dealer} • {mo.customer}
           </Span>
-          {mo.chassisHit &&
-            mo.chassisHit.length > 0 &&
+          {mo.chassis &&
+            mo.chassis.length > 0 &&
               <Flex marginTop={4}>
                 <Span className={labelClass}>Chassis found:</Span>
                 <Span marginLeft={5} fontWeight={500} className={Classes.TEXT_SMALL}>
-                  {mo.chassisHit.join(', ')}
+                  {mo.chassis.map(c => c.id).join(', ')}
                 </Span>
               </Flex>
           }
@@ -57,7 +57,7 @@ const MoItem = ({ mo, onSelectMo, selectedMoId }) => {
       </StatWrapper>
     </Item>
   );
-};
+}
 
 MoItem.propTypes = {
   mo: PropTypes.object.isRequired,

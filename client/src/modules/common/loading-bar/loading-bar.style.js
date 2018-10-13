@@ -11,6 +11,7 @@ const Progress = styled(Div)`
   background-clip: padding-box;
   overflow: hidden;
   top: ${p => p.top || p.theme.metrics.header};
+  z-index: 1;
 
 @-webkit-keyframes indeterminate {
   0% {

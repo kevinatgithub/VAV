@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroller';
 import { InputGroup, Classes } from '@blueprintjs/core';
 import { Flex, Span, Select, Spinner } from 'core/styled';
-import { moStatuses } from 'core/utils/values';
+import { moStatus } from 'core/utils/values';
 import MoStatus from 'modules/common/mo-status/mo-status';
 import styles from './mo-list.style';
 import MoItem from './mo-item.component';
@@ -12,12 +12,12 @@ const { Wrapper, ControlGroup, HeaderTitle, Header } = styles;
 
 const statusOptions = [
   { value: '', label: 'All' },
-  { value: moStatuses.CLOSED, label: MoStatus.getStatusText(moStatuses.CLOSED) },
-  { value: moStatuses.IN_PROGRESS, label: MoStatus.getStatusText(moStatuses.IN_PROGRESS) },
-  { value: moStatuses.NEW, label: MoStatus.getStatusText(moStatuses.NEW) },
+  { value: moStatus.CLOSED, label: MoStatus.getStatusText(moStatus.CLOSED) },
+  { value: moStatus.IN_PROGRESS, label: MoStatus.getStatusText(moStatus.IN_PROGRESS) },
+  { value: moStatus.NEW, label: MoStatus.getStatusText(moStatus.NEW) },
 ];
 
-const MoList = ({ mos, onLoadMore, onFilterByStatus, onSearch, ...rest }) => {
+function MoList({ mos, onLoadMore, onFilterByStatus, onSearch, ...rest }) {
   const handleStatusFilterChange = (e) => {
     onFilterByStatus(e.target.value);
   };
@@ -62,7 +62,7 @@ const MoList = ({ mos, onLoadMore, onFilterByStatus, onSearch, ...rest }) => {
       </Wrapper>
 
   );
-};
+}
 
 MoList.propTypes = {
   mo: PropTypes.object,

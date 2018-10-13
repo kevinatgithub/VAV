@@ -13,7 +13,7 @@ const validationSchema = yup.object().shape({
   selectedChassisNumbers: yup.string().required('At least 1 chassis number is required'),
 });
 
-const MoProcessing = ({ mo, onProcess, onClose }) => {
+function MoProcessing({ mo, processing, onProcess, onClose }) {
   return (
     <Wrapper className={Classes.ELEVATION_4}>
       <Header>
@@ -24,17 +24,13 @@ const MoProcessing = ({ mo, onProcess, onClose }) => {
       </Header>
       <CardBody>
         <Formik
-          initialValues={{ specialProject: false, selectedChassisNumbers: [''] }}
+          initialValues={{ specialProject: false, selectedChassisNumbers: [] }}
           onSubmit={onProcess}
           validationSchema={validationSchema}
-          render={({ dirty }) =>
+          render={({ dirty }) => (
             <Form style={{ width: '100%' }}>
               <Field
-                type='text'
-                name='specialProject'
-                label='Special Project'
-                component={FormSwitch}
-                inline
+                type='text' name='specialProject' label='Special Project' component={FormSwitch} inline
                 optional
               />
               <Field
@@ -42,28 +38,29 @@ const MoProcessing = ({ mo, onProcess, onClose }) => {
                 label='Select Chassis Number(s)'
                 component={FormCheckboxGroup}
                 inline
-                options={mo.chassis.map(c => ({ value: c, label: c }))}
+                options={mo.chassis.map(c => ({ value: c.id, label: c.id }))}
               />
               <Flex paddingTop={50} fdr jcfe>
                 <Button
                   fill large icon='tick-circle' intent={Intent.SUCCESS} type='submit'
-                  disabled={!dirty}
+                  disabled={!dirty} loading={processing}
                 >
                   Process
                 </Button>
               </Flex>
             </Form>
-          }
+          )}
         />
       </CardBody>
     </Wrapper>
   );
-};
+}
 
 MoProcessing.propTypes = {
   mo: PropTypes.object,
-  onProcess: PropTypes.func,
-  onClose: PropTypes.func,
+  processing: PropTypes.bool.isRequired,
+  onProcess: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default MoProcessing;

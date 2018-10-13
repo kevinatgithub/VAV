@@ -6,7 +6,7 @@ export const logLevels = {
   ERROR: 5,
 };
 
-export const moStatuses = {
+export const moStatus = {
   CLOSED: 'Closed',
   IN_PROGRESS: 'InProgress',
   NEW: 'New',

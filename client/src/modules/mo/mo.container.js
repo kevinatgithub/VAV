@@ -8,6 +8,7 @@ import PageContent from 'modules/common/page-content/page-content';
 import MoList from './mo-list/mo-list.component';
 import MoDetails from './mo-details/mo-details.component';
 import MoProcessing from './mo-processing.component';
+import MoReprint from './mo-reprint.component';
 
 class MO extends Component {
   componentDidMount() {
@@ -28,14 +29,6 @@ class MO extends Component {
     this.props.unselectMo();
   };
 
-  handleSelectMo = (mo) => {
-    this.props.getMoDetailsRequest(mo);
-  };
-
-  handleMoDetailsClose = () => {
-    this.props.unselectMo();
-  };
-
   handleShowReleaseToProdPane = () => {
     this.props.setPreparingToProcess(true);
   };
@@ -44,9 +37,26 @@ class MO extends Component {
     this.props.setPreparingToProcess(false);
   };
 
+  handleProcessingMo = ({ specialProject, selectedChassisNumbers }) => {
+    const body = { id: this.props.selectedMo.id, specialProject, chassisNumbers: selectedChassisNumbers };
+    this.props.processMoRequest(body);
+  };
+
+  handleShowReprintDialog = () => {
+    this.props.showSideDialog(true);
+  };
+
+  handleCloseReprintDialog = () => {
+    this.props.showSideDialog(false);
+  };
+
+  handleReprint = ({ selectedChassisNumbers }) => {
+    console.log(selectedChassisNumbers); // eslint-disable-line
+  };
+
   render() {
-    const { mos, selectedMo, selectedMoId, preparingToProcess } = this.props;
-    const rowStyle = { paddingLeft: 0, paddingRight: 0, zIndex: 7 };
+    const { mos, selectedMo, selectedMoId, preparingToProcess, isProcessing, unselectMo, getMoDetailsRequest } = this.props;
+    const rowStyle = { paddingLeft: 0, paddingRight: 0, zIndex: 0 };
 
     return (
       <PageContent paddingLess>
@@ -58,7 +68,7 @@ class MO extends Component {
                 mos={mos}
                 selectedMoId={selectedMoId}
                 onLoadMore={this.handleLoadMoreMos}
-                onSelectMo={this.handleSelectMo}
+                onSelectMo={getMoDetailsRequest}
                 onFilterByStatus={this.handleFilterByStatus}
                 onSearch={this.handleSearch}
                 onShowReleaseToProdPane={this.handleShowReleaseToProdPane}
@@ -68,8 +78,9 @@ class MO extends Component {
               <Row.Col sm={6} md={5} style={rowStyle}>
                 <MoDetails
                   mo={selectedMo}
-                  onClose={this.handleMoDetailsClose}
+                  onClose={unselectMo}
                   onShowReleaseToProdPane={this.handleShowReleaseToProdPane}
+                  onShowReprintDialog={this.handleShowReprintDialog}
                   releaseToProd={preparingToProcess}
                 />
               </Row.Col>
@@ -77,7 +88,12 @@ class MO extends Component {
             {preparingToProcess &&
               selectedMo && (
               <Row.Col sm={12} md={4} style={rowStyle}>
-                <MoProcessing mo={selectedMo} onClose={this.handleHideReleaseToProdPane} />
+                <MoProcessing
+                  mo={selectedMo}
+                  processing={isProcessing}
+                  onClose={this.handleHideReleaseToProdPane}
+                  onProcess={this.handleProcessingMo}
+                />
               </Row.Col>
             )}
             {!selectedMo &&
@@ -88,7 +104,7 @@ class MO extends Component {
                     <NonIdealState
                       icon='info-sign'
                       title='Hey, there!'
-                      description={'You can select an MO on the list to view details and start processing.'}
+                      description={'You can select an MO on the list to view details and start isProcessing.'}
                     />
                   </Flex>
                 </CenterBody>
@@ -96,6 +112,9 @@ class MO extends Component {
             )}
           </Row>
         </Div>
+        {selectedMo && (
+          <MoReprint chassis={selectedMo.chassis} onReprint={this.handleReprint} onClose={this.handleCloseReprintDialog} />
+        )}
       </PageContent>
     );
   }
@@ -106,6 +125,7 @@ MO.propTypes = {
   selectedMo: PropTypes.object,
   selectedMoId: PropTypes.string,
   preparingToProcess: PropTypes.bool,
+  isProcessing: PropTypes.bool,
 
   getMosRequest: PropTypes.func.isRequired,
   getMoDetailsRequest: PropTypes.func.isRequired,
@@ -113,6 +133,8 @@ MO.propTypes = {
   searchMo: PropTypes.func.isRequired,
   unselectMo: PropTypes.func.isRequired,
   setPreparingToProcess: PropTypes.func.isRequired,
+  processMoRequest: PropTypes.func.isRequired,
+  showSideDialog: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ mos, selectedMo }) => ({
@@ -120,11 +142,13 @@ const mapStateToProps = ({ mos, selectedMo }) => ({
   selectedMo: selectedMo.data,
   selectedMoId: selectedMo.id,
   preparingToProcess: selectedMo.preparingToProcess,
+  isProcessing: selectedMo.isProcessing,
 });
 
 const mapDispatchToProps = ({
   mos: { getMosRequest, filterByStatus, searchMo },
-  selectedMo: { getMoDetailsRequest, unselectMo, setPreparingToProcess },
+  selectedMo: { getMoDetailsRequest, unselectMo, setPreparingToProcess, processMoRequest },
+  sideDialog: { showSideDialog },
 }) => ({
   getMosRequest,
   getMoDetailsRequest,
@@ -132,6 +156,8 @@ const mapDispatchToProps = ({
   searchMo,
   unselectMo,
   setPreparingToProcess,
+  processMoRequest,
+  showSideDialog,
 });
 
 export default connect(

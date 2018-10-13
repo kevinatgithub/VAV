@@ -156,7 +156,7 @@
       "complexity": "off",
       "max-len": [
         "error",
-        140
+        130
       ],
       "arrow-body-style": "off",
       "import/prefer-default-export": "off",

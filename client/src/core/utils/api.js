@@ -1,6 +1,13 @@
 import { getCachedConnectContext } from '../utils/connect-context';
 import axios from './axios';
 
+export const apiMethod = {
+  GET: 'GET',
+  PUT: 'PUT',
+  POST: 'POST',
+  DELETE: 'DELETE',
+};
+
 /**
  * Handle response in case of successful result
  * @param {Response} response Response object

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Loadable from 'core/utils/loadable';
-import MoLoadable from './modules/mo/mo-loadable';
+import MoLoadable from './modules/mo/mo.loadable';
 
 const AsyncDashboard = Loadable({
   loader: () => import(/* webpackChunkName: "dashboard" */ './modules/dashboard/containers/dashboard-container'),
