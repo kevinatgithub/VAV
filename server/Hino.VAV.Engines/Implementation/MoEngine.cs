@@ -62,6 +62,7 @@ namespace Hino.VAV.Engines.Implementation
 
         public async Task<Mo> ProcessMo(string id, string[] chassisNumbers)
         {
+            // TODO validation of chassis model and body type if there is an existing entry in the takt time table
             if (chassisNumbers.Length == 0)
             {
                 throw new AppBusinessException("InvalidChassis", "Unable to process MO without chassis numbers specified");
