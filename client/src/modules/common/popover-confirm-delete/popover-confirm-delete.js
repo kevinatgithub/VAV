@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Classes, Popover, PopoverInteractionKind, Position, Intent, H5 } from '@blueprintjs/core';
-import { Flex, Div, Button } from '../../ui';
+import { Flex, Div, Button } from 'core/styled';
 
 const PopoverConfirmDelete = ({ children, name, onDelete }) => {
   const fileMenu =

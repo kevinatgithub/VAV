@@ -1,7 +1,7 @@
 // import PropTypes from 'prop-types';
 import React from 'react';
+import { Div, Flex, CenterBody } from 'core/styled';
 import loadingStyle from './loading-indicator-style';
-import { Div, Flex, CenterBody } from '../../../ui';
 
 const { Wrapper } = loadingStyle;
 

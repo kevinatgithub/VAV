@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Select } from '../../ui';
+import { Select } from 'core/styled';
 
 const PageDropdown = ({ maxPages, currentPage, setPage, ...rest }) => {
   const options = Array.from({ length: maxPages }, (x, i) => i + 1).map(p => ({ label: p, value: p }));

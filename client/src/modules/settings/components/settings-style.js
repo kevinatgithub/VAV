@@ -1,6 +1,7 @@
-import { Flex } from '../../ui';
+import { Flex } from 'core/styled';
+import styled from 'styled-components';
 
-const TabsWrapper = Flex.extend`
+const TabsWrapper = styled(Flex)`
   flex: 1;
 
   .bp3-tabs {

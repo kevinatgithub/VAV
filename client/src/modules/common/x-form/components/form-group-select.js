@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormGroup, Intent } from '@blueprintjs/core';
-import { Select } from '../../../ui';
+import { Select } from 'core/styled';
 
 const FormGroupSelect = ({ field, form: { touched, errors }, options, label, placeholder, optional, defaultValue }) => {
   const { name: fieldName } = field;

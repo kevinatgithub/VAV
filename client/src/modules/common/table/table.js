@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Griddle, { RowDefinition, ColumnDefinition, plugins } from 'griddle-react';
 import { Icon } from '@blueprintjs/core';
+import { Button, Flex } from 'core/styled';
 import PageDropdown from './page-dropdown';
 import tableStyle from './table-style';
-import { Button, Flex } from '../../ui';
 import ToolbarWrapper from './toolbar-wrapper';
 import Toolbar from './toolbar';
 

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Tabs, Tab } from '@blueprintjs/core';
-import { Div } from '../../ui';
-import DocumentTitle from '../../common/document-title/document-title';
+import { Div } from 'core/styled';
+import DocumentTitle from '../../common/document-title/document-title.component';
 import BodyTypes from './body-types';
 import PageContent from '../../common/page-content/page-content';
 import settingsStyle from './settings-style';

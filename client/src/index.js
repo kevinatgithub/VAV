@@ -7,7 +7,7 @@ import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import configureStore from './store/configure-store';
+import configureStore from './configure-store';
 import Root from './root';
 import rootReducer from './reducers';
 import './global-styles';

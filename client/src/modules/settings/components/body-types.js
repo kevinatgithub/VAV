@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Position, Tooltip, Intent } from '@blueprintjs/core';
-import { Card, CardBody } from '../../ui/card';
+import { Flex, Button, Card, CardBody } from 'core/styled';
 import Table from '../../common/table/table';
-import { Flex, Button } from '../../ui';
-import SideDialog from '../../common/side-dialog/containers/side-dialog-container';
+import SideDialog from '../../common/side-dialog/side-dialog.container';
 import BodyTypeForm from './body-type-form';
 import PopoverConfirmDelete from '../../common/popover-confirm-delete/popover-confirm-delete';
 

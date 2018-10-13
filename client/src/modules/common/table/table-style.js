@@ -1,6 +1,7 @@
-import { Div } from '../../ui';
+import { Div } from 'core/styled';
+import styled from 'styled-components';
 
-const Wrapper = Div.extend`
+const Wrapper = styled(Div)`
   display: flex;
 
   > div,
