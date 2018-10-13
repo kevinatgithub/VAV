@@ -15,6 +15,10 @@ class MO extends Component {
     this.props.getMosRequest(1);
   }
 
+  componentWillUnmount() {
+    this.props.reset();
+  }
+
   handleLoadMoreMos = (pageNo) => {
     this.props.getMosRequest(pageNo);
   };
@@ -135,6 +139,7 @@ MO.propTypes = {
   setPreparingToProcess: PropTypes.func.isRequired,
   processMoRequest: PropTypes.func.isRequired,
   showSideDialog: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ mos, selectedMo }) => ({
@@ -146,8 +151,8 @@ const mapStateToProps = ({ mos, selectedMo }) => ({
 });
 
 const mapDispatchToProps = ({
-  mos: { getMosRequest, filterByStatus, searchMo },
-  selectedMo: { getMoDetailsRequest, unselectMo, setPreparingToProcess, processMoRequest },
+  mos: { getMosRequest, filterByStatus, searchMo, reset: resetMos },
+  selectedMo: { getMoDetailsRequest, unselectMo, setPreparingToProcess, processMoRequest, reset: resetSelectedMo },
   sideDialog: { showSideDialog },
 }) => ({
   getMosRequest,
@@ -158,6 +163,10 @@ const mapDispatchToProps = ({
   setPreparingToProcess,
   processMoRequest,
   showSideDialog,
+  reset: () => {
+    resetMos();
+    resetSelectedMo();
+  },
 });
 
 export default connect(
