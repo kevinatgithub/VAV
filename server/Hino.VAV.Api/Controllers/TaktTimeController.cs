@@ -41,6 +41,19 @@ namespace Hino.VAV.Api.Controllers
             return new OkObjectResult(pagedResult);
         }
 
+        [HttpGet]
+        [Route("api/takttime/{id}")]
+        public async Task<ActionResult<TaktTimeResponseDto>> GetTaktTime(string id)
+        {
+            var tuple = await _taktTimeManager.GetTaktTime(id);
+            var result = _mapper.Map<TaktTimeResponseDto>(tuple.Item1);
+
+            result.BodyTypeName = tuple.Item3.Name;
+            result.ChassisModelName = tuple.Item2.Name;
+
+            return new OkObjectResult(result);
+        }
+
         [HttpPost]
         [Route("api/takttime")]
         public async Task<ActionResult<TaktTime>> CreateTaktTime([FromBody] TaktTimePostRequest request)

@@ -36,9 +36,13 @@ namespace Hino.VAV.Managers.Implementation
             return new Tuple<IEnumerable<TaktTime>, IEnumerable<ChassisModel>, IEnumerable<BodyType>>(taktTimes, chassisModels, bodyTypes);
         }
 
-        public async Task<TaktTime> GetTaktTime(string id)
+        public async Task<Tuple<TaktTime, ChassisModel, BodyType>> GetTaktTime(string id)
         {
-            return await _taktTimeEngine.GetTaktTime(id);
+            var takttime = await _taktTimeEngine.GetTaktTime(id);
+            var chassisModel = await _chassisModelEngine.GetChassisModel(takttime.ChassisModelId);
+            var bodyType = await _bodyTypeEngine.GetBodyType(takttime.BodyTypeId);
+
+            return new Tuple<TaktTime, ChassisModel, BodyType>(takttime, chassisModel, bodyType);
         }
 
         public async Task<TaktTime> CreateTaktTime(TaktTime taktTime)
