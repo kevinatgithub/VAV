@@ -1,19 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormGroup, Intent } from '@blueprintjs/core';
+import { Intent } from '@blueprintjs/core';
 import { Select } from 'core/styled';
+import FormGroup from './form-group.component';
 
-const FormGroupSelect = ({ field, form: { touched, errors }, options, label, placeholder, optional, defaultValue }) => {
+const FormSelect = ({ field, form: { touched, errors }, options, label, placeholder, optional, defaultValue, inline }) => {
   const { name: fieldName } = field;
   const placeholderOpt = { label: placeholder, value: '', disabled: true };
 
   return (
     <FormGroup
       label={label}
-      labelFor={fieldName}
-      labelInfo={optional && '(optional)'}
-      helperText={touched[fieldName] && errors[fieldName] && errors[fieldName]}
-      intent={touched[fieldName] && errors[fieldName] && Intent.DANGER}
+      name={fieldName}
+      optional={optional}
+      inline={inline}
+      touched={touched}
+      errors={errors}
     >
       <Select
         {...field}
@@ -26,7 +28,7 @@ const FormGroupSelect = ({ field, form: { touched, errors }, options, label, pla
   );
 };
 
-FormGroupSelect.propTypes = {
+FormSelect.propTypes = {
   field: PropTypes.object,
   options: PropTypes.array,
   touched: PropTypes.object,
@@ -35,6 +37,7 @@ FormGroupSelect.propTypes = {
   placeholder: PropTypes.string,
   optional: PropTypes.bool,
   defaultValue: PropTypes.string,
+  inline: PropTypes.string,
 };
 
-export default FormGroupSelect;
+export default FormSelect;

@@ -1,17 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormGroup, InputGroup, Intent } from '@blueprintjs/core';
+import { InputGroup, Intent } from '@blueprintjs/core';
+import FormGroup from './form-group.component';
 
-const FormGroupInput = ({ field, form: { touched, errors }, type, label, placeholder, optional }) => {
+const FormInput = ({ field, form: { touched, errors }, type, label, placeholder, optional, inline }) => {
   const { name: fieldName } = field;
 
   return (
     <FormGroup
       label={label}
-      labelFor={fieldName}
-      labelInfo={optional && '(optional)'}
-      helperText={touched[fieldName] && errors[fieldName] && errors[fieldName]}
-      intent={touched[fieldName] && errors[fieldName] && Intent.DANGER}
+      name={fieldName}
+      optional={optional}
+      inline={inline}
+      touched={touched}
+      errors={errors}
     >
       <InputGroup
         {...field}
@@ -24,7 +26,7 @@ const FormGroupInput = ({ field, form: { touched, errors }, type, label, placeho
   );
 };
 
-FormGroupInput.propTypes = {
+FormInput.propTypes = {
   field: PropTypes.object,
   type: PropTypes.string,
   touched: PropTypes.object,
@@ -32,6 +34,7 @@ FormGroupInput.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
   optional: PropTypes.bool,
+  inline: PropTypes.bool,
 };
 
-export default FormGroupInput;
+export default FormInput;

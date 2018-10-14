@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Loadable from 'core/utils/loadable';
 import MoLoadable from './modules/mo/mo.loadable';
+import TaktimeLoadable from './modules/taktime/taktime.loadable';
 
 const AsyncDashboard = Loadable({
   loader: () => import(/* webpackChunkName: "dashboard" */ './modules/dashboard/containers/dashboard-container'),
@@ -18,6 +19,7 @@ const Routes = () => (
     <Switch>
       <Route exact path='/' component={AsyncDashboard} />
       <Route exact path='/mo' component={MoLoadable} />
+      <Route exact path='/taktime' component={TaktimeLoadable} />
       <Route exact path='/settings' component={AsyncSettings} />
       <Route component={AsyncPageNotFound} />
     </Switch>

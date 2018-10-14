@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import Griddle, { RowDefinition, ColumnDefinition, plugins } from 'griddle-react';
 import { Icon } from '@blueprintjs/core';
 import { Button, Flex } from 'core/styled';
-import PageDropdown from './page-dropdown';
-import tableStyle from './table-style';
-import ToolbarWrapper from './toolbar-wrapper';
-import Toolbar from './toolbar';
+import PageDropdown from './page-dropdown.component';
+import ToolbarWrapper from './toolbar-wrapper.component';
+import Toolbar from './toolbar.component';
+import tableStyle from './table.style';
 
 const { Wrapper } = tableStyle;
 

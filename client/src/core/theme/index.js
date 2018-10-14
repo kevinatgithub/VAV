@@ -14,12 +14,15 @@ const color = {
 
   borderPrimary: '#BAD67D',
 
-  background: '#ECF2F6',
+  background2: '#ECF2F6',
+  background: '#e9eaed',
 };
 
 const metrics = {
   header: '53px',
   sidebar: '80px',
+  pageContentPaddingHorizontal: '25px',
+  pageContentPaddingVertical: '15px',
 };
 
 // use commonjs module since this is being used in webpack

@@ -4,7 +4,7 @@ import { Intent, Classes } from '@blueprintjs/core';
 import { Formik, Form, Field } from 'formik';
 import * as yup from 'yup';
 import { Flex, Button, CardBody } from 'core/styled';
-import { FormCheckboxGroup, FormSwitch } from 'modules/common/x-form/components';
+import { FormCheckboxGroup, FormSwitch } from '../common/x-form';
 import style from './mo-common.style';
 
 const { Wrapper, Header, Title } = style;

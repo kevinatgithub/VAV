@@ -4,7 +4,7 @@ import { Intent } from '@blueprintjs/core';
 import { Formik, Form, Field } from 'formik';
 import * as yup from 'yup';
 import { Flex, Button } from 'core/styled';
-import { FormCheckboxGroup } from 'modules/common/x-form/components';
+import { FormCheckboxGroup } from 'modules/common/x-form';
 import SideDialog from '../common/side-dialog/side-dialog.container';
 
 const validationSchema = yup.object().shape({

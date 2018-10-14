@@ -1,12 +1,13 @@
 /* eslint no-unused-expressions: 0 */
 import { injectGlobal } from 'styled-components';
+import theme from './core/theme';
 
 injectGlobal`
   html,
   body {
     height: 100%;
     width: 100%;
-    background-color: #e9eaed;
+    background-color: ${theme.color.background};
   }
 
   #root {

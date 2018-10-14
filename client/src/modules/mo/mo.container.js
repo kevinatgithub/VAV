@@ -63,7 +63,7 @@ class MO extends Component {
     const rowStyle = { paddingLeft: 0, paddingRight: 0, zIndex: 0 };
 
     return (
-      <PageContent paddingLess>
+      <PageContent paddingless>
         <DocumentTitle pageTitle='Manufacturing Orders' />
         <Div full>
           <Row height='100%' style={{ marginLeft: 0, marginRight: 0 }}>

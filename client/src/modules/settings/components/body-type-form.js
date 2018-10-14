@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Intent } from '@blueprintjs/core';
 import * as yup from 'yup';
 import { Formik, Form, Field } from 'formik';
-import FormGroupInput from 'modules/common/x-form/components/form-group-input';
+import { FormGroupInput } from 'modules/common/x-form';
 import { Button, Flex } from 'core/styled';
 
 const validationSchema = yup.object().shape({

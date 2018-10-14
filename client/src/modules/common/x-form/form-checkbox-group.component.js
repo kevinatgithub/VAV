@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Checkbox } from '@blueprintjs/core';
 import { FieldArray } from 'formik';
-import FormGroup from './form-group';
+import FormGroup from './form-group.component';
 
 const FormCheckboxGroup = ({ field, form: { touched, errors, values }, options, label, optional, inline }) => {
   const { name: fieldName } = field;

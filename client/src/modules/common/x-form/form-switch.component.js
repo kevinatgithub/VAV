@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Intent, Switch } from '@blueprintjs/core';
-import FormGroup from './form-group';
+import FormGroup from './form-group.component';
 
 const FormSwitch = ({ field, form: { touched, errors }, label, optional, inline }) => {
   const { name: fieldName } = field;
