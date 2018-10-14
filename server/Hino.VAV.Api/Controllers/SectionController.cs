@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Hino.VAV.Api.Controllers
 {
-    public class SectionController :Controller
+    public class SectionController : Controller
     {
         private readonly IRequestContext _requestContext;
         private readonly ISectionManager _sectionManager;
