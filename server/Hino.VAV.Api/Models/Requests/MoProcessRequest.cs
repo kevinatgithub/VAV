@@ -9,6 +9,8 @@ namespace Hino.VAV.Api.Models.Requests
     {
         public string Id { get; set; }
 
+        public bool IsSpecialProject { get; set; }
+
         public string[] ChassisNumbers { get; set; }
     }
 }

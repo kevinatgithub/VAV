@@ -48,9 +48,9 @@ namespace Hino.VAV.Managers.Implementation
             return await _moEngine.GetChassis(id);
         }
 
-        public async Task<Mo> ProcessMo(string id, string[] chassisNumbers)
+        public async Task<Mo> ProcessMo(string id, bool isSpecialProject, string[] chassisNumbers)
         {
-            return await _moEngine.ProcessMo(id, chassisNumbers);
+            return await _moEngine.ProcessMo(id, isSpecialProject, chassisNumbers);
         }
     }
 }
