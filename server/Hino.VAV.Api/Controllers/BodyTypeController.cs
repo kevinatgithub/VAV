@@ -26,7 +26,7 @@ namespace Hino.VAV.Api.Controllers
         }
 
         [HttpGet]
-        [Route("api/bodyType/type/{typeId}")]
+        [Route("api/bodyTypes/type/{typeId}")]
         public async Task<ActionResult<PagedResponse<BodyType, BodyTypeResponseDto>>> GetBodyType(string typeId, int pageSize = 10, int pageNo = 1)
         {
             var bodyType = await _bodyTypeManager.GetBodyTypes(typeId);

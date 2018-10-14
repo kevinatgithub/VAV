@@ -26,6 +26,11 @@ namespace Hino.VAV.Engines.Implementation
             return (await _bodyTypeResource.GetBodyTypes()).Where(c => c.Type == type);
         }
 
+        public async Task<IEnumerable<BodyType>> GetBodyTypes()
+        {
+            return await _bodyTypeResource.GetBodyTypes();
+        }
+
         public async Task<BodyType> GetBodyType(string id)
         {
             return await _bodyTypeResource.GetBodyType(id);
