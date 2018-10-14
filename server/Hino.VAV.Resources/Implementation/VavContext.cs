@@ -20,6 +20,8 @@ namespace Hino.VAV.Resources.Implementation
 
         public DbSet<BodyType> BodyType { get; set; }
 
+        public DbSet<TaktTime> TaktTime { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Mo>().ToTable("Mo");
@@ -27,6 +29,7 @@ namespace Hino.VAV.Resources.Implementation
             modelBuilder.Entity<Section>().ToTable("Section");
             modelBuilder.Entity<ChassisModel>().ToTable("ChassisModel");
             modelBuilder.Entity<BodyType>().ToTable("BodyType");
+            modelBuilder.Entity<TaktTime>().ToTable("TaktTime");
         }
     }
 }
