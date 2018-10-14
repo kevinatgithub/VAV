@@ -1,7 +1,7 @@
 import Loadable from '../../core/utils/loadable';
 
 const MoLoadable = Loadable({
-  loader: () => import('./mo.container'),
+  loader: () => import(/* webpackChunkName: "mo" */ './mo.container'),
 });
 
 export default MoLoadable;

@@ -1,7 +1,7 @@
 import Loadable from '../../core/utils/loadable';
 
 const TaktimeLoadable = Loadable({
-  loader: () => import('./taktime.container'),
+  loader: () => import(/* webpackChunkName: "taktime" */'./taktime.container'),
 });
 
 export default TaktimeLoadable;
