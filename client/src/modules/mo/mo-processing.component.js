@@ -24,13 +24,13 @@ function MoProcessing({ mo, processing, onProcess, onClose }) {
       </Header>
       <CardBody>
         <Formik
-          initialValues={{ specialProject: false, selectedChassisNumbers: [] }}
+          initialValues={{ isSpecialProject: false, selectedChassisNumbers: [] }}
           onSubmit={onProcess}
           validationSchema={validationSchema}
           render={({ dirty }) => (
             <Form style={{ width: '100%' }}>
               <Field
-                type='text' name='specialProject' label='Special Project' component={FormSwitch} inline
+                type='text' name='isSpecialProject' label='Special Project' component={FormSwitch} inline
                 optional
               />
               <Field

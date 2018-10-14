@@ -42,30 +42,34 @@ const mos = {
   },
   effects: ({ app }) => ({
     async getMosRequest(payload, { mos: { statusFilter, searchTerm } }) { // payload = pageNumber
-      app.setLoading(true);
+      try {
+        app.setLoading(true);
 
-      const pageSize = (payload || 1) * 10;
+        const pageSize = (payload || 1) * 10;
 
-      const qs = encodeURI(
-        `pageSize=${pageSize}${searchTerm ? `&keyWord=${searchTerm}` : ''}${
-          statusFilter ? `&status=${statusFilter}` : ''
-        }&pageNo=1`,
-      );
+        const qs = encodeURI(
+          `pageSize=${pageSize}${searchTerm ? `&keyWord=${searchTerm}` : ''}${
+            statusFilter ? `&status=${statusFilter}` : ''
+          }&pageNo=1`,
+        );
 
-      const result = await api({ endpoint: `mos?${qs}` });
+        const result = await api({ endpoint: `mos?${qs}` });
 
-      const formattedResult = result && {
-        ...result,
-        result: result.result.map(r => ({
-          ...r,
-          date: new Date(r.date).toLocaleDateString(),
-          status: r.status && r.status.trim(),
-        })),
-      };
+        const formattedResult = result && {
+          ...result,
+          result: result.result.map(r => ({
+            ...r,
+            date: new Date(r.date).toLocaleDateString(),
+            status: r.status && r.status.trim(),
+          })),
+        };
 
-      this.getMosSuccess(formattedResult);
+        this.getMosSuccess(formattedResult);
 
-      app.setLoading(false);
+        app.setLoading(false);
+      } catch (error) {
+        app.handleError({ error, message: 'Something went wrong while getting the MOs.' });
+      }
     },
     searchMo(payload) {
       this.clearResult();

@@ -6,6 +6,8 @@ const app = {
     loading: false,
     showSidebar: true,
     showHeader: true,
+    showErrorAlert: false,
+    errorMessage: null,
   },
   reducers: {
     setLoading(state, payload) {
@@ -24,6 +26,18 @@ const app = {
       return {
         ...state,
         showHeader: payload,
+      };
+    },
+    setShowErrorAlert(state, payload) {
+      return {
+        ...state,
+        showErrorAlert: payload,
+      };
+    },
+    setErrorMessage(state, payload) {
+      return {
+        ...state,
+        errorMessage: payload,
       };
     },
   },
@@ -46,6 +60,11 @@ const app = {
         message,
         timeout: 4000,
       });
+    },
+    handleError(payload) {
+      this.setLoading(false);
+      this.setShowErrorAlert(true);
+      this.setErrorMessage(payload.message);
     },
   }),
 };
