@@ -7,7 +7,7 @@ using Hino.VAV.Models;
 
 namespace Hino.VAV.Managers.Implementation
 {
-    public class SectionManager
+    public class SectionManager : ISectionManager
     {
         private readonly ISectionEngine _sectionEngine;
 
