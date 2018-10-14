@@ -10,7 +10,7 @@ namespace Hino.VAV.Managers
     {
         Task<Tuple<IEnumerable<TaktTime>, IEnumerable<ChassisModel>, IEnumerable<BodyType>>> GetTaktTimeBySection(string sectionId);
 
-        Task<TaktTime> GetTaktTime(string id);
+        Task<Tuple<TaktTime, ChassisModel, BodyType>> GetTaktTime(string id);
 
         Task<TaktTime> CreateTaktTime(TaktTime taktTime);
 
