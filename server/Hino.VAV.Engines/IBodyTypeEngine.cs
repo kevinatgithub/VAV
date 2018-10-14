@@ -10,6 +10,8 @@ namespace Hino.VAV.Engines
     {
         Task<IEnumerable<BodyType>> GetBodyTypes(string type);
 
+        Task<IEnumerable<BodyType>> GetBodyTypes();
+
         Task<BodyType> GetBodyType(string id);
     }
 }
