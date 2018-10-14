@@ -68,7 +68,7 @@ namespace Hino.VAV.Api.Controllers
             return new OkObjectResult(pagedResult);
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("api/mo")]
         public async Task<ActionResult<Mo>> ProcessMo([FromBody] MoProcessRequest request)
         {
@@ -77,7 +77,12 @@ namespace Hino.VAV.Api.Controllers
                 throw new AppTechnicalException("InvalidMoRequest", "Invalid MO process request");
             }
 
-            var result = await _moManager.ProcessMo(request.Id, request.ChassisNumbers);
+            var mo = await _moManager.ProcessMo(request.Id, request.IsSpecialProject, request.ChassisNumbers);
+            var chassis = await _moManager.GetChassis(mo.Id);
+
+            var result = _mapper.Map<MoDetailsResponseDto>(mo);
+            result.Chassis = chassis.ToArray();
+
             return new OkObjectResult(result);
         }
     }

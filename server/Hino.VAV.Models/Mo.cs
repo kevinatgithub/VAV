@@ -9,6 +9,8 @@ namespace Hino.VAV.Models
     {
         public string Id { get; set; }
 
+        public bool IsSpecialProject { get; set; }
+
         public DateTime Date { get; set; }
 
         public string Status { get; set; }

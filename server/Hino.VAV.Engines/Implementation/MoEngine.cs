@@ -60,7 +60,7 @@ namespace Hino.VAV.Engines.Implementation
             return await _moResource.GetChassis(id);
         }
 
-        public async Task<Mo> ProcessMo(string id, string[] chassisNumbers)
+        public async Task<Mo> ProcessMo(string id, bool isSpecialProject, string[] chassisNumbers)
         {
             // TODO validation of chassis model and body type if there is an existing entry in the takt time table
             if (chassisNumbers.Length == 0)
@@ -70,6 +70,7 @@ namespace Hino.VAV.Engines.Implementation
 
             var mo = await _moResource.GetMo(id);
             mo.Status = MoStatus.InProgress;
+            mo.IsSpecialProject = isSpecialProject;
 
             await _moResource.UpdateMo(mo);
 
