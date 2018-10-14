@@ -41,8 +41,8 @@ class MO extends Component {
     this.props.setPreparingToProcess(false);
   };
 
-  handleProcessingMo = ({ specialProject, selectedChassisNumbers }) => {
-    const body = { id: this.props.selectedMo.id, specialProject, chassisNumbers: selectedChassisNumbers };
+  handleProcessingMo = ({ isSpecialProject, selectedChassisNumbers }) => {
+    const body = { id: this.props.selectedMo.id, isSpecialProject, chassisNumbers: selectedChassisNumbers };
     this.props.processMoRequest(body);
   };
 

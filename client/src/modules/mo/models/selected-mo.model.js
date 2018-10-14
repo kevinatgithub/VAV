@@ -95,13 +95,14 @@ const selectedMo = {
         app.setLoading(false);
       } catch (error) {
         this.getMoDetailsFail(error);
+        app.handleError({ error, message: 'Something went wrong while getting the MO details.' });
       }
     },
     async processMoRequest(payload) {
       try {
         app.setLoading(true);
 
-        const result = await api({ endpoint: 'mo', method: apiMethod.POST, body: JSON.stringify(payload) });
+        const result = await api({ endpoint: 'mo', method: apiMethod.PUT, body: JSON.stringify(payload) });
 
         this.processMoSuccess(result);
 
@@ -109,10 +110,11 @@ const selectedMo = {
 
         app.showToast({
           intent: Intent.SUCCESS,
-          message: 'Chassis numbers have been printed and now ready to be released to production',
+          message: 'Chassis numbers had been printed and now ready to be released to production.',
         });
       } catch (error) {
         this.processMoFail(error);
+        app.handleError({ error, message: 'Something went wrong during the processing of MO.' });
       }
     },
   }),
