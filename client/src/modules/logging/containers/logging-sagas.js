@@ -3,7 +3,8 @@ import {
   takeEvery,
   put,
 } from 'redux-saga/effects';
-import authentication from 'utils/auth.manager';
+import authentication from 'core/utils/auth.manager';
+import { logLevels } from 'core/utils/values';
 import {
   trackEventInsight,
   trackExceptionInsight,
@@ -11,13 +12,11 @@ import {
   trackPageViewOperation,
 } from '../components/insights';
 import * as actionTypes from './constants';
-
 import {
   logEventFailure,
   logExceptionFailure,
   trackPageViewFail,
 } from './logging-actions';
-import { logLevels } from '../../utils/values';
 
 /* eslint-disable */
 /* TODO: To be checked by Donovan */

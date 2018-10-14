@@ -143,7 +143,7 @@
       "import/resolver": {
         "node": {
           "paths": [
-            "src/modules"
+            "src"
           ],
           "extensions": [
             ".js",
@@ -156,7 +156,7 @@
       "complexity": "off",
       "max-len": [
         "error",
-        120
+        130
       ],
       "arrow-body-style": "off",
       "import/prefer-default-export": "off",
@@ -175,7 +175,8 @@
         {
           "props": false
         }
-      ]
+      ],
+      "no-extra-parens": "off"
     },
     "env": {
       "jest": true

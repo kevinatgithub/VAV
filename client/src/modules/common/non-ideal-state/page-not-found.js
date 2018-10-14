@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Flex, CenterBody } from 'ui';
+import { Flex, CenterBody, Button } from 'core/styled';
 import { NonIdealState, Intent } from '@blueprintjs/core';
-import { Button } from '../../ui';
 
 const PageNotFound = ({ history }) =>
   <CenterBody>

@@ -1,6 +1,7 @@
-import { Div } from '../../../ui';
+import { Div } from 'core/styled';
+import styled from 'styled-components';
 
-const Wrapper = Div.extend`
+const Wrapper = styled(Div)`
   margin: 100px auto 0;
   width: 100px;
   text-align: center;

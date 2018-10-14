@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { InputGroup, Divider } from '@blueprintjs/core';
-import { Flex } from '../../ui';
+import { Flex } from 'core/styled';
 
 const ToolbarWrapper = ({ className, setFilter, children }) => {
   const handleChange = e => setFilter(e.target.value);

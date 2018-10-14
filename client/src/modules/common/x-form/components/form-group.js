@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import { FormGroup as FormGroupRaw, Intent, Colors } from '@blueprintjs/core';
 import styled from 'styled-components';
-import { TRANSITION_TIMEOUT } from 'utils/values';
-import { Div } from '../../../ui';
+import { TRANSITION_TIMEOUT } from 'core/utils/values';
+import { Div } from 'core/styled';
 
 const StyledFormGroup = styled(FormGroupRaw)`
   .bp3-label {

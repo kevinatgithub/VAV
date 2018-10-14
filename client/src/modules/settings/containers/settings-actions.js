@@ -1,4 +1,5 @@
 import { createAction } from 'redux-actions';
+import { createAsyncActions } from 'core/utils/redux-actions';
 import {
   SAVE_BODY_TYPE_REQUEST,
   SAVE_BODY_TYPE_SUCCESS,
@@ -11,7 +12,6 @@ import {
   DELETE_BODY_TYPE_SUCCESS,
   DELETE_BODY_TYPE_FAIL,
 } from './settings-action-types';
-import { createAsyncActions } from '../../utils/redux-actions';
 
 export const { saveBodyTypeRequest, saveBodyTypeSuccess, saveBodyTypeFail } = createAsyncActions(
   SAVE_BODY_TYPE_REQUEST,

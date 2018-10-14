@@ -1,4 +1,4 @@
-import { createAsyncActionTypes } from 'utils/redux-actions';
+import { createAsyncActionTypes } from 'core/utils/redux-actions';
 
 export const {
   SAVE_BODY_TYPE_REQUEST,

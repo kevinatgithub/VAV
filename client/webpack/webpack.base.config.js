@@ -11,7 +11,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
-    modules: [PATHS.modules, 'node_modules'],
+    modules: [PATHS.src, 'node_modules'],
   },
   module: {
     rules: [
