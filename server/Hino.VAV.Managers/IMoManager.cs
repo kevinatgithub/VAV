@@ -19,5 +19,7 @@ namespace Hino.VAV.Managers
         Task<IEnumerable<MoChassis>> SearchChassis(string keyWord);
 
         Task<Mo> ProcessMo(string id, bool isSpecialProject, string[] chassisNumbers);
+
+        Task<Mo> ResetMo(string id);
     }
 }

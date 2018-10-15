@@ -85,5 +85,14 @@ namespace Hino.VAV.Api.Controllers
 
             return new OkObjectResult(result);
         }
+
+        [HttpPut]
+        [Route("api/mo/reset/{id}")]
+        public async Task<ActionResult<Mo>> ResetMo(string id)
+        {
+            var result = await _moManager.ResetMo(id);
+
+            return new OkObjectResult(result);
+        }
     }
 }
