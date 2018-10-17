@@ -27,7 +27,7 @@ const mos = {
 
         if (result.result.length) {
           const [firstSection] = result.result;
-          dispatch.sectionTaktimes.getSectionTaktimesRequest(firstSection);
+          dispatch.sectionTaktTimes.getSectionTaktTimesRequest(firstSection);
         }
 
         dispatch.app.setLoading(false);

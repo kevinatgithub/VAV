@@ -7,7 +7,7 @@ import style from './side-dialog.style';
 
 const { Dialog } = style;
 
-function SideDialog({ title, icon, loading, isSideDialogOpen, onClose, children }) {
+function SideDialog({ title, icon, loading, isSideDialogOpen, onClose, onOpened, children }) {
   return (
     <Dialog
       canOutsideClickClose={false}
@@ -15,13 +15,14 @@ function SideDialog({ title, icon, loading, isSideDialogOpen, onClose, children 
       icon={icon}
       isOpen={isSideDialogOpen}
       onClose={onClose}
+      onOpened={onOpened}
       title={title}
       backdropClassName='side-dialog-backdrop'
       transitionName='slide'
       transitionDuration={300}
     >
-      <Div flex={1}>
-        <LoadingBar visible={loading} />
+      <Div flex={1} position='relative'>
+        <LoadingBar visible={loading} top={1} />
         <Flex flex={1} margin={25}>{children(onClose)}</Flex>
       </Div>
     </Dialog>
@@ -31,14 +32,16 @@ function SideDialog({ title, icon, loading, isSideDialogOpen, onClose, children 
 SideDialog.propTypes = {
   title: PropTypes.string.isRequired,
   icon: PropTypes.string,
-  loading: PropTypes.bool,
+  loading: PropTypes.bool.isRequired,
   isSideDialogOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  onOpened: PropTypes.func.isRequired,
   children: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ sideDialog }) => ({
   isSideDialogOpen: sideDialog.isSideDialogOpen,
+  loading: sideDialog.isLoading,
 });
 
 const mapActionsToProps = ({ sideDialog: { showSideDialog } }) => ({

@@ -26,8 +26,8 @@ const mapStateToProps = ({ app }) => ({
   errorMessage: app.errorMessage,
 });
 
-const mapActionsToProps = ({ app: { setShowErrorAlert } }) => ({
-  onClose: () => setShowErrorAlert(false),
+const mapActionsToProps = ({ app: { disposeError } }) => ({
+  onClose: () => disposeError(false),
 });
 
 export default connect(

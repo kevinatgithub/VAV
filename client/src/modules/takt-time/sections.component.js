@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Classes } from '@blueprintjs/core';
-import { Section, SectionsWrapper, SectionsHeader, SectionDivider } from './taktime.style';
+import { Section, SectionsWrapper, SectionsHeader, SectionDivider } from './takt-time.style';
 
 function SectionsPanel({ sections, selectedSection, onSelectSection }) {
   const handleClick = section => () => onSelectSection(section);

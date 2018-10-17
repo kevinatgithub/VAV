@@ -9,15 +9,16 @@ import {
 } from './styling/styling';
 
 // eslint-disable-next-line no-unused-vars
-const Select = ({ id, options, onChange, onBlur, value, className, defaultValue, intent }) =>
+const Select = ({ id, options, onChange, onBlur, value, className, defaultValue, disabled }) =>
   <HTMLSelect
     id={id}
     defaultValue={defaultValue}
     className={className}
     onChange={onChange}
     onBlur={onBlur}
-    value={value}
+    value={value || ''}
     options={options}
+    disabled={disabled}
   />;
 
 Select.propTypes = {
@@ -28,7 +29,7 @@ Select.propTypes = {
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
   value: PropTypes.string,
-  intent: PropTypes.oneOf([Intent.DANGER, Intent.SUCCESS]),
+  disabled: PropTypes.bool,
 };
 
 export default styled(Select)`

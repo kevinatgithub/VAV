@@ -4,29 +4,44 @@ import { Intent } from '@blueprintjs/core';
 import { Select } from 'core/styled';
 import FormGroup from './form-group.component';
 
-const FormSelect = ({ field, form: { touched, errors }, options, label, placeholder, optional, defaultValue, inline }) => {
-  const { name: fieldName } = field;
+function FormSelect({
+  field,
+  form: { touched, errors },
+  options,
+  label,
+  placeholder,
+  optional,
+  defaultValue,
+  inline,
+  disabled,
+  onAfterChange,
+}) {
+  const { name } = field;
   const placeholderOpt = { label: placeholder, value: '', disabled: true };
+  const handleChange = (e) => {
+    field.onChange(e);
+    if (onAfterChange) {
+      onAfterChange(e.target.value);
+    }
+  };
 
   return (
     <FormGroup
-      label={label}
-      name={fieldName}
-      optional={optional}
-      inline={inline}
-      touched={touched}
+      label={label} name={name} optional={optional} inline={inline} touched={touched}
       errors={errors}
     >
       <Select
         {...field}
-        id={fieldName}
+        onChange={handleChange}
+        id={name}
         options={[placeholderOpt, ...options]}
         defaultValue={defaultValue}
-        intent={touched[fieldName] && errors[fieldName] && Intent.DANGER}
+        intent={touched[name] && errors[name] && Intent.DANGER}
+        disabled={disabled}
       />
     </FormGroup>
   );
-};
+}
 
 FormSelect.propTypes = {
   field: PropTypes.object,
@@ -38,6 +53,8 @@ FormSelect.propTypes = {
   optional: PropTypes.bool,
   defaultValue: PropTypes.string,
   inline: PropTypes.string,
+  disabled: PropTypes.bool,
+  onAfterChange: PropTypes.func,
 };
 
 export default FormSelect;

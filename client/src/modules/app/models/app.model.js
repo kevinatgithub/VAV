@@ -28,16 +28,19 @@ const app = {
         showHeader: payload,
       };
     },
-    setShowErrorAlert(state, payload) {
+    disposeError(state) {
       return {
         ...state,
-        showErrorAlert: payload,
+        showErrorAlert: false,
+        errorMessage: null,
       };
     },
-    setErrorMessage(state, payload) {
+    handleError(state, payload) {
       return {
         ...state,
-        errorMessage: payload,
+        showErrorAlert: true,
+        loading: false,
+        errorMessage: payload.message,
       };
     },
   },

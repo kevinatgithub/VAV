@@ -64,7 +64,7 @@ const callApi = ({ endpoint, method = 'GET', body }) => {
     case 'put':
       return axios.put(endpoint, body, config);
     case 'delete':
-      return axios.delete(endpoint, config);
+      return axios.delete(endpoint, body, config);
     default:
       return null;
   }

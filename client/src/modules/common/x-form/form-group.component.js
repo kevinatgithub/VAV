@@ -8,7 +8,10 @@ import { Div } from 'core/styled';
 
 const StyledFormGroup = styled(FormGroupRaw)`
   .bp3-label {
-    color: ${p => p.intent === Intent.DANGER ? Colors.RED2 : null};
+    color: ${p => (p.intent === Intent.DANGER ? Colors.RED2 : null)};
+  }
+  .bp3-input-group {
+    display: inline-block;
   }
 `;
 
@@ -21,11 +24,11 @@ const FormGroup = ({ name, touched, errors, label, optional, inline, children })
       labelFor={name}
       labelInfo={optional && '(optional)'}
       helperText={
-        hasError &&
+        hasError && (
           <CSSTransition in={hasError} appear unmountOnExit timeout={TRANSITION_TIMEOUT} classNames='bounce'>
             <Div>{errors[name]}</Div>
           </CSSTransition>
-
+        )
       }
       intent={hasError ? Intent.DANGER : Intent.NONE}
       inline={inline}

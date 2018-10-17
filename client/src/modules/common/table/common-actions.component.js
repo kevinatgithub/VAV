@@ -4,7 +4,7 @@ import { Flex, Button } from 'core/styled';
 import { Tooltip, Position, Intent } from '@blueprintjs/core';
 import PopoverConfirmDelete from '../popover-confirm-delete/popover-confirm-delete';
 
-function CommonActions({ value, onEdit, onDelete }) {
+function CommonActions({ value, onEdit, onDelete, name }) {
   const handleEdit = () => {
     onEdit(value);
   };
@@ -23,7 +23,7 @@ function CommonActions({ value, onEdit, onDelete }) {
           onClick={handleEdit}
         />
       </Tooltip>
-      <PopoverConfirmDelete name='body type' onDelete={handleDelete}>
+      <PopoverConfirmDelete name={name} onDelete={handleDelete}>
         <Tooltip content='Delete' position={Position.RIGHT}>
           <Button icon='trash' minimal marginLeft={2} intent={Intent.DANGER} minHeight={25} />
         </Tooltip>
@@ -34,6 +34,7 @@ function CommonActions({ value, onEdit, onDelete }) {
 
 CommonActions.propTypes = {
   value: PropTypes.string,
+  name: PropTypes.string,
   onEdit: PropTypes.func,
   onDelete: PropTypes.func,
 };

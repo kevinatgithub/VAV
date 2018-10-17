@@ -2,6 +2,7 @@ import 'normalize.css';
 import '@blueprintjs/icons/lib/css/blueprint-icons.css';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import 'react-flexbox-grid/dist/react-flexbox-grid.css';
+import 'react-table/react-table.css';
 
 import 'babel-polyfill';
 import React from 'react';

@@ -27,7 +27,7 @@ const Sidebar = ({ history, location }) => {
         <MenuDivider />
         <MenuItem {...linkProps('/users')} icon={<Icon icon='people' iconSize={20} />} text='Users' />
         <MenuDivider />
-        <MenuItem {...linkProps('/taktime')} icon={<Icon icon='time' iconSize={20} />} text='Taktime' />
+        <MenuItem {...linkProps('/takt-time')} icon={<Icon icon='time' iconSize={20} />} text='Takt Time' />
       </Menu>
     </Wrapper>
   );
