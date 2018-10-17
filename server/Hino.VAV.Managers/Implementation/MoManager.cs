@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Hino.VAV.Concerns;
 using Hino.VAV.Concerns.Common;
 using Hino.VAV.Concerns.Exceptions;
 using Hino.VAV.Engines;
 using Hino.VAV.Models;
+using Hino.VAV.Resources;
 
 namespace Hino.VAV.Managers.Implementation
 {
@@ -15,17 +17,14 @@ namespace Hino.VAV.Managers.Implementation
     public class MoManager : IMoManager
     {
         private readonly IRequestContext _requestContext;
+        private readonly IMoResource _resource; // remove later
         private readonly IMoEngine _moEngine;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MoManager"/> class.
-        /// </summary>
-        /// <param name="requestContext">The request context.</param>
-        /// <param name="moEngine">The template engine.</param>
-        public MoManager(IRequestContext requestContext, IMoEngine moEngine)
+        public MoManager(IRequestContext requestContext, IMoEngine moEngine, IMoResource moResource)
         {
             _requestContext = requestContext;
             _moEngine = moEngine;
+            _resource = moResource;
         }
 
         public async Task<Mo> GetMo(string id)
@@ -51,6 +50,21 @@ namespace Hino.VAV.Managers.Implementation
         public async Task<Mo> ProcessMo(string id, bool isSpecialProject, string[] chassisNumbers)
         {
             return await _moEngine.ProcessMo(id, isSpecialProject, chassisNumbers);
+        }
+
+        public async Task<Mo> ResetMo(string id)
+        {
+            var mo = await _moEngine.GetMo(id);
+            var chassis = await _moEngine.GetChassis(id);
+            mo.Status = MoStatus.New;
+            foreach (var c in chassis)
+            {
+                c.IsPrinted = false;
+                c.PrintDateTime = null;
+                await _resource.UpdateChassis(c);
+            }
+
+            return mo;
         }
     }
 }
