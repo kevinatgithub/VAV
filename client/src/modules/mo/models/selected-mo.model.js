@@ -104,7 +104,7 @@ const selectedMo = {
 
         const result = await api({ endpoint: 'mo', method: apiMethod.PUT, body: JSON.stringify(payload) });
 
-        this.processMoSuccess(result);
+        this.processMoSuccess(result.data);
 
         app.setLoading(false);
 

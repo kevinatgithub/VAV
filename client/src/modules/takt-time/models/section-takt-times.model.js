@@ -60,14 +60,14 @@ const sectionTaktTimes = {
       try {
         app.setLoading(true);
 
-        const result = await api({ endpoint: `takttime/${taktTime.id}`, method: apiMethod.DELETE });
+        await api({ endpoint: `takttime/${taktTime.id}`, method: apiMethod.DELETE });
 
         app.showToast({
           intent: Intent.SUCCESS,
           message: 'Takt Time has been successfully deleted.',
         });
 
-        this.deleteTaktTimeSuccess(result);
+        this.deleteTaktTimeSuccess(taktTime);
       } catch (error) {
         this.deleteTaktTimeFail(error);
         app.handleError({ error, message: 'Something went wrong while deleting Takt Time.' });

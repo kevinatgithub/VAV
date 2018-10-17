@@ -82,6 +82,12 @@ const taktTime = {
         selectedTaktTime,
       };
     },
+    reset(state) {
+      return {
+        ...initialState,
+        chassisModels: state.chassisModels,
+      };
+    },
   },
   effects: dispatch => ({
     async getBodyTypesRequest(typeId) {
@@ -137,6 +143,7 @@ const taktTime = {
         dispatch.app.handleError({ error, message: 'Something went wrong while saving Takt Time entry.' });
       } finally {
         dispatch.sideDialog.setLoading(false);
+        this.reset();
       }
     },
     async reloadSectionTakTimes(_, { sectionTaktTimes: { section } }) {

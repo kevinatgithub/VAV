@@ -31,6 +31,11 @@ class TaktimeEntry extends Component {
     this.props.saveTaktTimeRequest(values);
   };
 
+  handleClose = () => {
+    const { onClose } = this.props;
+    onClose();
+  };
+
   handleChassisModelChange = (chassisModelId) => {
     const { getBodyTypesRequest, chassisModels } = this.props;
     const chassisModel = (chassisModels || []).find(cm => cm.value === chassisModelId);
@@ -40,16 +45,16 @@ class TaktimeEntry extends Component {
   };
 
   render() {
-    const { taktTime, bodyTypes, chassisModels, isSaving, onClose } = this.props;
+    const { taktTime, bodyTypes, chassisModels, isSaving } = this.props;
     let initialValues = { bodyTypeId: '', chassisModelId: '', workTime: '' };
 
     if (taktTime) {
-      const { bodyTypeId, chassisModelId, workTime } = taktTime;
-      initialValues = { bodyTypeId, chassisModelId, workTime };
+      const { id, bodyTypeId, chassisModelId, workTime } = taktTime;
+      initialValues = { id, bodyTypeId, chassisModelId, workTime };
     }
 
     return (
-      <SideDialog icon='plus' onClose={onClose} onOpened={this.handleOpened} title='Takt Time Entry'>
+      <SideDialog icon='plus' onClose={this.handleClose} onOpened={this.handleOpened} title='Takt Time Entry'>
         {onSideDialogClose => (
           <Formik
             initialValues={initialValues}
@@ -84,7 +89,7 @@ class TaktimeEntry extends Component {
                   <Button marginRight={5} onClick={onSideDialogClose}>
                     Cancel
                   </Button>
-                  <Button icon='disk' intent={Intent.SUCCESS} type='submit' loading={isSaving} disabled={!dirty}>
+                  <Button icon='floppy-disk' intent={Intent.SUCCESS} type='submit' loading={isSaving} disabled={!dirty}>
                     Save
                   </Button>
                 </Flex>
@@ -121,6 +126,7 @@ const mapActionsToProps = ({ taktTime: { getChassisModelsRequest, getBodyTypesRe
   getChassisModelsRequest,
   getBodyTypesRequest,
   saveTaktTimeRequest,
+
 });
 
 export default connect(

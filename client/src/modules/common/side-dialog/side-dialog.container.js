@@ -35,7 +35,7 @@ SideDialog.propTypes = {
   loading: PropTypes.bool.isRequired,
   isSideDialogOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  onOpened: PropTypes.func.isRequired,
+  onOpened: PropTypes.func,
   children: PropTypes.func.isRequired,
 };
 

@@ -71,10 +71,12 @@ const mos = {
         app.handleError({ error, message: 'Something went wrong while getting the MOs.' });
       }
     },
-    searchMo(payload) {
-      this.clearResult();
-      this.setSearchTerm(payload);
-      this.getMosRequest(payload);
+    searchMo(payload, { mos: { searchTerm } }) {
+      if (payload !== searchTerm) {
+        this.clearResult();
+        this.setSearchTerm(payload);
+        this.getMosRequest(payload);
+      }
     },
     filterByStatus(payload) {
       this.clearResult();

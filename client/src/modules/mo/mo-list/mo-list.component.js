@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroller';
-import { InputGroup, Classes } from '@blueprintjs/core';
-import { Flex, Span, Select, Spinner } from 'core/styled';
+import { Classes, HTMLSelect } from '@blueprintjs/core';
+import { Flex, Span, Spinner } from 'core/styled';
 import { moStatus } from 'core/utils/values';
 import MoStatus from 'modules/common/mo-status/mo-status';
+import SearchBox from '../../common/search-box/search-box.component';
 import styles from './mo-list.style';
 import MoItem from './mo-item.component';
 
@@ -22,6 +23,10 @@ function MoList({ mos, onLoadMore, onFilterByStatus, onSearch, ...rest }) {
     onFilterByStatus(e.target.value);
   };
 
+  const handleClear = () => {
+    onSearch('');
+  };
+
   const handleKeyPress = ({ key, target }) => {
     if (key === 'Enter') {
       onSearch(target.value);
@@ -37,8 +42,8 @@ function MoList({ mos, onLoadMore, onFilterByStatus, onSearch, ...rest }) {
           </Flex>
         </Header>
         <ControlGroup>
-          <InputGroup placeholder='Enter a keyword to search...' onKeyPress={handleKeyPress} />
-          <Select options={statusOptions} onChange={handleStatusFilterChange} />
+          <SearchBox placeholder='Enter a keyword to search...' onKeyPress={handleKeyPress} onClear={handleClear} />
+          <HTMLSelect options={statusOptions} onChange={handleStatusFilterChange} />
         </ControlGroup>
         <Flex fdc overflowY={'auto'}>
           <InfiniteScroll
