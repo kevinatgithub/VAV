@@ -5,12 +5,13 @@ import { Button, Flex, Span, Row, CardBody, CardFooter } from 'core/styled';
 import { moStatus } from 'core/utils/values';
 import MoStatus from 'modules/common/mo-status/mo-status';
 import style from './mo-details.style';
+import MoAttachments from './mo-attachments.container';
 
 const { Wrapper, Header, Title, Details, SectionTitle } = style;
 
 function MoDetails({ mo, onClose, onShowReleaseToProdPane, onShowReprintDialog, releaseToProd }) {
   const labelClassName = `${Classes.TEXT_MUTED} ${Classes.TEXT_SMALL}`;
-  const sectionRowStyles = { marginBottom: 22, flexShrink: 0 };
+  const sectionRowStyles = { marginBottom: 20, flexShrink: 0 };
 
   return (
     <Wrapper className={Classes.ELEVATION_4}>
@@ -111,7 +112,9 @@ function MoDetails({ mo, onClose, onShowReleaseToProdPane, onShowReprintDialog, 
         <Flex flexShrink='0' fdc paddingBottom={10}>
           <SectionTitle>Attachments</SectionTitle>
           <Row style={sectionRowStyles}>
-            <Row.Col md={12}>Not yet implemented!</Row.Col>
+            <Row.Col md={12}>
+              <MoAttachments disabled={mo.status === moStatus.CLOSED} />
+            </Row.Col>
           </Row>
         </Flex>
       </CardBody>

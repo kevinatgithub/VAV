@@ -32,7 +32,7 @@ const Header = styled(CardHeader)`
 const Details = styled(Flex)`
   box-shadow: 0 1px 0 ${p => p.theme.color.border};
   padding: 10px 20px;
-  background-color: ${p => p.theme.color.background};
+  background-color: ${p => p.theme.color.background2};
   margin-top: 1px;
 `;
 

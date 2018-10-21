@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Div } from 'core/styled';
@@ -42,6 +42,8 @@ class Taktime extends Component {
 
   render() {
     const { sections, sectionTaktTimes, isTaktimesLoading, selectedSection } = this.props;
+    const showChassisModel = selectedSection && !['Truck Line', 'Bus Line'].includes(selectedSection.name);
+    const showBodyType = selectedSection && selectedSection.name !== 'Chassis Assembly';
 
     return (
       <PageContent paddingless>
@@ -53,21 +55,23 @@ class Taktime extends Component {
             </Row.Col>
             <Row.Col sm={6} md={10} style={{ paddingTop: 30, paddingBottom: 30, paddingLeft: 22, paddingRight: 30 }}>
               {selectedSection && (
-                <Fragment>
-                  <TaktimeTable
-                    section={selectedSection.name}
-                    taktTimes={sectionTaktTimes}
-                    loading={isTaktimesLoading}
-                    onShowTaktimeForm={this.handleShowTaktimeForm}
-                    onTaktTimeEdit={this.handleTaktTimeEdit}
-                    onTaktTimeDelete={this.handleTaktTimeDelete}
-                  />
-                </Fragment>
+                <TaktimeTable
+                  section={selectedSection.name}
+                  taktTimes={sectionTaktTimes}
+                  loading={isTaktimesLoading}
+                  showChassisModel={showChassisModel}
+                  showBodyType={showBodyType}
+                  onShowTaktimeForm={this.handleShowTaktimeForm}
+                  onTaktTimeEdit={this.handleTaktTimeEdit}
+                  onTaktTimeDelete={this.handleTaktTimeDelete}
+                />
               )}
             </Row.Col>
           </Row>
         </Div>
-        <TaktimeEntry onClose={this.handleHideTaktimeForm} />
+        {selectedSection && (
+          <TaktimeEntry onClose={this.handleHideTaktimeForm} showChassisModel={showChassisModel} showBodyType={showBodyType} />
+        )}
       </PageContent>
     );
   }

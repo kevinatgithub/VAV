@@ -104,7 +104,14 @@ const selectedMo = {
 
         const result = await api({ endpoint: 'mo', method: apiMethod.PUT, body: JSON.stringify(payload) });
 
-        this.processMoSuccess(result.data);
+        const formattedResult = {
+          ...result.data,
+          date: new Date(result.data.date).toLocaleDateString(),
+          status: result.data.status && result.data.status.trim(),
+          chassisArrivalDate: new Date(result.data.chassisArrivalDate).toLocaleDateString(),
+        };
+
+        this.processMoSuccess(formattedResult);
 
         app.setLoading(false);
 

@@ -35,4 +35,20 @@ const LoadableComponent = opts =>
     ...opts,
   });
 
+export const LoadableWithModel = ({ loader, store }) =>
+  Loadable.Map({
+    loader,
+    render(loaded, props) {
+      const Component = loaded.Component.default;
+      const models = loaded.Models.default;
+      Object.keys(models).forEach((key) => {
+        const model = models[key];
+        store.model({ name: key, ...model });
+      });
+      return <Component {...props} />;
+    },
+    loading: MyLoadingComponent,
+    delay: 200,
+  });
+
 export default LoadableComponent;

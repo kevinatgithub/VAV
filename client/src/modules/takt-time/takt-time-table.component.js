@@ -5,7 +5,16 @@ import { Intent, H3 } from '@blueprintjs/core';
 import { Card, CardBody, CardHeader, Button } from 'core/styled';
 import CommonActions from '../common/table/common-actions.component';
 
-function TaktimeTable({ section, taktTimes, loading, onShowTaktimeForm, onTaktTimeEdit, onTaktTimeDelete }) {
+function TaktimeTable({
+  section,
+  taktTimes,
+  loading,
+  onShowTaktimeForm,
+  onTaktTimeEdit,
+  onTaktTimeDelete,
+  showChassisModel,
+  showBodyType,
+}) {
   // eslint-disable-next-line react/prop-types
   const Actions = ({ value }) => (
     <CommonActions name='Takt Time' value={value} onEdit={() => onTaktTimeEdit(value)} onDelete={() => onTaktTimeDelete(value)} />
@@ -27,10 +36,12 @@ function TaktimeTable({ section, taktTimes, loading, onShowTaktimeForm, onTaktTi
             {
               Header: 'Chassis Model',
               accessor: 'chassisModelName',
+              show: showChassisModel,
             },
             {
               Header: 'Body Type',
               accessor: 'bodyTypeName',
+              show: showBodyType,
             },
             {
               Header: 'Takt Time (mins)',
@@ -55,6 +66,8 @@ TaktimeTable.propTypes = {
   section: PropTypes.string,
   taktTimes: PropTypes.array,
   loading: PropTypes.bool.isRequired,
+  showChassisModel: PropTypes.bool.isRequired,
+  showBodyType: PropTypes.bool.isRequired,
   onShowTaktimeForm: PropTypes.func.isRequired,
   onTaktTimeEdit: PropTypes.func.isRequired,
   onTaktTimeDelete: PropTypes.func.isRequired,

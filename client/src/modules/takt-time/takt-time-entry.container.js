@@ -8,44 +8,62 @@ import { Flex, Button } from 'core/styled';
 import { FormSelect, FormInput } from '../common/x-form';
 import SideDialog from '../common/side-dialog/side-dialog.container';
 
-const validationSchema = yup.object().shape({
-  bodyTypeId: yup
-    .string()
-    .max(150, 'Should not exceed 150 characters')
-    .required('Body Type is required'),
-  chassisModelId: yup
-    .string()
-    .max(150, 'Should not exceed 150 characters')
-    .required('Chassis Model is required'),
-  workTime: yup
-    .number()
-    .required('Takt Time is required'),
-});
-
 class TaktimeEntry extends Component {
+  getValidationSchema(sectionName) {
+    const validationSchema = { workTime: yup.number().required('Takt Time is required') };
+
+    switch (sectionName) {
+      case 'Chassis Assembly':
+        validationSchema.chassisModelId = yup
+          .string()
+          .max(150, 'Should not exceed 150 characters')
+          .required('Chassis Model is required');
+        break;
+      case 'Truck Line':
+      case 'Bus Line':
+        validationSchema.bodyTypeId = yup
+          .string()
+          .max(150, 'Should not exceed 150 characters')
+          .required('Body Type is required');
+        break;
+      default:
+        validationSchema.chassisModelId = yup
+          .string()
+          .max(150, 'Should not exceed 150 characters')
+          .required('Chassis Model is required');
+        validationSchema.bodyTypeId = yup
+          .string()
+          .max(150, 'Should not exceed 150 characters')
+          .required('Body Type is required');
+        break;
+    }
+    return yup.object().shape(validationSchema);
+  }
+
   handleOpened = () => {
-    this.props.getChassisModelsRequest();
+    if (!this.props.showChassisModel) {
+      this.props.getBodyTypesRequest();
+    } else {
+      this.props.getChassisModelsRequest();
+    }
   };
 
   handleSubmit = (values) => {
     this.props.saveTaktTimeRequest(values);
   };
 
-  handleClose = () => {
-    const { onClose } = this.props;
-    onClose();
-  };
-
   handleChassisModelChange = (chassisModelId) => {
-    const { getBodyTypesRequest, chassisModels } = this.props;
-    const chassisModel = (chassisModels || []).find(cm => cm.value === chassisModelId);
-    if (chassisModel) {
-      getBodyTypesRequest(chassisModel.type);
+    if (this.props.showBodyType) {
+      const { getBodyTypesRequest, chassisModels } = this.props;
+      const chassisModel = (chassisModels || []).find(cm => cm.value === chassisModelId);
+      if (chassisModel) {
+        getBodyTypesRequest(chassisModel.type);
+      }
     }
   };
 
   render() {
-    const { taktTime, bodyTypes, chassisModels, isSaving } = this.props;
+    const { taktTime, bodyTypes, chassisModels, isSaving, onClose, section, showChassisModel, showBodyType } = this.props;
     let initialValues = { bodyTypeId: '', chassisModelId: '', workTime: '' };
 
     if (taktTime) {
@@ -54,30 +72,34 @@ class TaktimeEntry extends Component {
     }
 
     return (
-      <SideDialog icon='plus' onClose={this.handleClose} onOpened={this.handleOpened} title='Takt Time Entry'>
+      <SideDialog icon='plus' onClose={onClose} onOpened={this.handleOpened} title='Takt Time Entry'>
         {onSideDialogClose => (
           <Formik
             initialValues={initialValues}
             onSubmit={this.handleSubmit}
-            validationSchema={validationSchema}
+            validationSchema={this.getValidationSchema(section.name)}
             render={({ dirty, values }) => (
               <Form style={{ width: '100%' }}>
-                <Field
-                  name='chassisModelId'
-                  label='Chassis Model'
-                  placeholder='Select a Chassis Model'
-                  component={FormSelect}
-                  options={chassisModels}
-                  onAfterChange={this.handleChassisModelChange}
-                />
-                <Field
-                  name='bodyTypeId'
-                  label='Body Type'
-                  placeholder='Select a Body Type'
-                  component={FormSelect}
-                  options={bodyTypes}
-                  disabled={!values.chassisModelId}
-                />
+                {showChassisModel && (
+                  <Field
+                    name='chassisModelId'
+                    label='Chassis Model'
+                    placeholder='Select a Chassis Model'
+                    component={FormSelect}
+                    options={chassisModels}
+                    onAfterChange={this.handleChassisModelChange}
+                  />
+                )}
+                {showBodyType && (
+                  <Field
+                    name='bodyTypeId'
+                    label='Body Type'
+                    placeholder='Select a Body Type'
+                    component={FormSelect}
+                    options={bodyTypes}
+                    disabled={showChassisModel && !values.chassisModelId}
+                  />
+                )}
                 <Field
                   name='workTime'
                   label='Takt Time (mins)'
@@ -107,7 +129,10 @@ TaktimeEntry.propTypes = {
   chassisModels: PropTypes.array.isRequired,
   bodyTypes: PropTypes.array.isRequired,
   isSaving: PropTypes.bool.isRequired,
+  section: PropTypes.object.isRequired,
 
+  showChassisModel: PropTypes.bool.isRequired,
+  showBodyType: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 
   getChassisModelsRequest: PropTypes.func.isRequired,
@@ -115,18 +140,18 @@ TaktimeEntry.propTypes = {
   saveTaktTimeRequest: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ taktTime }) => ({
+const mapStateToProps = ({ taktTime, sectionTaktTimes }) => ({
   taktTime: taktTime.selectedTaktTime,
   chassisModels: taktTime.chassisModels,
   bodyTypes: taktTime.bodyTypes,
   isSaving: taktTime.isSaving,
+  section: sectionTaktTimes.section,
 });
 
 const mapActionsToProps = ({ taktTime: { getChassisModelsRequest, getBodyTypesRequest, saveTaktTimeRequest } }) => ({
   getChassisModelsRequest,
   getBodyTypesRequest,
   saveTaktTimeRequest,
-
 });
 
 export default connect(

@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 import Loadable from 'core/utils/loadable';
 import MoLoadable from './modules/mo/mo.loadable';
@@ -14,16 +15,20 @@ const AsyncPageNotFound = Loadable({
   loader: () => import(/* webpackChunkName: "page-not-found" */ './modules/common/non-ideal-state/page-not-found'),
 });
 
-const Routes = () => (
+const Routes = ({ store }) => (
   <Fragment>
     <Switch>
       <Route exact path='/' component={AsyncDashboard} />
-      <Route exact path='/mo' component={MoLoadable} />
-      <Route exact path='/takt-time' component={TaktimeLoadable} />
+      <Route exact path='/mo' component={MoLoadable(store)} />
+      <Route exact path='/takt-time' component={TaktimeLoadable(store)} />
       <Route exact path='/settings' component={AsyncSettings} />
       <Route component={AsyncPageNotFound} />
     </Switch>
   </Fragment>
 );
+
+Routes.propTypes = {
+  store: PropTypes.object.isRequired,
+};
 
 export default Routes;

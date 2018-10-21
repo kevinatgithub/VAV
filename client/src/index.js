@@ -13,7 +13,7 @@ import Root from './root';
 import rootReducer from './reducers';
 import './global-styles';
 
-const store = configureStore(rootReducer);
+export const store = configureStore(rootReducer);
 
 const renderApp = (RootCmp) => {
   render(

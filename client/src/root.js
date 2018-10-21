@@ -12,7 +12,7 @@ const Root = ({ store, hot }) =>
     <ThemeProvider theme={theme}>
       <Router>
         <App>
-          <Routes key={hot && Math.random()} />
+          <Routes store={store} key={hot && Math.random()} />
         </App>
       </Router>
     </ThemeProvider>

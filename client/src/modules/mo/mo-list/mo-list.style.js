@@ -32,7 +32,7 @@ const Item = styled(Card)`
   padding: 18px 20px;
 
   &.bp3-active, &:active, &:focus {
-    background-color: ${p => p.theme.color.background};
+    background-color: ${p => p.theme.color.background2};
   }
 `;
 
