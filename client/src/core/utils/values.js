@@ -12,4 +12,10 @@ export const moStatus = {
   NEW: 'New',
 };
 
+export const unitStatus = {
+  NORMAL: 'NORMAL',
+  MATERIAL_CALL: 'MATERIAL_CALL',
+  MANAGER_CALL: 'MANAGER_CALL',
+};
+
 export const TRANSITION_TIMEOUT = 300;

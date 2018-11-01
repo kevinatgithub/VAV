@@ -1,24 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import {
-  Classes,
-  Menu,
-  MenuDivider,
-  Icon,
-  MenuItem,
-} from '@blueprintjs/core';
+import { Classes, Menu, MenuDivider, Icon, MenuItem } from '@blueprintjs/core';
 import styles from './sidebar.style';
 
 const { Wrapper } = styles;
 
-const Sidebar = ({ history, location }) => {
+const Sidebar = ({ history, location, showSidebar }) => {
   const linkProps = route => ({
     onClick: () => history.push(route),
     active: location.pathname === route,
   });
 
-  return (
+  return showSidebar && (
     <Wrapper>
       <Menu className={Classes.ELEVATION_2}>
         <MenuItem {...linkProps('/')} icon={<Icon icon='dashboard' iconSize={20} />} text='Board' />
@@ -36,6 +32,17 @@ const Sidebar = ({ history, location }) => {
 Sidebar.propTypes = {
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
+  showSidebar: PropTypes.bool.isRequired,
 };
 
-export default withRouter(Sidebar);
+const mapStateToProps = ({ app }) => ({
+  showSidebar: app.showSidebar,
+});
+
+export default compose(
+  withRouter,
+  connect(
+    mapStateToProps,
+    null,
+  ),
+)(Sidebar);

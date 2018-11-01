@@ -4,7 +4,7 @@ import { H2 } from '@blueprintjs/core';
 import { Flex } from 'core/styled';
 import theme from 'core/theme';
 
-const PageContent = ({ children, title, paddingless }) =>
+const PageContent = ({ children, title, paddingless, fullscreen }) => (
   <Flex
     fdc
     flex={1}
@@ -13,19 +13,22 @@ const PageContent = ({ children, title, paddingless }) =>
     paddingRight={paddingless ? 0 : theme.metrics.pageContentPaddingHorizontal}
     paddingTop={paddingless ? 0 : theme.metrics.pageContentPaddingVertical}
     paddingBottom={paddingless ? 0 : theme.metrics.pageContentPaddingVertical}
-    marginLeft={theme.metrics.sidebar}
+    marginLeft={fullscreen ? 0 : theme.metrics.sidebar}
   >
-    {title &&
+    {title && (
       <Flex paddingBottom={2}>
         <H2>{title}</H2>
       </Flex>
-    }
+    )}
     <Flex flex={1}>{children}</Flex>
-  </Flex>;
+  </Flex>
+);
+
 PageContent.propTypes = {
   children: PropTypes.node.isRequired,
   title: PropTypes.string,
   paddingless: PropTypes.bool,
+  fullscreen: PropTypes.bool,
 };
 
 export default PageContent;

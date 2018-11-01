@@ -4,10 +4,8 @@ import { Route, Switch } from 'react-router-dom';
 import Loadable from 'core/utils/loadable';
 import MoLoadable from './modules/mo/mo.loadable';
 import TaktimeLoadable from './modules/takt-time/takt-time.loadable';
+import BoardLoadable from './modules/board/board.loadable';
 
-const AsyncDashboard = Loadable({
-  loader: () => import(/* webpackChunkName: "dashboard" */ './modules/dashboard/containers/dashboard-container'),
-});
 const AsyncSettings = Loadable({
   loader: () => import(/* webpackChunkName: "settings" */ './modules/settings/containers/settings-container'),
 });
@@ -18,7 +16,7 @@ const AsyncPageNotFound = Loadable({
 const Routes = ({ store }) => (
   <Fragment>
     <Switch>
-      <Route exact path='/' component={AsyncDashboard} />
+      <Route exact path='/' component={BoardLoadable(store)} />
       <Route exact path='/mo' component={MoLoadable(store)} />
       <Route exact path='/takt-time' component={TaktimeLoadable(store)} />
       <Route exact path='/settings' component={AsyncSettings} />

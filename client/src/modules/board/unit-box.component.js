@@ -1,0 +1,37 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Classes, Intent, ProgressBar } from '@blueprintjs/core';
+import { Flex, Span } from 'core/styled';
+import { Wrapper, UnitTitle, Progress } from './unit-box.style';
+import UnitStatus from './unit-status.component';
+
+function UnitBox({ status }) {
+  return (
+    <Wrapper className={Classes.ELEVATION_1}>
+      <Flex>
+        <UnitStatus status={status} />
+        <UnitTitle>XZU342LM-001</UnitTitle>
+      </Flex>
+      <Flex fdc padding={'0 5px'}>
+        <Progress className={Classes.TEXT_SMALL} marginBottom={4}>
+          <Span marginRight={8}>Progress: </Span>
+          <ProgressBar stripes={false} animate={false} intent={Intent.PRIMARY} value={0.7} />
+        </Progress>
+        <Flex className={Classes.TEXT_SMALL} marginBottom={4}>
+          <Span marginRight={8}>Takt Time:</Span>
+          <Span>5 Hours</Span>
+        </Flex>
+        <Flex className={Classes.TEXT_SMALL}>
+          <Span marginRight={8}>MO:</Span>
+          <Span>POTK-2018-2073</Span>
+        </Flex>
+      </Flex>
+    </Wrapper>
+  );
+}
+
+UnitBox.propTypes = {
+  status: PropTypes.string.isRequired,
+};
+
+export default UnitBox;
