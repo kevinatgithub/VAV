@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 import {
   NavbarDivider,
@@ -15,6 +16,7 @@ import {
 import { Image, Span } from 'core/styled';
 import images from 'core/utils/images';
 import headerStyles from './header.style';
+import { TRANSITION_TIMEOUT } from '../../core/utils/values';
 
 const { NavbarHeading, Navbar, NavbarGroup } = headerStyles;
 
@@ -26,7 +28,7 @@ const Header = ({ showHeader }) => {
   );
 
   return (
-    showHeader && (
+    <CSSTransition in={showHeader} unmountOnExit timeout={TRANSITION_TIMEOUT} classNames='slideVertical'>
       <Navbar className={Classes.DARK}>
         <NavbarGroup align={Alignment.LEFT}>
           <NavbarHeading>
@@ -49,7 +51,7 @@ const Header = ({ showHeader }) => {
           </Popover>
         </NavbarGroup>
       </Navbar>
-    )
+    </CSSTransition>
   );
 };
 

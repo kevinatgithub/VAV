@@ -30,7 +30,8 @@ export const SectionTitle = styled(H5)`
 
 export const SectionBody = styled(Flex)`
   padding: 8px;
-  flex-direction: column;
+  margin-right: -8px;
+  flex-wrap: wrap;
 
   .bp3-card:not(:last-child) {
     margin-bottom: 10px;

@@ -85,4 +85,44 @@ injectGlobal`
     opacity: 0;
     transform: scale(0.5);
   }
+
+  .slideVertical-enter,
+  .slideVertical-appear {
+    overflow-y: hidden;
+    max-height: 0px;
+  }
+  .slideVertical-enter-active, .slideVertical-appear-active {
+    overflow-y: hidden;
+    max-height: 53px;
+    transition: all 300ms cubic-bezier(0, 1, 0.5, 1);
+  }
+  .slideVertical-exit {
+    overflow-y: hidden;
+    max-height: 53px;
+  }
+  .slideVertical-exit-active {
+    overflow-y: hidden;
+    max-height: 0px;
+    transition: all 300ms cubic-bezier(0, 1, 0.5, 1);
+  }
+
+  .slideHorizontal-enter,
+  .slideHorizontal-appear {
+    overflow-y: hidden;
+    max-width: 0px;
+  }
+  .slideHorizontal-enter-active, .slideHorizontal-appear-active {
+    overflow-y: hidden;
+    max-width: 80px;
+    transition: all 300ms cubic-bezier(0, 1, 0.5, 1);
+  }
+  .slideHorizontal-exit {
+    overflow-y: hidden;
+    max-width: 80px;
+  }
+  .slideHorizontal-exit-active {
+    overflow-y: hidden;
+    max-width: 0px;
+    transition: all 300ms cubic-bezier(0, 1, 0.5, 1);
+  }
 `;

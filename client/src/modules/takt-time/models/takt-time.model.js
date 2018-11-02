@@ -94,7 +94,7 @@ const taktTime = {
       try {
         dispatch.sideDialog.setLoading(true);
 
-        const result = await api({ endpoint: `bodyTypes/type/${typeId}` });
+        const result = await api({ endpoint: `bodyTypes/type/${typeId}?pageSize=100` });
 
         this.getBodyTypesSuccess(result.result);
       } catch (error) {
@@ -108,7 +108,7 @@ const taktTime = {
       try {
         dispatch.sideDialog.setLoading(true);
 
-        const result = await api({ endpoint: 'chassisModels' });
+        const result = await api({ endpoint: 'chassisModels?pageSize=100' });
 
         this.getChassisModelsSuccess(result.result);
       } catch (error) {

@@ -3,9 +3,10 @@ import { Flex, Card } from 'core/styled';
 import { H6 } from '@blueprintjs/core';
 
 export const Wrapper = styled(Card)`
-  flex: 1;
-  min-height: 80px;
+  height: 80px;
+  width: 222px;
   padding: 6px 8px;
+  margin-right: 8px;
 `;
 
 export const UnitTitle = styled(H6)`

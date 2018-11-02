@@ -24,13 +24,13 @@ class Board extends Component {
     return (
       <PageContent paddingless fullscreen={isFullscreen}>
         <DocumentTitle pageTitle='Visualization Board' />
-        <Wrapper full className={themeClassName}>
+        <Wrapper fdc full className={themeClassName}>
           <Flex aic jcfe padding={'8px 35px'} marginBottom={10}>
             <StatusLegend />
             <Separator />
             <MonitorModeToggle label='Monitor Mode' value={isFullscreen} onChange={this.handleToggleFullscreen} />
           </Flex>
-          <Flex height='100%' paddingTop={5}>
+          <Flex flex={1} paddingTop={5}>
             <Section md={1} className={themeClassName}>
               <SectionTitle>Chassis Assembly</SectionTitle>
               <SectionBody>
@@ -42,6 +42,10 @@ class Board extends Component {
               <SectionBody>
                 <UnitBox status={unitStatus.MANAGER_CALL} />
                 <UnitBox status={unitStatus.MATERIAL_CALL} />
+                <UnitBox status={unitStatus.NORMAL} />
+                <UnitBox status={unitStatus.NORMAL} />
+                <UnitBox status={unitStatus.NORMAL} />
+                <UnitBox status={unitStatus.NORMAL} />
               </SectionBody>
             </Section>
             <Section md={1} className={themeClassName}>
