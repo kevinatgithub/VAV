@@ -1,5 +1,6 @@
 import { Intent } from '@blueprintjs/core';
 import toaster from 'core/utils/toaster';
+import { errorTypes } from '../../../core/utils/values';
 
 const app = {
   state: {
@@ -7,7 +8,7 @@ const app = {
     showSidebar: true,
     showHeader: true,
     showErrorAlert: false,
-    errorMessage: null,
+    error: null,
   },
   reducers: {
     setLoading(state, payload) {
@@ -32,15 +33,19 @@ const app = {
       return {
         ...state,
         showErrorAlert: false,
-        errorMessage: null,
+        error: null,
       };
     },
     handleError(state, payload) {
+      const error = {
+        type: payload.error.message === 'Network Error' ? errorTypes.NETWORK : errorTypes.GENERAL,
+        message: payload.message,
+      };
       return {
         ...state,
         showErrorAlert: true,
         loading: false,
-        errorMessage: payload.message,
+        error,
       };
     },
   },
@@ -63,11 +68,6 @@ const app = {
         message,
         timeout: 4000,
       });
-    },
-    handleError(payload) {
-      this.setLoading(false);
-      this.setShowErrorAlert(true);
-      this.setErrorMessage(payload.message);
     },
   }),
 };

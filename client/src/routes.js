@@ -1,32 +1,36 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { Route, Switch } from 'react-router-dom';
-import Loadable from 'core/utils/loadable';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import PageNotFound from './modules/common/non-ideal-state/page-not-found.component';
 import MoLoadable from './modules/mo/mo.loadable';
 import TaktimeLoadable from './modules/takt-time/takt-time.loadable';
 import BoardLoadable from './modules/board/board.loadable';
+import { store } from './';
+import NoNetwork from './modules/common/non-ideal-state/no-network.component';
 
-const AsyncSettings = Loadable({
-  loader: () => import(/* webpackChunkName: "settings" */ './modules/settings/containers/settings-container'),
-});
-const AsyncPageNotFound = Loadable({
-  loader: () => import(/* webpackChunkName: "page-not-found" */ './modules/common/non-ideal-state/page-not-found'),
-});
+function RouteWithHook(props) {
+  if (!navigator.onLine) {
+    return (
+      <Redirect
+        to={{
+          pathname: '/no-network',
+          state: { from: props.location },
+        }}
+      />
+    );
+  }
+  return <Route {...props} />;
+}
 
-const Routes = ({ store }) => (
+const Routes = () => (
   <Fragment>
     <Switch>
-      <Route exact path='/' component={BoardLoadable(store)} />
-      <Route exact path='/mo' component={MoLoadable(store)} />
-      <Route exact path='/takt-time' component={TaktimeLoadable(store)} />
-      <Route exact path='/settings' component={AsyncSettings} />
-      <Route component={AsyncPageNotFound} />
+      <RouteWithHook exact path='/' component={BoardLoadable(store)} />
+      <RouteWithHook exact path='/mo' component={MoLoadable(store)} />
+      <RouteWithHook exact path='/takt-time' component={TaktimeLoadable(store)} />
+      <Route path='/no-network' component={NoNetwork} />
+      <Route component={PageNotFound} />
     </Switch>
   </Fragment>
 );
-
-Routes.propTypes = {
-  store: PropTypes.object.isRequired,
-};
 
 export default Routes;

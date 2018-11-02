@@ -32,6 +32,7 @@ export const SectionBody = styled(Flex)`
   padding: 8px;
   margin-right: -8px;
   flex-wrap: wrap;
+  overflow-y: auto;
 
   .bp3-card:not(:last-child) {
     margin-bottom: 10px;

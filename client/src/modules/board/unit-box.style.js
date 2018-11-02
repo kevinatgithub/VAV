@@ -3,7 +3,7 @@ import { Flex, Card } from 'core/styled';
 import { H6 } from '@blueprintjs/core';
 
 export const Wrapper = styled(Card)`
-  height: 80px;
+  min-height: 80px;
   width: 222px;
   padding: 6px 8px;
   margin-right: 8px;

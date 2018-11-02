@@ -3,14 +3,16 @@ import axios from 'axios';
 // import config from '../../../config/dev';
 
 /* eslint-disable */
-/* TODO: To be checked by Donovan */
 
+const CancelToken = axios.CancelToken;
+const source = CancelToken.source();
 const instance = axios.create({
   baseURL: '/api/',
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
   },
+  cancelToken: source.token
 });
 
 /**
@@ -22,10 +24,10 @@ const unauthorizedUrls = ['mos', 'mo', 'config.json'];
  * Intercept request and put bearer token in header
  */
 instance.interceptors.request.use(config => {
-  if (!navigator.onLine) {
-    console.log(`You're offline! Unable to send a request`);
-    return null;
-  }
+  // if (!navigator.onLine) {
+  //   console.log(`You're offline! Unable to send a request`);
+  //   return Promise.reject(`You're offline! Unable to send a request`);
+  // }
 
   // const [url] = config.url.split('?');
   // if (unauthorizedUrls.includes(url)) {

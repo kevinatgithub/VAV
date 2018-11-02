@@ -13,6 +13,10 @@ import StatusLegend from './status-legend.component';
 class Board extends Component {
   state = {};
 
+  componentWillUnmount() {
+    this.props.toggleFullscreen(false);
+  }
+
   handleToggleFullscreen = (e) => {
     this.props.toggleFullscreen(e.target.checked);
   };
@@ -30,15 +34,18 @@ class Board extends Component {
             <Separator />
             <MonitorModeToggle label='Monitor Mode' value={isFullscreen} onChange={this.handleToggleFullscreen} />
           </Flex>
-          <Flex flex={1} paddingTop={5}>
+          <Flex flex={1} paddingTop={5} overflowY='auto'>
             <Section md={1} className={themeClassName}>
               <SectionTitle>Chassis Assembly</SectionTitle>
-              <SectionBody>
-                <UnitBox status={unitStatus.NORMAL} />
-              </SectionBody>
             </Section>
             <Section md={1} className={themeClassName}>
               <SectionTitle>Truck Line</SectionTitle>
+            </Section>
+            <Section md={1} className={themeClassName}>
+              <SectionTitle>Bus Line</SectionTitle>
+            </Section>
+            <Section md={1} className={themeClassName}>
+              <SectionTitle>Painting</SectionTitle>
               <SectionBody>
                 <UnitBox status={unitStatus.MANAGER_CALL} />
                 <UnitBox status={unitStatus.MATERIAL_CALL} />
@@ -46,16 +53,17 @@ class Board extends Component {
                 <UnitBox status={unitStatus.NORMAL} />
                 <UnitBox status={unitStatus.NORMAL} />
                 <UnitBox status={unitStatus.NORMAL} />
+                <UnitBox status={unitStatus.NORMAL} />
+                <UnitBox status={unitStatus.NORMAL} />
+                <UnitBox status={unitStatus.NORMAL} />
+                <UnitBox status={unitStatus.NORMAL} />
               </SectionBody>
             </Section>
             <Section md={1} className={themeClassName}>
-              <SectionTitle>Bus Line</SectionTitle>
-            </Section>
-            <Section md={1} className={themeClassName}>
-              <SectionTitle>Painting</SectionTitle>
-            </Section>
-            <Section md={1} className={themeClassName}>
               <SectionTitle>Trimming</SectionTitle>
+              <SectionBody>
+                <UnitBox status={unitStatus.NORMAL} />
+              </SectionBody>
             </Section>
             <Section md={1} className={themeClassName}>
               <SectionTitle>Cleaning</SectionTitle>

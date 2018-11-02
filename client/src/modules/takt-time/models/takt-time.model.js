@@ -90,7 +90,7 @@ const taktTime = {
     },
   },
   effects: dispatch => ({
-    async getBodyTypesRequest(typeId) {
+    async getBodyTypesRequest(typeId = 'all') {
       try {
         dispatch.sideDialog.setLoading(true);
 

@@ -21,9 +21,13 @@ function UnitBox({ status }) {
           <Span marginRight={8}>Takt Time:</Span>
           <Span>5 Hours</Span>
         </Flex>
-        <Flex className={Classes.TEXT_SMALL}>
+        <Flex className={Classes.TEXT_SMALL} marginBottom={4}>
           <Span marginRight={8}>MO:</Span>
           <Span>POTK-2018-2073</Span>
+        </Flex>
+        <Flex className={Classes.TEXT_SMALL}>
+          <Span marginRight={8}>Model:</Span>
+          <Span>XZU342LM • MDT</Span>
         </Flex>
       </Flex>
     </Wrapper>

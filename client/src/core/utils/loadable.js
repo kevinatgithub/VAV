@@ -16,7 +16,7 @@ const MyLoadingComponent = (props) => {
     return null;
   } else if (props.error) {
     // If we aren't loading, maybe
-    return <div>Error! Component failed to load</div>;
+    return <div style={{ marginLeft: 80 }}>Error! Failed to load content</div>;
   }
   return null;
 };

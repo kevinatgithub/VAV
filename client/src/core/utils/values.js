@@ -6,6 +6,11 @@ export const logLevels = {
   ERROR: 5,
 };
 
+export const errorTypes = {
+  GENERAL: 'GENERAL',
+  NETWORK: 'NETWORK',
+};
+
 export const moStatus = {
   CLOSED: 'Closed',
   IN_PROGRESS: 'InProgress',
