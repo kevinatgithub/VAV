@@ -50,7 +50,7 @@ class UnitBox extends Component {
         <Flex fdc padding={'0 5px'}>
           <Flex className={Classes.TEXT_SMALL} marginBottom={4}>
             <Span marginRight={8}>Takt Time:</Span>
-            <Span>{unit.workTime} Minutes</Span>
+            <Span>{unit.workTime} Minute(s)</Span>
           </Flex>
           <Flex className={Classes.TEXT_SMALL} marginBottom={4}>
             <Span marginRight={8}>MO:</Span>
