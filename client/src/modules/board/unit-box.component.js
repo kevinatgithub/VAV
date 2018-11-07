@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Classes, Intent, ProgressBar } from '@blueprintjs/core';
+import { Classes } from '@blueprintjs/core';
 import { Flex, Span } from 'core/styled';
-import { Wrapper, UnitTitle, Progress } from './unit-box.style';
+import { Wrapper, UnitTitle } from './unit-box.style';
 import UnitStatus from './unit-status.component';
 
 function UnitBox({ status }) {
@@ -13,10 +13,6 @@ function UnitBox({ status }) {
         <UnitTitle>XZU342LM-001</UnitTitle>
       </Flex>
       <Flex fdc padding={'0 5px'}>
-        <Progress className={Classes.TEXT_SMALL} marginBottom={4}>
-          <Span marginRight={8}>Progress: </Span>
-          <ProgressBar stripes={false} animate={false} intent={Intent.PRIMARY} value={0.7} />
-        </Progress>
         <Flex className={Classes.TEXT_SMALL} marginBottom={4}>
           <Span marginRight={8}>Takt Time:</Span>
           <Span>5 Hours</Span>

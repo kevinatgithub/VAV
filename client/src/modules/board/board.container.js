@@ -52,11 +52,6 @@ class Board extends Component {
                 <UnitBox status={unitStatus.NORMAL} />
                 <UnitBox status={unitStatus.NORMAL} />
                 <UnitBox status={unitStatus.NORMAL} />
-                <UnitBox status={unitStatus.NORMAL} />
-                <UnitBox status={unitStatus.NORMAL} />
-                <UnitBox status={unitStatus.NORMAL} />
-                <UnitBox status={unitStatus.NORMAL} />
-                <UnitBox status={unitStatus.NORMAL} />
               </SectionBody>
             </Section>
             <Section md={1} className={themeClassName}>
