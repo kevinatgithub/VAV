@@ -10,8 +10,8 @@ class UnitBox extends Component {
   constructor(props) {
     super(props);
     const { unit } = props;
-    const timeInDate = new Date(unit.timeIn);
-    const endDate = new Date(unit.timeIn);
+    const timeInDate = new Date(`${unit.timeIn}Z`);
+    const endDate = new Date(`${unit.timeIn}Z`);
     endDate.setMinutes(endDate.getMinutes() + 1);
     this.state = { taktTimeReached: endDate.getTime() <= timeInDate.getTime(), endDateTime: endDate.getTime() };
 
