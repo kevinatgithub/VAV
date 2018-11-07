@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Flex } from 'core/styled';
@@ -6,15 +6,29 @@ import { Classes } from '@blueprintjs/core';
 import DocumentTitle from 'modules/common/document-title/document-title.component';
 import PageContent from 'modules/common/page-content/page-content';
 import { Section, SectionTitle, Wrapper, SectionBody, Separator, MonitorModeToggle } from './board.style';
-import { unitStatus } from '../../core/utils/values';
 import UnitBox from './unit-box.component';
 import StatusLegend from './status-legend.component';
 
 class Board extends Component {
   state = {};
 
+  componentDidMount() {
+    this.props.getDashboardRequest();
+  }
+
   componentWillUnmount() {
     this.props.toggleFullscreen(false);
+  }
+
+  getUnitsInSection(sectionId) {
+    const unitsInSection = this.props.sections[sectionId] || [];
+    return (
+      <Fragment>
+        {unitsInSection.map(unit =>
+          <UnitBox key={unit.chassisNumber} unit={unit} />,
+        )}
+      </Fragment>
+    );
   }
 
   handleToggleFullscreen = (e) => {
@@ -37,37 +51,51 @@ class Board extends Component {
           <Flex flex={1} paddingTop={5} overflowY='auto'>
             <Section md={1} className={themeClassName}>
               <SectionTitle>Chassis Assembly</SectionTitle>
+              <SectionBody>
+                {this.getUnitsInSection(1)}
+              </SectionBody>
             </Section>
             <Section md={1} className={themeClassName}>
               <SectionTitle>Truck Line</SectionTitle>
+              <SectionBody>
+                {this.getUnitsInSection(2)}
+              </SectionBody>
             </Section>
             <Section md={1} className={themeClassName}>
               <SectionTitle>Bus Line</SectionTitle>
+              <SectionBody>
+                {this.getUnitsInSection(3)}
+              </SectionBody>
             </Section>
             <Section md={1} className={themeClassName}>
               <SectionTitle>Painting</SectionTitle>
               <SectionBody>
-                <UnitBox status={unitStatus.MANAGER_CALL} />
-                <UnitBox status={unitStatus.MATERIAL_CALL} />
-                <UnitBox status={unitStatus.NORMAL} />
-                <UnitBox status={unitStatus.NORMAL} />
-                <UnitBox status={unitStatus.NORMAL} />
+                {this.getUnitsInSection(4)}
               </SectionBody>
             </Section>
             <Section md={1} className={themeClassName}>
               <SectionTitle>Trimming</SectionTitle>
               <SectionBody>
-                <UnitBox status={unitStatus.NORMAL} />
+                {this.getUnitsInSection(5)}
               </SectionBody>
             </Section>
             <Section md={1} className={themeClassName}>
               <SectionTitle>Cleaning</SectionTitle>
+              <SectionBody>
+                {this.getUnitsInSection(6)}
+              </SectionBody>
             </Section>
             <Section md={1} className={themeClassName}>
               <SectionTitle>PDI</SectionTitle>
+              <SectionBody>
+                {this.getUnitsInSection(7)}
+              </SectionBody>
             </Section>
             <Section md={1} className={themeClassName}>
               <SectionTitle>Final Inspection</SectionTitle>
+              <SectionBody>
+                {this.getUnitsInSection(8)}
+              </SectionBody>
             </Section>
           </Flex>
         </Wrapper>
@@ -77,19 +105,23 @@ class Board extends Component {
 }
 
 Board.propTypes = {
+  sections: PropTypes.object,
+  getDashboardRequest: PropTypes.func.isRequired,
   isFullscreen: PropTypes.bool.isRequired,
   toggleFullscreen: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ app }) => ({
+const mapStateToProps = ({ app, board }) => ({
   isFullscreen: !app.showSidebar && !app.showHeader,
+  sections: board.sectionsDictionary,
 });
 
-const mapDispatchToProps = ({ app }) => ({
+const mapDispatchToProps = ({ app, board: { getDashboardRequest } }) => ({
   toggleFullscreen: (value) => {
     app.setShowSidebar(!value);
     app.setShowHeader(!value);
   },
+  getDashboardRequest,
 });
 
 export default connect(

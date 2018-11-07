@@ -108,7 +108,7 @@ class MO extends Component {
                     <NonIdealState
                       icon='info-sign'
                       title='Hey, there!'
-                      description={'You can select an MO on the list to view details and start isProcessing.'}
+                      description={'You can select an MO on the list to view details and start is processing.'}
                     />
                   </Flex>
                 </CenterBody>

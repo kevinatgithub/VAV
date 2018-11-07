@@ -7,6 +7,7 @@ export const Wrapper = styled(Card)`
   width: 222px;
   padding: 6px 8px;
   margin-right: 8px;
+  font-weight: 500;
 `;
 
 export const UnitTitle = styled(H6)`
