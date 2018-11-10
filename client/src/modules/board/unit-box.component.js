@@ -60,7 +60,7 @@ class UnitBox extends Component {
     const modelSeparator = chassisModelCode && unit.bodyTypeName ? ' • ' : '';
 
     return (
-      <Wrapper className={`${Classes.ELEVATION_1} ${Classes.DARK}`} status={unitStatus.NORMAL}>
+      <Wrapper className={`${Classes.ELEVATION_1} ${Classes.DARK}`} status={this.getStatus()}>
         <Flex>
           <UnitTitle>{unit.chassisNumber}</UnitTitle>
         </Flex>
