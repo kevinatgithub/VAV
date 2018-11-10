@@ -1,17 +1,18 @@
 import styled from 'styled-components';
 import { Div, Flex } from 'core/styled';
+import { Colors } from '@blueprintjs/core';
 import { unitStatus } from '../../core/utils/values';
 
 const innerStatus = {
-  [unitStatus.NORMAL]: '#06D73E',
-  [unitStatus.MATERIAL_CALL]: '#FAAD14',
-  [unitStatus.MANAGER_CALL]: '#F5222D',
+  [unitStatus.NORMAL]: Colors.GREEN3,
+  [unitStatus.MATERIAL_CALL]: Colors.ORANGE3,
+  [unitStatus.MANAGER_CALL]: Colors.RED3,
 };
 
 const outerStatus = {
-  [unitStatus.NORMAL]: 'rgba(6, 215, 62, 0.42)',
-  [unitStatus.MATERIAL_CALL]: 'rgba(250, 173, 20, .42)',
-  [unitStatus.MANAGER_CALL]: 'rgba(245, 34, 45, .42)',
+  [unitStatus.NORMAL]: 'rgba(15, 153, 96, 0.42)',
+  [unitStatus.MATERIAL_CALL]: 'rgba(217, 130, 43, .42)',
+  [unitStatus.MANAGER_CALL]: 'rgba(219, 55, 55, .42)',
 };
 
 export const Outer = styled(Flex)`
@@ -23,13 +24,7 @@ export const Outer = styled(Flex)`
   background-color: ${p => outerStatus[p.status]};
 
   ${p => (p.status === unitStatus.MANAGER_CALL && !p.noBlink) && `
-    & {
-      animation: blinker 1s linear infinite;
-    }
 
-    @keyframes blinker {
-      50% { opacity: 0; }
-    }
   `}
 `;
 
