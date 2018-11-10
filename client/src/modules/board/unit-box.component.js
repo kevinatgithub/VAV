@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Classes, ProgressBar, Intent } from '@blueprintjs/core';
+import { Classes, ProgressBar, Intent, Icon } from '@blueprintjs/core';
 import { Flex, Span } from 'core/styled';
 import { Wrapper, UnitTitle, Progress } from './unit-box.style';
 import { unitStatus } from '../../core/utils/values';
@@ -61,8 +61,9 @@ class UnitBox extends Component {
 
     return (
       <Wrapper className={`${Classes.ELEVATION_1} ${Classes.DARK}`} status={this.getStatus()}>
-        <Flex>
+        <Flex jcsb>
           <UnitTitle>{unit.chassisNumber}</UnitTitle>
+          {unit.isMc && <Icon icon='info-sign' iconSize={14} />}
         </Flex>
         <Flex fdc padding={'0 5px'}>
           <Progress className={Classes.TEXT_SMALL} marginBottom={4}>
@@ -75,7 +76,7 @@ class UnitBox extends Component {
           </Flex>
           <Flex className={Classes.TEXT_SMALL} marginBottom={4}>
             <Span marginRight={8}>Customer:</Span>
-            <Span>{unit.moNumber}</Span>
+            <Span>{unit.customer}</Span>
           </Flex>
           <Flex className={Classes.TEXT_SMALL}>
             <Span marginRight={8}>Model:</Span>

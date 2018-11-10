@@ -17,7 +17,9 @@ class Board extends Component {
   }
 
   componentWillUnmount() {
-    this.props.toggleFullscreen(false);
+    const { stopRealtimeUpdate, toggleFullscreen } = this.props;
+    toggleFullscreen(false);
+    stopRealtimeUpdate();
   }
 
   getUnitsInSection(sectionId) {
@@ -109,6 +111,7 @@ Board.propTypes = {
   getDashboardRequest: PropTypes.func.isRequired,
   isFullscreen: PropTypes.bool.isRequired,
   toggleFullscreen: PropTypes.func.isRequired,
+  stopRealtimeUpdate: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ app, board }) => ({
@@ -116,12 +119,13 @@ const mapStateToProps = ({ app, board }) => ({
   sections: board.sectionsDictionary,
 });
 
-const mapDispatchToProps = ({ app, board: { getDashboardRequest } }) => ({
+const mapDispatchToProps = ({ app, board: { getDashboardRequest, stopRealtimeUpdate } }) => ({
   toggleFullscreen: (value) => {
     app.setShowSidebar(!value);
     app.setShowHeader(!value);
   },
   getDashboardRequest,
+  stopRealtimeUpdate,
 });
 
 export default connect(
