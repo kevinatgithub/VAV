@@ -1,10 +1,7 @@
 package com.hino.dev.dashboardupdater;
 
-import android.text.format.DateUtils;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -44,7 +41,7 @@ public class WipChassisNumber {
         this.mcs = mcs;
     }
 
-    private Date dateValueOfTimeIn(){
+    private Date getDateValueOfTimeIn(){
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
         Date date = null;
         if(this.timeIn != null){
@@ -57,9 +54,9 @@ public class WipChassisNumber {
         return date;
     }
 
-    public long checkInTimeInMinutes(){
+    public long convertTimeInToMinutes(){
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-        Date timeIn = this.dateValueOfTimeIn();
+        Date timeIn = this.getDateValueOfTimeIn();
         if(timeIn != null){
             Date now = new Date();
             
@@ -94,6 +91,7 @@ public class WipChassisNumber {
         }
     }
 
+    // Model Class for API response
     public static class MC{
         public String id;
         public String sectionId;

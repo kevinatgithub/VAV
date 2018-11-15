@@ -32,8 +32,7 @@ public class Login extends DashboardUpdater {
         Toolbar toolbar = findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
 
-        User user = session.getUser();
-        if(user != null){
+        if(session.getUser() != null){
             if(session.getSection() != null){
                 Intent intent = new Intent(this,MOList.class);
                 startActivity(intent);
@@ -44,7 +43,7 @@ public class Login extends DashboardUpdater {
             finish();
         }
 
-        dialog = nonDismissibleDialog("Logging-in");
+        dialog = createNonDismissibleDialog("Logging-in");
         tl_username = findViewById(R.id.tl_username);
         txt_username = findViewById(R.id.txt_username);
         tl_password = findViewById(R.id.tl_password);
@@ -74,7 +73,7 @@ public class Login extends DashboardUpdater {
 
             dialog.show();
 
-            doeAPICall(new LoginCallback() {
+            executeAPICall(new LoginCallback() {
                 @Override
                 public void execute(JSONObject response) {
                     if(response != null){
@@ -102,27 +101,27 @@ public class Login extends DashboardUpdater {
         }
     }
 
-    private void doeAPICall(final LoginCallback callback){
-        final String url =
+    private void executeAPICall(final LoginCallback CALLBACK){
+        final String URL =
                 getResources().getString(R.string.api_login)
                         .replace("[username]",txt_username.getText())
                         .replace("[password]",txt_password.getText());
 
         JsonObjectRequest request = new JsonObjectRequest(
                 JsonObjectRequest.Method.GET,
-                url,
+                URL,
                 null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        callback.execute(response);
+                        CALLBACK.execute(response);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         dialog.dismiss();
-                        apiErrorHandler(error);
+                        handleAPIExceptionResponse(error);
                     }
                 }
         );

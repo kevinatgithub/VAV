@@ -63,12 +63,12 @@ public class Scan extends DashboardUpdater {
             @Override
             public void onClick(View view) {
                 if(!txt_chassisNumber.getText().equals("")){
-                    dialog = nonDismissibleDialog("Checking..");
+                    dialog = createNonDismissibleDialog("Checking..");
                     dialog.show();
                     fetchChassisNumberDetails(new Callback() {
                         @Override
                         public void execute() {
-                            doAppropriateActionToWipChassisNumber();
+                            executeAppropriateActionToWipChassisNumber();
                         }
                     }, txt_chassisNumber.getText().toString());
 
@@ -79,7 +79,7 @@ public class Scan extends DashboardUpdater {
 
     }
 
-    private void doAppropriateActionToWipChassisNumber(){
+    private void executeAppropriateActionToWipChassisNumber(){
         if(wipChassisNumber != null){
             if(wipChassisNumber.timeIn == null){
                 timeIn();
@@ -97,14 +97,14 @@ public class Scan extends DashboardUpdater {
         return super.onOptionsItemSelected(item);
     }
 
-    private void fetchChassisNumberDetails(final Callback callback, String chassisNumber){
-        final String url = getResources().getString(R.string.api_mo_chassis)
+    private void fetchChassisNumberDetails(final Callback CALLBACK, final String CHASSIS_NUMBER){
+        final String URL = getResources().getString(R.string.api_mo_chassis)
                 .replace("[sectionId]",section.id)
-                .replace("[chassisNumber]",chassisNumber);
+                .replace("[chassisNumber]",CHASSIS_NUMBER);
 
         JsonObjectRequest request = new JsonObjectRequest(
                 JsonObjectRequest.Method.GET,
-                url,
+                URL,
                 null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -116,7 +116,7 @@ public class Scan extends DashboardUpdater {
                                 intent.putExtra("chassisNumber",wipChassisNumber.chassisNumber);
                                 startActivityForResult(intent,RETURN_TO_SECTION_REQUEST);
                             }else{
-                                callback.execute();
+                                CALLBACK.execute();
                             }
                         }
                     }
@@ -124,7 +124,7 @@ public class Scan extends DashboardUpdater {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        apiErrorHandler(error);
+                        handleAPIExceptionResponse(error);
                         finish();
                     }
                 }
@@ -145,7 +145,7 @@ public class Scan extends DashboardUpdater {
         TextView txt_custom_dialog_message  = dialog.findViewById(R.id.txt_custom_dialog_message);
         txt_custom_dialog_message.setText("Timing-in");
 
-        final String url = getResources().getString(R.string.api_time_in);
+        final String URL = getResources().getString(R.string.api_time_in);
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("sectionId",section.id);
@@ -156,7 +156,7 @@ public class Scan extends DashboardUpdater {
 
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.POST,
-                url,
+                URL,
                 jsonObject,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -169,7 +169,7 @@ public class Scan extends DashboardUpdater {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        apiErrorHandler(error);
+                        handleAPIExceptionResponse(error);
                         finish();
                     }
                 }
@@ -181,7 +181,7 @@ public class Scan extends DashboardUpdater {
     private void timeout() {
         TextView txt_custom_dialog_message  = dialog.findViewById(R.id.txt_custom_dialog_message);
         txt_custom_dialog_message.setText("Timing-out");
-        final String url = getResources().getString(R.string.api_time_out);
+        final String URL = getResources().getString(R.string.api_time_out);
 
         JSONObject jsonObject = new JSONObject();
         try {
@@ -193,7 +193,7 @@ public class Scan extends DashboardUpdater {
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 JsonObjectRequest.Method.PUT,
-                url,
+                URL,
                 jsonObject,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -206,7 +206,7 @@ public class Scan extends DashboardUpdater {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        apiErrorHandler(error);
+                        handleAPIExceptionResponse(error);
                         finish();
                     }
                 }
@@ -283,12 +283,12 @@ public class Scan extends DashboardUpdater {
 //            txt_chassisNumber.setText(barcodeValue);
 //            releaseScanner();
 //
-//            dialog = nonDismissibleDialog("Checking..");
+//            dialog = createNonDismissibleDialog("Checking..");
 //            dialog.show();
 //            fetchChassisNumberDetails(new Callback() {
 //                @Override
 //                public void execute() {
-//                    doAppropriateActionToWipChassisNumber();
+//                    executeAppropriateActionToWipChassisNumber();
 //                }
 //            }, txt_chassisNumber.getText().toString());
 //        }

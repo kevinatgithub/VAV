@@ -69,7 +69,7 @@ public class MaterialCall extends DashboardUpdater {
     }
 
     private void submit() {
-        final Dialog dialog = nonDismissibleDialog(null);
+        final Dialog dialog = createNonDismissibleDialog(null);
         TextView txt_custom_dialog_message = dialog.findViewById(R.id.txt_custom_dialog_message);
         if (switch_isPending.isChecked()){
             txt_custom_dialog_message.setText("Flagging as pending");

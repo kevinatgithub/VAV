@@ -68,7 +68,7 @@ public class ReturnToSection extends DashboardUpdater {
     }
 
     private void specChange() {
-        final Dialog dialog = nonDismissibleDialog("Setting as spec-change.");
+        final Dialog dialog = createNonDismissibleDialog("Setting as spec-change.");
         dialog.show();
         final String url = getResources().getString(R.string.api_spec_change);
 
@@ -95,7 +95,7 @@ public class ReturnToSection extends DashboardUpdater {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        apiErrorHandler(error);
+                        handleAPIExceptionResponse(error);
                         finish();
                     }
                 }
@@ -105,7 +105,7 @@ public class ReturnToSection extends DashboardUpdater {
     }
 
     private void backJob() {
-        final Dialog dialog = nonDismissibleDialog("Setting as back-job");
+        final Dialog dialog = createNonDismissibleDialog("Setting as back-job");
         dialog.show();
         final String url = getResources().getString(R.string.api_back_job);
 

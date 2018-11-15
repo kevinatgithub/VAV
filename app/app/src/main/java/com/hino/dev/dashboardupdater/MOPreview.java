@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -127,7 +126,7 @@ public class MOPreview extends DashboardUpdater {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        apiErrorHandler(error);
+                        handleAPIExceptionResponse(error);
                         finish();
                     }
                 }
@@ -196,14 +195,14 @@ public class MOPreview extends DashboardUpdater {
         }
 
         if(wipChassisNumber.timeIn != null && wipChassisNumber.remainingTime != null){
-            long checkInTimeInMinutes = wipChassisNumber.checkInTimeInMinutes();
+            long checkInTimeInMinutes = wipChassisNumber.convertTimeInToMinutes();
 
             if(checkInTimeInMinutes >= wipChassisNumber.remainingTime){
                 img_status.setImageDrawable(getResources().getDrawable(R.drawable.badge_red));
                 img_status.setVisibility(View.VISIBLE);
             }
         }else if(wipChassisNumber.timeIn != null){
-            long checkInTimeInMinutes = wipChassisNumber.checkInTimeInMinutes();
+            long checkInTimeInMinutes = wipChassisNumber.convertTimeInToMinutes();
 
             if(checkInTimeInMinutes >= wipChassisNumber.workTime){
                 img_status.setImageDrawable(getResources().getDrawable(R.drawable.badge_red));
@@ -214,7 +213,7 @@ public class MOPreview extends DashboardUpdater {
     }
 
     private void resolve() {
-        final Dialog dialog = nonDismissibleDialog("Resolving..");
+        final Dialog dialog = createNonDismissibleDialog("Resolving..");
         dialog.show();
         final String url = getResources().getString(R.string.api_resolve);
 
@@ -243,7 +242,7 @@ public class MOPreview extends DashboardUpdater {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        apiErrorHandler(error);
+                        handleAPIExceptionResponse(error);
                         finish();
                     }
                 }

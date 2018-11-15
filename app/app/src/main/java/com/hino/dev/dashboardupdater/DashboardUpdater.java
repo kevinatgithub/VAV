@@ -60,12 +60,12 @@ public class DashboardUpdater extends AppCompatActivity {
         gson = new Gson();
     }
 
-    protected Dialog nonDismissibleDialog(@Nullable String customMessage){
+    protected Dialog createNonDismissibleDialog(@Nullable String dialogMessage){
         Dialog dialog = new Dialog(DashboardUpdater.this);
         dialog.setContentView(R.layout.custom_dialog);
         TextView txt_custom_dialog_message = dialog.findViewById(R.id.txt_custom_dialog_message);
-        if(customMessage != null){
-            txt_custom_dialog_message.setText(customMessage);
+        if(dialogMessage != null){
+            txt_custom_dialog_message.setText(dialogMessage);
         }
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(dialog.getWindow().getAttributes());
@@ -78,12 +78,12 @@ public class DashboardUpdater extends AppCompatActivity {
     protected void showSnackBar(View container,Intent data,String message){
         Snackbar snackbar = Snackbar.make(container,message,Snackbar.LENGTH_LONG);
         if(data != null){
-            final String chassisNumber = data.getStringExtra("chassisNumber");
+            final String CHASSIS_NUMBER = data.getStringExtra("chassisNumber");
             snackbar.setAction("VIEW", new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(DashboardUpdater.this,MOPreview.class);
-                    intent.putExtra("chassisNumber",chassisNumber);
+                    intent.putExtra("chassisNumber",CHASSIS_NUMBER);
                     startActivity(intent);
                 }
             });
@@ -92,7 +92,7 @@ public class DashboardUpdater extends AppCompatActivity {
         snackbar.show();
     }
 
-    protected void apiErrorHandler(VolleyError error){
+    protected void handleAPIExceptionResponse(VolleyError error){
         NetworkResponse networkResponse = error.networkResponse;
 
         Intent intent = new Intent(getApplicationContext(),ShowServerResponse.class);
@@ -115,27 +115,27 @@ public class DashboardUpdater extends AppCompatActivity {
         if (netInfo == null){
 
             LayoutInflater inflater = LayoutInflater.from(DashboardUpdater.this);
-            final AlertDialog dialog = new AlertDialog.Builder(DashboardUpdater.this).create();
-            dialog.setTitle(getResources().getString(R.string.internet_error_title));
+            final AlertDialog DIALOG = new AlertDialog.Builder(DashboardUpdater.this).create();
+            DIALOG.setTitle(getResources().getString(R.string.internet_error_title));
             View customView = inflater.inflate(R.layout.network_fail,null);
-            dialog.setView(customView);
-            dialog.setCancelable(false);
-            dialog.setButton(AlertDialog.BUTTON_POSITIVE, "TRY AGAIN", new DialogInterface.OnClickListener() {
+            DIALOG.setView(customView);
+            DIALOG.setCancelable(false);
+            DIALOG.setButton(AlertDialog.BUTTON_POSITIVE, "TRY AGAIN", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    dialog.dismiss();
+                    DIALOG.dismiss();
                     checkConnection(callback);
                 }
             });
 
-            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            DIALOG.setOnShowListener(new DialogInterface.OnShowListener() {
                 @SuppressLint("ResourceAsColor")
                 @Override
                 public void onShow(DialogInterface dialogInterface) {
-                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(R.color.colorPrimary);
+                    DIALOG.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(R.color.colorPrimary);
                 }
             });
-            dialog.show();
+            DIALOG.show();
         }else{
             callback.execute();
         }
@@ -143,6 +143,7 @@ public class DashboardUpdater extends AppCompatActivity {
 
     // Model Class for API Response when handling error code 400
     public static class ApiResponse {
+        // TODO: 14/11/2018 Can't Implement naming convention here, naming convention depends on the API response
         public String Code;
         public String Message;
 

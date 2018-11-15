@@ -37,7 +37,7 @@ import java.util.Comparator;
 
 public class MOList extends DashboardUpdater {
 
-    private boolean doubleBackToExitPressedOnce = false;
+    private boolean isBackButtonPressedOnce = false;
 
     final private int SECTION_LIST_REQUEST = 100;           //Set to 100 since REQUESTS code in DashboardUpdater.class is 1 and so on
     final static public int SECTION_LIST_RESPONSE_IS_SELECT_A_NEW_SECTION = 1;
@@ -120,19 +120,19 @@ public class MOList extends DashboardUpdater {
 
     @Override
     public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
+        if (isBackButtonPressedOnce) {
             super.onBackPressed();
             return;
         }
 
-        this.doubleBackToExitPressedOnce = true;
+        this.isBackButtonPressedOnce = true;
         Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show();
 
         new Handler().postDelayed(new Runnable() {
 
             @Override
             public void run() {
-                doubleBackToExitPressedOnce=false;
+                isBackButtonPressedOnce =false;
             }
         }, 2000);
     }
@@ -210,11 +210,11 @@ public class MOList extends DashboardUpdater {
         }
     }
 
-    private void fetchWipList(final boolean showLoading){
+    private void fetchWipList(final boolean SHOW_LOADING){
 
-        final Dialog dialog = nonDismissibleDialog("Loading..");
-        if(showLoading){
-            dialog.show();
+        final Dialog DIALOG = createNonDismissibleDialog("Loading..");
+        if(SHOW_LOADING){
+            DIALOG.show();
         }
         final String URL = getResources().getString(R.string.api_wip_list).replace("[sectionId]",section.id);
 
@@ -225,8 +225,8 @@ public class MOList extends DashboardUpdater {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        if(showLoading){
-                            dialog.dismiss();
+                        if(SHOW_LOADING){
+                            DIALOG.dismiss();
                         }
                         if(response != null){
                             ApiResponseWipChassisNumbers ar = gson.fromJson(response.toString(),ApiResponseWipChassisNumbers.class);
@@ -252,7 +252,7 @@ public class MOList extends DashboardUpdater {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        apiErrorHandler(error);
+                        handleAPIExceptionResponse(error);
                         finish();
                     }
                 });
