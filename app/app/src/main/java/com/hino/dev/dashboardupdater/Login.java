@@ -9,9 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.Request;
 
 import org.json.JSONObject;
 
@@ -54,17 +52,12 @@ public class Login extends DashboardUpdater {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkConnection(new Callback() {
-                    @Override
-                    public void execute() {
-                        attemptLogin();
-                    }
-                });
+                validateLoginForm();
             }
         });
     }
 
-    private void attemptLogin(){
+    private void validateLoginForm(){
 
         tl_username.setError(null);
         tl_password.setError(null);
@@ -73,13 +66,15 @@ public class Login extends DashboardUpdater {
 
             dialog.show();
 
-            executeAPICall(new LoginCallback() {
+            ApiCallManager api = new ApiCallManager(this);
+            api.attemptLogin(txt_username.getText().toString(),txt_password.getText().toString(), new CallbackWithResponse() {
                 @Override
                 public void execute(JSONObject response) {
                     if(response != null){
                         User user = gson.fromJson(response.toString(),User.class);
                         session.setUser(user);
                         if(user.sections.length == 1){
+                            session.setSection(user.sections[0]);
                             Intent intent = new Intent(getApplicationContext(),MOList.class);
                             startActivity(intent);
                         }else{
@@ -89,7 +84,13 @@ public class Login extends DashboardUpdater {
                         finish();
                     }
                 }
+            },new Callback() {
+                @Override
+                public void execute() {
+                    dialog.dismiss();
+                }
             });
+
 
         }else{
             if(txt_username.getText().length() == 0){
@@ -101,36 +102,4 @@ public class Login extends DashboardUpdater {
         }
     }
 
-    private void executeAPICall(final LoginCallback CALLBACK){
-        final String URL =
-                getResources().getString(R.string.api_login)
-                        .replace("[username]",txt_username.getText())
-                        .replace("[password]",txt_password.getText());
-
-        JsonObjectRequest request = new JsonObjectRequest(
-                JsonObjectRequest.Method.GET,
-                URL,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        CALLBACK.execute(response);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        dialog.dismiss();
-                        handleAPIExceptionResponse(error);
-                    }
-                }
-        );
-
-        requestQueue.add(request);
-    }
-
-    private interface LoginCallback{
-
-        public void execute(JSONObject response);
-    }
 }

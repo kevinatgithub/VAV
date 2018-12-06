@@ -70,38 +70,16 @@ public class ReturnToSection extends DashboardUpdater {
     private void specChange() {
         final Dialog dialog = createNonDismissibleDialog("Setting as spec-change.");
         dialog.show();
-        final String url = getResources().getString(R.string.api_spec_change);
 
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("sectionId",section.id);
-            jsonObject.put("chassisNumber",chassisNumber);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                JsonObjectRequest.Method.POST,
-                url,
-                jsonObject,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        setResult(SPEC_CHANGE_SUCCESS,new Intent().putExtra("chassisNumber",chassisNumber));
-                        dialog.dismiss();
-                        finish();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        handleAPIExceptionResponse(error);
-                        finish();
-                    }
-                }
-        );
-
-        requestQueue.add(jsonObjectRequest);
+        ApiCallManager api = new ApiCallManager(this);
+        api.flagAsSpecChange(section.id, chassisNumber, new CallbackWithResponse() {
+            @Override
+            public void execute(JSONObject response) {
+                setResult(AppConstants.SPEC_CHANGE_SUCCESS,new Intent().putExtra("chassisNumber",chassisNumber));
+                dialog.dismiss();
+                finish();
+            }
+        });
     }
 
     private void backJob() {
@@ -124,7 +102,7 @@ public class ReturnToSection extends DashboardUpdater {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        setResult(BACK_JOB_SUCCESS,new Intent().putExtra("chassisNumber",chassisNumber));
+                        setResult(AppConstants.BACK_JOB_SUCCESS,new Intent().putExtra("chassisNumber",chassisNumber));
                         dialog.dismiss();
                         finish();
                     }

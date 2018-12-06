@@ -37,13 +37,12 @@ public class MOPreview extends DashboardUpdater {
     private TextView lbl_customer;
     private TextView lbl_chassisModel;
     private TextView lbl_quantity;
-    private ImageView btn_cancel;
     private Button btn_secondaryAction;
     private Button btn_primaryAction;
     private ImageView img_status;
 
     private String chassisNumber;
-    private WipChassisNumber wipChassisNumber;
+    private WipManufacturingOrder wipManufacturingOrder;
 
 
 
@@ -63,7 +62,7 @@ public class MOPreview extends DashboardUpdater {
         lbl_customer = findViewById(R.id.lbl_customer);
         lbl_chassisModel = findViewById(R.id.lbl_chassisModel);
         lbl_quantity = findViewById(R.id.lbl_quantity);
-        btn_cancel = findViewById(R.id.img_close);
+        ImageView btn_cancel = findViewById(R.id.img_close);
         btn_secondaryAction = findViewById(R.id.btn_secondaryAction);
         btn_primaryAction = findViewById(R.id.btn_primaryAction);
         img_status = findViewById(R.id.img_status);
@@ -77,72 +76,49 @@ public class MOPreview extends DashboardUpdater {
 
         chassisNumber = callerIntent.getStringExtra("chassisNumber");
 
-        fetchDetails(new Callback() {
-            @Override
-            public void execute() {
-                adjustActionHandlers();
-            }
-        });
     }
 
     @Override
-    protected void onPostResume() {
+    protected void onResume() {
         fetchDetails(new Callback() {
             @Override
             public void execute() {
                 adjustActionHandlers();
             }
         });
-        super.onPostResume();
+        super.onResume();
     }
 
     private void fetchDetails(final Callback callback){
-        final String url = getResources().getString(R.string.api_mo_chassis)
-                .replace("[sectionId]",section.id)
-                .replace("[chassisNumber]",chassisNumber);
-
-        JsonObjectRequest request = new JsonObjectRequest(
-                JsonObjectRequest.Method.GET,
-                url,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        if(response != null){
-                            wipChassisNumber = gson.fromJson(response.toString(),WipChassisNumber.class);
-                            if(wipChassisNumber.finishedNormalEntry){
-                                Intent intent = new Intent(getApplicationContext(),ReturnToSection.class);
-                                intent.putExtra("chassisNumber",wipChassisNumber.chassisNumber);
-                                startActivity(intent);
-                                finish();
-                            }else{
-                                progressBar.setVisibility(View.GONE);
-                                cl_content.setVisibility(View.VISIBLE);
-                                callback.execute();
-                            }
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        handleAPIExceptionResponse(error);
+        ApiCallManager api = new ApiCallManager(this);
+        api.fetchWipMODetails(section.id, chassisNumber, new CallbackWithResponse() {
+            @Override
+            public void execute(JSONObject response) {
+                if(response != null){
+                    wipManufacturingOrder = gson.fromJson(response.toString(),WipManufacturingOrder.class);
+                    if(wipManufacturingOrder.getFinishedNormalEntry()){
+                        Intent intent = new Intent(getApplicationContext(),ReturnToSection.class);
+                        intent.putExtra("chassisNumber", wipManufacturingOrder.getChassisNumber());
+                        startActivity(intent);
                         finish();
+                    }else{
+                        progressBar.setVisibility(View.GONE);
+                        cl_content.setVisibility(View.VISIBLE);
+                        callback.execute();
                     }
                 }
-        );
-
-        requestQueue.add(request);
+            }
+        });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         Snackbar snackbar = Snackbar.make(cl_mo_prevew,"",Snackbar.LENGTH_LONG);
         switch(resultCode){
-            case MATERIAL_CALL_SUCCESS:
+            case AppConstants.MATERIAL_CALL_SUCCESS:
                 snackbar.setText(getResources().getString(R.string.success_material_call)).show();
                 break;
-            case PENDING_SUCCESS:
+            case AppConstants.PENDING_SUCCESS:
                 snackbar.setText(getResources().getString(R.string.success_pending)).show();
                 break;
         }
@@ -151,20 +127,21 @@ public class MOPreview extends DashboardUpdater {
 
     private void adjustActionHandlers(){
 
-        lbl_chassisNumber.setText(wipChassisNumber.chassisNumber);
-        lbl_taktTime.setText((wipChassisNumber.workTime != null ? wipChassisNumber.workTime : "0") + " MINS");
-        lbl_moNumber.setText(wipChassisNumber.moNumber);
-        Date moDate = wipChassisNumber.makeMoDateStringAsDate();
+        lbl_chassisNumber.setText(wipManufacturingOrder.getChassisNumber());
+        String workTimeStr = (wipManufacturingOrder.getWorkTime() != null ? wipManufacturingOrder.getWorkTime() : "0") + " MINS";
+        lbl_taktTime.setText(workTimeStr);
+        lbl_moNumber.setText(wipManufacturingOrder.getMoNumber());
+        Date moDate = wipManufacturingOrder.makeMoDateStringAsDate();
         if(moDate != null){
             DateFormat targetMoDateFormat = new SimpleDateFormat("MM/dd/yyyy");
             lbl_moDate.setText(targetMoDateFormat.format(moDate));
         }
-        lbl_dealer.setText(wipChassisNumber.dealer);
-        lbl_customer.setText(wipChassisNumber.customer);
-        lbl_chassisModel.setText(wipChassisNumber.chassisModel);
-        lbl_quantity.setText(wipChassisNumber.moQuantity + "");
+        lbl_dealer.setText(wipManufacturingOrder.getDealer());
+        lbl_customer.setText(wipManufacturingOrder.getCustomer());
+        lbl_chassisModel.setText(wipManufacturingOrder.getChassisModel());
+        lbl_quantity.setText(wipManufacturingOrder.getMoQuantity().toString());
 
-        if(wipChassisNumber.isMc) {
+        if(wipManufacturingOrder.getMc()) {
             img_status.setVisibility(View.VISIBLE);
             img_status.setImageDrawable(getResources().getDrawable(R.drawable.badge_yellow));
 
@@ -183,7 +160,7 @@ public class MOPreview extends DashboardUpdater {
                 @Override
                 public void onClick(View view) {materialCall();}
             });
-        }else if(wipChassisNumber.timeIn != null && wipChassisNumber.finishedNormalEntry == false){
+        }else if(wipManufacturingOrder.getTimeIn() != null && wipManufacturingOrder.getFinishedNormalEntry()== false){
             img_status.setVisibility(View.VISIBLE);
             img_status.setImageDrawable(getResources().getDrawable(R.drawable.badge_green));
             btn_primaryAction.setVisibility(View.GONE);
@@ -194,17 +171,17 @@ public class MOPreview extends DashboardUpdater {
             });
         }
 
-        if(wipChassisNumber.timeIn != null && wipChassisNumber.remainingTime != null){
-            long checkInTimeInMinutes = wipChassisNumber.convertTimeInToMinutes();
+        if(wipManufacturingOrder.getTimeIn()!= null && wipManufacturingOrder.getRemainingTime()!= null){
+            long checkInTimeInMinutes = wipManufacturingOrder.convertTimeInToMinutes();
 
-            if(checkInTimeInMinutes >= wipChassisNumber.remainingTime){
+            if(checkInTimeInMinutes >= wipManufacturingOrder.getRemainingTime()){
                 img_status.setImageDrawable(getResources().getDrawable(R.drawable.badge_red));
                 img_status.setVisibility(View.VISIBLE);
             }
-        }else if(wipChassisNumber.timeIn != null){
-            long checkInTimeInMinutes = wipChassisNumber.convertTimeInToMinutes();
+        }else if(wipManufacturingOrder.getTimeIn() != null){
+            long checkInTimeInMinutes = wipManufacturingOrder.convertTimeInToMinutes();
 
-            if(checkInTimeInMinutes >= wipChassisNumber.workTime){
+            if(checkInTimeInMinutes >= wipManufacturingOrder.getWorkTime()){
                 img_status.setImageDrawable(getResources().getDrawable(R.drawable.badge_red));
                 img_status.setVisibility(View.VISIBLE);
             }
@@ -215,52 +192,27 @@ public class MOPreview extends DashboardUpdater {
     private void resolve() {
         final Dialog dialog = createNonDismissibleDialog("Resolving..");
         dialog.show();
-        final String url = getResources().getString(R.string.api_resolve);
 
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("sectionId",section.id);
-            jsonObject.put("chassisNumber",wipChassisNumber.chassisNumber);
-            jsonObject.put("isResolved",true);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.PUT,
-                url,
-                jsonObject,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        setResult(RESOLVE_SUCCESS,new Intent().putExtra("chassisNumber",wipChassisNumber.chassisNumber));
-                        dialog.dismiss();
-                        finish();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        handleAPIExceptionResponse(error);
-                        finish();
-                    }
-                }
-        );
-        
-        requestQueue.add(jsonObjectRequest);
+        ApiCallManager api = new ApiCallManager(this);
+        api.resolveWipMo(section.id, wipManufacturingOrder.getChassisNumber(), new Callback() {
+            @Override
+            public void execute() {
+                setResult(AppConstants.RESOLVE_SUCCESS,new Intent().putExtra("chassisNumber", wipManufacturingOrder.getChassisNumber()));
+                dialog.dismiss();
+                finish();
+            }
+        });
     }
 
     private void materialCall() {
         Intent intent = new Intent(getApplicationContext(),MaterialCall.class);
-        intent.putExtra("wipChassisNumber",gson.toJson(wipChassisNumber));
-        startActivityForResult(intent, MATERIAL_CALL_REQUEST);
-//        finish();
+        intent.putExtra("wipManufacturingOrder",gson.toJson(wipManufacturingOrder));
+        startActivityForResult(intent, AppConstants.MATERIAL_CALL_REQUEST);
     }
 
     private void viewAttachments() {
         Intent intent = new Intent(getApplicationContext(),ViewAttachments.class);
-        intent.putExtra("wipChassisNumber",gson.toJson(wipChassisNumber));
+        intent.putExtra("wipManufacturingOrder",gson.toJson(wipManufacturingOrder));
         startActivity(intent);
     }
 

@@ -35,21 +35,19 @@ public class ViewAttachments extends AppCompatActivity {
         lv_attachments = findViewById(R.id.lv_attachments);
         wv_preview = findViewById(R.id.wv_preview);
 
-        ArrayList<WipChassisNumber.Attachment> attachments = new ArrayList<WipChassisNumber.Attachment>();
-        attachments.add(new WipChassisNumber.Attachment("File 1","http://www.africau.edu/images/default/sample.pdf"));
-        attachments.add(new WipChassisNumber.Attachment("File 2","http://www.africau.edu/images/default/sample.pdf"));
-        attachments.add(new WipChassisNumber.Attachment("File 3","http://www.africau.edu/images/default/sample.pdf"));
-        attachments.add(new WipChassisNumber.Attachment("File 4","http://www.africau.edu/images/default/sample.pdf"));
-        attachments.add(new WipChassisNumber.Attachment("File 5","http://www.africau.edu/images/default/sample.pdf"));
+        ArrayList<FileAttachment> attachments = new ArrayList<FileAttachment>();
+        attachments.add(new FileAttachment("File 1","http://www.africau.edu/images/default/sample.pdf"));
+        attachments.add(new FileAttachment("File 2","http://www.africau.edu/images/default/sample.pdf"));
+        attachments.add(new FileAttachment("File 3","http://www.africau.edu/images/default/sample.pdf"));
 
         AttachmentListAdapter adapter = new AttachmentListAdapter(this,attachments);
         lv_attachments.setAdapter(adapter);
         lv_attachments.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                WipChassisNumber.Attachment attachment = (WipChassisNumber.Attachment) lv_attachments.getItemAtPosition(i);
+                FileAttachment attachment = (FileAttachment) lv_attachments.getItemAtPosition(i);
                 wv_preview.getSettings().setJavaScriptEnabled(true);
-                wv_preview.loadUrl("http://docs.google.com/gview?embedded=true&url=" +attachment.url);
+                wv_preview.loadUrl("http://docs.google.com/gview?embedded=true&url=" +attachment.getUrl());
 //                wv_preview.loadUrl(attachment.url);
 //                wv_preview.setVisibility(View.VISIBLE);
 //                lv_attachments.setVisibility(View.GONE);
@@ -63,16 +61,16 @@ public class ViewAttachments extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public class AttachmentListAdapter extends ArrayAdapter<WipChassisNumber.Attachment>{
+    public class AttachmentListAdapter extends ArrayAdapter<FileAttachment>{
 
-        public AttachmentListAdapter(@NonNull Context context, ArrayList<WipChassisNumber.Attachment> attachments) {
+        public AttachmentListAdapter(@NonNull Context context, ArrayList<FileAttachment> attachments) {
             super(context, 0, attachments);
         }
 
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            WipChassisNumber.Attachment attachment = getItem(position);
+            FileAttachment attachment = getItem(position);
 
             if(convertView == null){
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.attachment_list_row, parent, false);
@@ -81,7 +79,7 @@ public class ViewAttachments extends AppCompatActivity {
             TextView txt_attachment_name = convertView.findViewById(R.id.txt_attachment_name);
             ImageView img_pdf= convertView.findViewById(R.id.img_pdf);
 
-            txt_attachment_name.setText(attachment.name);
+            txt_attachment_name.setText(attachment.getName());
             img_pdf.setImageResource(R.drawable.ic_attachment);
 
             return convertView;

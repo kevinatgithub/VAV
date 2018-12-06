@@ -38,7 +38,7 @@ public class ReviewMO extends DashboardUpdater {
     private Button btn_viewAttachments;
     private Intent callerIntent;
 
-    private WipChassisNumber wipChassisNumber;
+    private WipManufacturingOrder wipManufacturingOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,57 +85,45 @@ public class ReviewMO extends DashboardUpdater {
 
     private void viewAttachments() {
         Intent intent = new Intent(getApplicationContext(),ViewAttachments.class);
-        intent.putExtra("wipChassisNumber",gson.toJson(wipChassisNumber));
+        intent.putExtra("wipManufacturingOrder",gson.toJson(wipManufacturingOrder));
         startActivity(intent);
     }
 
     private void fetchChassisNumberDetails(){
-        final String chassisNumber = callerIntent.getStringExtra("chassisNumber");
-        final String url = getResources().getString(R.string.api_mo_chassis)
-                .replace("[sectionId]",section.id)
-                .replace("[chassisNumber]",chassisNumber);
+        final String CHASSIS_NUMBER = callerIntent.getStringExtra("chassisNumber");
 
-        JsonObjectRequest request = new JsonObjectRequest(
-                JsonObjectRequest.Method.GET,
-                url,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        if(response != null){
-                            wipChassisNumber = gson.fromJson(response.toString(),WipChassisNumber.class);
-                            lbl_chassisNumber.setText(wipChassisNumber.chassisNumber);
-                            lbl_moNumber.setText(wipChassisNumber.moNumber);
-                            lbl_moDate.setText(wipChassisNumber.moDate);
-                            lbl_dealer.setText(wipChassisNumber.dealer);
-                            lbl_customer.setText(wipChassisNumber.customer);
-                            lbl_chassisModel.setText(wipChassisNumber.chassisModel);
-                            lbl_quantity.setText(wipChassisNumber.moQuantity + "");
-
-                            lbl_chassisNumber.setVisibility(View.VISIBLE);
-                            lbl_chassisNumber_hint.setVisibility(View.VISIBLE);
-                            img_cancel.setVisibility(View.VISIBLE);
-                            cl_layout1.setVisibility(View.VISIBLE);
-                            cl_layout2.setVisibility(View.VISIBLE);
-                            cl_layout3.setVisibility(View.VISIBLE);
-                            cl_layout4.setVisibility(View.VISIBLE);
-                            cl_layout5.setVisibility(View.VISIBLE);
-                            cl_layout6.setVisibility(View.VISIBLE);
-                            cl_layout7.setVisibility(View.VISIBLE);
-                            btn_viewAttachments.setVisibility(View.VISIBLE);
-                            pb_spinner.setVisibility(View.GONE);
-
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        handleAPIExceptionResponse(error);
-                    }
+        ApiCallManager api = new ApiCallManager(this);
+        api.fetchWipMODetails(section.id, CHASSIS_NUMBER, new CallbackWithResponse() {
+            @Override
+            public void execute(JSONObject response) {
+                if(response != null){
+                    wipManufacturingOrder = gson.fromJson(response.toString(),WipManufacturingOrder.class);
+                    populateFields();
                 }
-        );
+            }
+        });
+    }
 
-        requestQueue.add(request);
+    private void populateFields(){
+        lbl_chassisNumber.setText(wipManufacturingOrder.getChassisNumber());
+        lbl_moNumber.setText(wipManufacturingOrder.getMoNumber());
+        lbl_moDate.setText(wipManufacturingOrder.getMoDate());
+        lbl_dealer.setText(wipManufacturingOrder.getDealer());
+        lbl_customer.setText(wipManufacturingOrder.getCustomer());
+        lbl_chassisModel.setText(wipManufacturingOrder.getChassisModel());
+        lbl_quantity.setText(wipManufacturingOrder.getMoQuantity()+ "");
+
+        lbl_chassisNumber.setVisibility(View.VISIBLE);
+        lbl_chassisNumber_hint.setVisibility(View.VISIBLE);
+        img_cancel.setVisibility(View.VISIBLE);
+        cl_layout1.setVisibility(View.VISIBLE);
+        cl_layout2.setVisibility(View.VISIBLE);
+        cl_layout3.setVisibility(View.VISIBLE);
+        cl_layout4.setVisibility(View.VISIBLE);
+        cl_layout5.setVisibility(View.VISIBLE);
+        cl_layout6.setVisibility(View.VISIBLE);
+        cl_layout7.setVisibility(View.VISIBLE);
+        btn_viewAttachments.setVisibility(View.VISIBLE);
+        pb_spinner.setVisibility(View.GONE);
     }
 }

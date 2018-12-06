@@ -42,7 +42,7 @@ public class Sections extends AppCompatActivity {
 
         ArrayList<User.Section> sections = new ArrayList<User.Section>(Arrays.asList(user.sections));
 
-        SectionListAddapter adapter = new SectionListAddapter(this,sections);
+        SectionListAdapter adapter = new SectionListAdapter(this,sections);
         lv_sections.setAdapter(adapter);
 
         lv_sections.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -64,9 +64,9 @@ public class Sections extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private class SectionListAddapter extends ArrayAdapter<User.Section>{
+    private class SectionListAdapter extends ArrayAdapter<User.Section>{
 
-        public SectionListAddapter(@NonNull Context context, ArrayList<User.Section> items) {
+        public SectionListAdapter(@NonNull Context context, ArrayList<User.Section> items) {
             super(context, 0, items);
         }
 

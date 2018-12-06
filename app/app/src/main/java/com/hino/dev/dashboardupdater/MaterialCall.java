@@ -10,22 +10,13 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.concurrent.TimeUnit;
-
 public class MaterialCall extends DashboardUpdater {
 
     private TextView lbl_chassisNumber;
     private Switch switch_isPending;
     private EditText txt_remarks;
     private Button btn_submit;
-    private WipChassisNumber wipChassisNumber;
+    private WipManufacturingOrder wipManufacturingOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +30,15 @@ public class MaterialCall extends DashboardUpdater {
         switch_isPending = findViewById(R.id.switch_isPending);
         txt_remarks = findViewById(R.id.txt_remarks);
         btn_submit = findViewById(R.id.btn_submit);
-        wipChassisNumber = gson.fromJson(callerIntent.getStringExtra("wipChassisNumber"),WipChassisNumber.class);
+        wipManufacturingOrder = gson.fromJson(callerIntent.getStringExtra("wipManufacturingOrder"),WipManufacturingOrder.class);
 
-        if(wipChassisNumber != null){
-            lbl_chassisNumber.setText(wipChassisNumber.chassisNumber);
+        if(wipManufacturingOrder != null){
+            lbl_chassisNumber.setText(wipManufacturingOrder.getChassisNumber());
         }
 
-        if(wipChassisNumber.mcs != null){
-            switch_isPending.setChecked(wipChassisNumber.isPending);
-            txt_remarks.setText(wipChassisNumber.mcs.remarks);
+        if(wipManufacturingOrder.getMcs() != null){
+            switch_isPending.setChecked(wipManufacturingOrder.getPending());
+            txt_remarks.setText(wipManufacturingOrder.getMcs().getRemarks());
         }
 
 
@@ -77,48 +68,23 @@ public class MaterialCall extends DashboardUpdater {
             txt_custom_dialog_message.setText("Flagging as material call");
         }
         dialog.show();
-        final String url = getResources().getString(R.string.api_material_call);
 
-        JSONObject params = new JSONObject();
-        try {
-            params.put("sectionId",section.id);
-            params.put("chassisNumber",wipChassisNumber.chassisNumber);
-            params.put("isPending",switch_isPending.isChecked());
-            params.put("remarks",txt_remarks.getText());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                wipChassisNumber.mcs != null ? JsonObjectRequest.Method.PUT : JsonObjectRequest.Method.POST,
-                url,
-                params,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        // TODO: 10/11/2018
-                        try {
-                            TimeUnit.SECONDS.sleep(1);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        dialog.dismiss();
-                        if(switch_isPending.isChecked()){
-                            setResult(PENDING_SUCCESS);
-                        }else{
-                            setResult(MATERIAL_CALL_SUCCESS);
-                        }
-                        finish();
+        ApiCallManager api = new ApiCallManager(this);
+        api.flagAsMaterialCall(section.id,
+                wipManufacturingOrder,
+            switch_isPending.isChecked(),
+            txt_remarks.getText().toString(),
+            new Callback() {
+                @Override
+                public void execute() {
+                    dialog.dismiss();
+                    if(switch_isPending.isChecked()){
+                        setResult(AppConstants.PENDING_SUCCESS);
+                    }else{
+                        setResult(AppConstants.MATERIAL_CALL_SUCCESS);
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                    }
+                    finish();
                 }
-        );
-
-        requestQueue.add(jsonObjectRequest);
+            });
     }
 }

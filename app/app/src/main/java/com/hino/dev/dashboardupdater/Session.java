@@ -36,6 +36,22 @@ public class Session {
         prefs.edit().remove("user").commit();
     }
 
+    public void setDomain(String domain){
+        prefs.edit().putString("domain",domain).commit();
+    }
+
+    public String getDomain(){
+        String domain = prefs.getString("domain","");
+        if(domain.equals("")){
+            return null;
+        }
+        return domain;
+    }
+
+    public void removeDomain(){
+        prefs.edit().remove("domain").commit();
+    }
+
     public void setSection(User.Section section){
         String jsonValue = gson.toJson(section);
         prefs.edit().putString("section",jsonValue).commit();
@@ -52,5 +68,4 @@ public class Session {
     public void removeSection(){
         prefs.edit().remove("section").commit();
     }
-
 }
